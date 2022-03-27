@@ -1,18 +1,43 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
-import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.ViewModelFactory
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.NavBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            CoinHuntingBuddyTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    Column {
+                        NavBar(title = "CoinHuntBuddy")
+                    }
+                }
+            }
+        }
+    }
+}
 
-        val mainViewModel = ViewModelProvider(this, ViewModelFactory(this.application))
-            .get(MainActivityViewModel::class.java)
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    CoinHuntingBuddyTheme {
+        Column{
+            NavBar(title = "CoinHuntBuddy")
+        }
     }
 }
