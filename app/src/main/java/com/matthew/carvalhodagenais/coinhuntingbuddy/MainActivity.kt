@@ -8,7 +8,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.SetupNavGraph
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.HuntsScreen
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 
 class MainActivity : ComponentActivity() {

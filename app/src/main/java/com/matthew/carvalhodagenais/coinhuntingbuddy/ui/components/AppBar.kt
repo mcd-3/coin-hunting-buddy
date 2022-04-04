@@ -1,6 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons

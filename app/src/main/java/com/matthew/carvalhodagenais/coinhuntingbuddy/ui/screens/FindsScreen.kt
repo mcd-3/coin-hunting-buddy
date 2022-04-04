@@ -12,14 +12,15 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 
 @Composable
-fun FindsScreen() {
+fun FindsScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = { AppBar(title = "Finds", scaffoldState = scaffoldState) },
         drawerContent = { NavDrawer(
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            navController = navController
         )},
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
@@ -27,6 +28,6 @@ fun FindsScreen() {
         Box(modifier = Modifier
             .background(Color.White)
             .fillMaxSize()) {
-            Text(text = "hi")}
+            Text(text = "finds")}
     }
 }

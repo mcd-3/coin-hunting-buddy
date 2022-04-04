@@ -12,12 +12,12 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 
 @Composable
-fun HuntsScreen(navController: NavController) {
+fun AboutScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { AppBar(title = "Hunts", scaffoldState = scaffoldState) },
+        topBar = { AppBar(title = "About", scaffoldState = scaffoldState) },
         drawerContent = { NavDrawer(
             scaffoldState = scaffoldState,
             navController = navController
@@ -28,6 +28,6 @@ fun HuntsScreen(navController: NavController) {
         Box(modifier = Modifier
             .background(Color.White)
             .fillMaxSize()) {
-            Text(text = "hunts")}
+            Text(text = "about")}
     }
 }

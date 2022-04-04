@@ -9,33 +9,43 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.Screen
 
 @Composable
-fun NavDrawer(scaffoldState: ScaffoldState) {
+fun NavDrawer(scaffoldState: ScaffoldState, navController: NavController) {
     Column {
         // TODO: Add image here
         NavOption(
             title = "Hunts",
             icon = Icons.Filled.Face,
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            navController = navController,
+            navRoute = Screen.Hunts.route
         )
         Divider()
         NavOption(
             title = "Finds",
             icon = Icons.Filled.Build,
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            navController = navController,
+            navRoute = Screen.Finds.route
         )
         Divider()
         NavOption(
             title = "About",
             icon = Icons.Filled.Info,
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            navController = navController,
+            navRoute = Screen.About.route
         )
         Divider()
         NavOption(
             title = "Settings",
             icon = Icons.Filled.Settings,
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            navController = navController,
+            navRoute = Screen.Settings.route
         )
     }
 }

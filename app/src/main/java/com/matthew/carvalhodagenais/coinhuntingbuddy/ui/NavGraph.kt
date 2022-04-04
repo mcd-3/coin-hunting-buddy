@@ -1,13 +1,10 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.FindsScreen
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.HuntsScreen
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.Screen
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.*
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController) {
@@ -18,12 +15,22 @@ fun SetupNavGraph(navHostController: NavHostController) {
         composable(
             route = Screen.Hunts.route
         ) {
-            HuntsScreen()
+            HuntsScreen(navController = navHostController)
         }
         composable(
             route = Screen.Finds.route
         ) {
-            FindsScreen()
+            FindsScreen(navController = navHostController)
+        }
+        composable(
+            route = Screen.About.route
+        ) {
+            AboutScreen(navController = navHostController)
+        }
+        composable(
+            route = Screen.Settings.route
+        ) {
+            SettingsScreen(navController = navHostController)
         }
     }
 }

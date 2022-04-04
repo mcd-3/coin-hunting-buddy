@@ -13,13 +13,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
 @Composable
 fun NavOption(
     title: String,
     icon: ImageVector,
-    scaffoldState: ScaffoldState
+    scaffoldState: ScaffoldState,
+    navController: NavController,
+    navRoute: String
 ) {
     val coroutineScope = rememberCoroutineScope()
     val fontSize = 18.sp
@@ -34,6 +37,8 @@ fun NavOption(
                 coroutineScope.launch {
                     scaffoldState.drawerState.close()
                 }
+                navController.popBackStack()
+                navController.navigate(navRoute)
             }
         )
     ) {
