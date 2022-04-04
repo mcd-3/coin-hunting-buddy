@@ -11,7 +11,6 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.Screen
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController) {
-    Log.e("e", "made it")
     NavHost(
         navController = navHostController,
         startDestination = Screen.Hunts.route

@@ -25,7 +25,6 @@ fun AppBar(title: String, scaffoldState: ScaffoldState) {
                     onClick = {
                         coroutineScope.launch {
                             scaffoldState.drawerState.open()
-                            Log.d("ICON", "Big Icon Button Pressed")
                         }
                     }
                 ) {
