@@ -11,6 +11,8 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 
+private const val HUNTS_INDEX = 0
+
 @Composable
 fun HuntsScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
@@ -20,7 +22,8 @@ fun HuntsScreen(navController: NavController) {
         topBar = { AppBar(title = "Hunts", scaffoldState = scaffoldState) },
         drawerContent = { NavDrawer(
             scaffoldState = scaffoldState,
-            navController = navController
+            navController = navController,
+            selectedIndex = HUNTS_INDEX
         )},
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)

@@ -11,6 +11,8 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 
+private const val FINDS_INDEX = 1
+
 @Composable
 fun FindsScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
@@ -20,7 +22,8 @@ fun FindsScreen(navController: NavController) {
         topBar = { AppBar(title = "Finds", scaffoldState = scaffoldState) },
         drawerContent = { NavDrawer(
             scaffoldState = scaffoldState,
-            navController = navController
+            navController = navController,
+            selectedIndex = FINDS_INDEX
         )},
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)

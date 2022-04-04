@@ -22,7 +22,8 @@ fun NavOption(
     icon: ImageVector,
     scaffoldState: ScaffoldState,
     navController: NavController,
-    navRoute: String
+    navRoute: String,
+    isSelected: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
     val fontSize = 18.sp
@@ -34,11 +35,13 @@ fun NavOption(
     Row(modifier = Modifier.fillMaxWidth()
         .clickable(
             onClick = {
-                coroutineScope.launch {
-                    scaffoldState.drawerState.close()
+                if (isSelected) {
+                    coroutineScope.launch {
+                        scaffoldState.drawerState.close()
+                    }
+                    navController.popBackStack()
+                    navController.navigate(navRoute)
                 }
-                navController.popBackStack()
-                navController.navigate(navRoute)
             }
         )
     ) {
