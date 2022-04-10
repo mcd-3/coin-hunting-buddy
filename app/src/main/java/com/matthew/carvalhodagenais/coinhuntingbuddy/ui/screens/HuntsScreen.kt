@@ -26,6 +26,6 @@ fun HuntsScreen(navController: NavController) {
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        NoItemsWarning(text = "There are no hunts!")
+        NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
     }
 }

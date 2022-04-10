@@ -26,6 +26,6 @@ fun FindsScreen(navController: NavController) {
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        NoItemsWarning(text = "There are no finds!")
+        NoItemsWarning(topText = "No finds", bottomText = "Start a hunt to add some!")
     }
 }
