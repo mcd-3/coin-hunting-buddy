@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.RoundCoinCounterButton
 
 private const val HUNTS_INDEX = 0
 
@@ -32,7 +33,8 @@ fun NewHuntScreen(navController: NavController) {
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
         Column {
-            Text("Hello New Hunt!")
+            RoundCoinCounterButton(onClick = { })
+            RoundCoinCounterButton(onClick = { }, false)
         }
     }
 }
