@@ -5,4 +5,5 @@ sealed class Screen(val route: String) {
     object Finds: Screen(route = "finds_screen")
     object About: Screen(route = "about_screen")
     object Settings: Screen(route = "settings_screen")
+    object NewHunt: Screen(route = "new_hunt_screen")
 }

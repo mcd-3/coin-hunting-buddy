@@ -32,5 +32,10 @@ fun SetupNavGraph(navHostController: NavHostController) {
         ) {
             SettingsScreen(navController = navHostController)
         }
+        composable(
+            route = Screen.NewHunt.route
+        ) {
+            NewHuntScreen(navController = navHostController)   
+        }
     }
 }
