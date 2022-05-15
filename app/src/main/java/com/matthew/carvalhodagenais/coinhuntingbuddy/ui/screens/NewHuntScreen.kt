@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.RoundCoinCounterButton
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.RoundedCounterCard
 
 private const val HUNTS_INDEX = 0
 
@@ -33,8 +34,7 @@ fun NewHuntScreen(navController: NavController) {
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
         Column {
-            RoundCoinCounterButton(onClick = { })
-            RoundCoinCounterButton(onClick = { }, false)
+            RoundedCounterCard(text = "1 Cent Rolls", color = Color.Red)
         }
     }
 }

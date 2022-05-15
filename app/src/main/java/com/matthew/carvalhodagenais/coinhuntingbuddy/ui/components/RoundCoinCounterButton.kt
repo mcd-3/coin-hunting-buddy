@@ -20,12 +20,13 @@ fun RoundCoinCounterButton(
     onClick: () -> Unit,
     isIncrement: Boolean = true
 ) {
-    val iconSize = 50.dp
+    val iconSize = 35.dp
+    val buttonSize = 70.dp
     val iconColor = Color.DarkGray
 
     OutlinedButton(
         onClick = onClick,
-        modifier = Modifier.size(100.dp),
+        modifier = Modifier.size(buttonSize),
         shape = CircleShape,
         border = BorderStroke(
             4.dp,
