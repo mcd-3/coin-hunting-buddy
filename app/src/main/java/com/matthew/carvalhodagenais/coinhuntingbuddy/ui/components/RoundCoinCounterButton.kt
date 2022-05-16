@@ -22,7 +22,7 @@ fun RoundCoinCounterButton(
 ) {
     val iconSize = 35.dp
     val buttonSize = 70.dp
-    val iconColor = Color.DarkGray
+    val iconColor = Color(0xFF6F6F6F)
 
     OutlinedButton(
         onClick = onClick,
@@ -33,7 +33,7 @@ fun RoundCoinCounterButton(
             Color.DarkGray
         ),
         contentPadding = PaddingValues(0.dp),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.DarkGray)
+        colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color(0xFF6F6F6F))
     ) {
         if (isIncrement) {
             Icon(
