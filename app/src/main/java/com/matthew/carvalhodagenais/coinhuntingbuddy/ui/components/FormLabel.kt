@@ -21,14 +21,14 @@ fun FormLabel(text: String, icon: ImageVector) {
             .fillMaxWidth()
             .padding(
                 bottom = 12.dp,
-                top = 12.dp
+                top = 12.dp,
+                start = 20.dp
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier
             .padding(
                 end = 12.dp,
-                start = 12.dp
             )
         ) {
             Icon(

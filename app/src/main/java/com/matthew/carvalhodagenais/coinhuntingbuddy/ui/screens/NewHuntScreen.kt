@@ -1,7 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -41,8 +40,11 @@ fun NewHuntScreen(navController: NavController) {
                 .verticalScroll(rememberScrollState())
                 .fillMaxHeight()
         ) {
+            Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
             RegionCard()
+            Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
             DenominationCard()
+            Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
             RollsCard()
         }
     }

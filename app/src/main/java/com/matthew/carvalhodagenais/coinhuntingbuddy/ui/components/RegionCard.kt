@@ -1,9 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -28,7 +26,7 @@ fun RegionCard() {
     ) {
         Column {
             FormLabel(text = "Region", icon = Icons.Filled.Public)
-            Text("Select a country here")
+            DropdownList()
         }
     }
 }
