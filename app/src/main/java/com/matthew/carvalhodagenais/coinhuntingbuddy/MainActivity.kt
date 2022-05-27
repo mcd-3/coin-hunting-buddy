@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.SetupNavGraph
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 
@@ -18,8 +21,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             navController = rememberNavController()
-
             CoinHuntingBuddyTheme {
+                val systemUiController = rememberSystemUiController()
+                SideEffect {
+                    systemUiController.setStatusBarColor(
+                        color = Color.LightGray
+                    )
+                }
+
                 SetupNavGraph(navHostController = navController)
             }
         }
@@ -31,6 +40,13 @@ class MainActivity : ComponentActivity() {
 fun DefaultPreview() {
     val navController = rememberNavController()
     CoinHuntingBuddyTheme {
+        val systemUiController = rememberSystemUiController()
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                color = Color.Red
+            )
+        }
+
         SetupNavGraph(navHostController = navController)
     }
 }

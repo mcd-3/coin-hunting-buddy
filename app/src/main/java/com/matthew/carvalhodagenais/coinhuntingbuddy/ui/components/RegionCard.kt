@@ -3,7 +3,6 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.Composable
@@ -26,7 +25,13 @@ fun RegionCard() {
     ) {
         Column {
             FormLabel(text = "Region", icon = Icons.Filled.Public)
-            DropdownList()
+            ToggleButtonGroup(
+                options = arrayOf(
+                    "Canada",
+                    "U.S.A"
+                ),
+                isMultiSelect = false
+            )
         }
     }
 }

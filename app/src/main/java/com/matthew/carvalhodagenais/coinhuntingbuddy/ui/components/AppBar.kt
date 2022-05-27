@@ -1,6 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -8,7 +7,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.Screen
@@ -22,12 +20,11 @@ fun AppBar(
     isPopable: Boolean = false,
     hasAddButton: Boolean = false
 ) {
-
     val coroutineScope = rememberCoroutineScope()
 
     Surface {
         TopAppBar(
-            modifier = Modifier.background(Color.Blue),
+            backgroundColor = Color.White,
             title = { Text(text = title) },
             navigationIcon = {
                 if (!isPopable) {

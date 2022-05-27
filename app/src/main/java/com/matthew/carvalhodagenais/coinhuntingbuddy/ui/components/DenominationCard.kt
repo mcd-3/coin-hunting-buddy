@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Paid
 import androidx.compose.runtime.Composable
@@ -30,15 +29,23 @@ fun DenominationCard() {
         Column {
             FormLabel(text = "Denominations", icon = Icons.Filled.Paid)
             Row {
-                Text("1")
-                Text("5")
-                Text("10")
-                Text("25")
+                ToggleButtonGroup(
+                    options = arrayOf(
+                        "1c",
+                        "5c",
+                        "10c",
+                        "25c"
+                    ),
+                    isMultiSelect = true
+                )
             }
-            Row {
-                Text("$1")
-                Text("$2")
-            }
+            ToggleButtonGroup(
+                options = arrayOf(
+                    "Loonies",
+                    "Toonies",
+                ),
+                isMultiSelect = true
+            )
         }
     }
 }
