@@ -9,12 +9,17 @@ import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Paid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.states.ToggleButtonListState
 
 @Composable
 fun DenominationCard() {
+    val topToggleButtonListState = remember { ToggleButtonListState() }
+    val bottomToggleButtonListState = remember { ToggleButtonListState() }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,7 +41,8 @@ fun DenominationCard() {
                         "10c",
                         "25c"
                     ),
-                    isMultiSelect = true
+                    isMultiSelect = true,
+                    toggleButtonListState = topToggleButtonListState
                 )
             }
             ToggleButtonGroup(
@@ -44,7 +50,8 @@ fun DenominationCard() {
                     "Loonies",
                     "Toonies",
                 ),
-                isMultiSelect = true
+                isMultiSelect = true,
+                toggleButtonListState = bottomToggleButtonListState
             )
         }
     }

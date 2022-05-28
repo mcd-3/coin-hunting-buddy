@@ -16,6 +16,7 @@
  */
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -27,9 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.states.ToggleButtonListState
 
 @Composable
-fun ToggleButtonGroup(options: Array<String>, isMultiSelect: Boolean) {
+fun ToggleButtonGroup(
+    options: Array<String>,
+    isMultiSelect: Boolean,
+    toggleButtonListState: ToggleButtonListState
+) {
     val selectionType: SelectionType =
         if (isMultiSelect) SelectionType.MULTIPLE
         else SelectionType.SINGLE
@@ -44,7 +50,8 @@ fun ToggleButtonGroup(options: Array<String>, isMultiSelect: Boolean) {
                 start = 12.dp,
                 bottom = 8.dp
             ),
-        onClick = {  }
+        toggleButtonListState = toggleButtonListState,
+        onClick = {  },
     )
 }
 
@@ -87,12 +94,13 @@ private fun ToggleButton(
     options: Array<String>,
     modifier: Modifier = Modifier,
     type: SelectionType = SelectionType.SINGLE,
+    toggleButtonListState: ToggleButtonListState,
     onClick: (selectedOptionS: Array<String>) -> Unit = {}
 ) {
     val state = remember { mutableStateMapOf<String, String>() }
 
     OutlinedButton(
-        onClick = { /*TODO*/ },
+        onClick = { Log.d("LIST", toggleButtonListState.listState.toString()) },
         border = BorderStroke(1.dp, Color.LightGray),
         shape = RoundedCornerShape(20),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.LightGray),
@@ -111,16 +119,20 @@ private fun ToggleButton(
                     val key = it
                     if (key == option) {
                         state[key] = option
+                        toggleButtonListState.setFirst(option)
                     } else {
                         state.remove(key)
                     }
+
                 }
             } else {
                 val key = option
                 if (!state.contains(key)) {
                     state[key] = option
+                    toggleButtonListState.add(option)
                 } else {
                     state.remove(key)
+                    toggleButtonListState.remove(option)
                 }
             }
             onClick(state.values.toTypedArray())
