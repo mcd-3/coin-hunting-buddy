@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,26 +36,45 @@ fun NewHuntScreen(navController: NavController) {
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .fillMaxHeight()
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+        Column(modifier = Modifier.fillMaxHeight()) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .weight(0.9f)
             ) {
-                Text(
-                    text = "What are you hunting?",
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "What are you hunting?",
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                    )
+                }
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
+                RegionCard(selectedRegion = "Canada")
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
+                RollsCard()
             }
-            Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
-            RegionCard(selectedRegion = "Canada")
-            Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
-            RollsCard()
+            Column(
+                modifier = Modifier.weight(0.1f, false),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    onClick = { /*TODO*/ },
+                    enabled = false,
+                    shape = RectangleShape,
+                    modifier = Modifier.fillMaxHeight().fillMaxWidth()
+                ) {
+                    Text("Begin Hunt", fontSize = 24.sp)
+                }
+            }
         }
     }
 }
