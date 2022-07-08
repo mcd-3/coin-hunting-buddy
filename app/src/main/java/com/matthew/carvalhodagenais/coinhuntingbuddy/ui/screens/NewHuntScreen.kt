@@ -43,8 +43,6 @@ fun NewHuntScreen(navController: NavController) {
             Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
             RegionCard()
             Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
-            DenominationCard()
-            Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
             RollsCard()
         }
     }
