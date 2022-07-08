@@ -21,6 +21,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,7 +33,8 @@ import androidx.compose.ui.unit.dp
 fun ToggleButtonGroup(
     options: Array<String>,
     isMultiSelect: Boolean,
-    selectedOption: String = ""
+    selectedOption: String = "",
+    selectedOptionState: MutableState<String>? = null
 ) {
     val selectionType: SelectionType =
         if (isMultiSelect) SelectionType.MULTIPLE
@@ -49,7 +51,8 @@ fun ToggleButtonGroup(
                 bottom = 8.dp
             ),
         onClick = {  },
-        selectedOption = selectedOption
+        selectedOption = selectedOption,
+        selectedOptionState = selectedOptionState
     )
 }
 
@@ -93,7 +96,8 @@ private fun ToggleButton(
     modifier: Modifier = Modifier,
     type: SelectionType = SelectionType.SINGLE,
     onClick: (selectedOptions: Array<String>) -> Unit = {},
-    selectedOption: String
+    selectedOption: String,
+    selectedOptionState: MutableState<String>?
 ) {
     val state = remember { mutableStateMapOf<String, String>() }
     var selectedFlag = false
@@ -116,6 +120,10 @@ private fun ToggleButton(
         if (selectedOption != "" && !selectedFlag) {
             state[selectedOption] = selectedOption
             selectedFlag = true
+
+            if (selectedOptionState != null) {
+                selectedOptionState.value = selectedOption
+            }
         }
 
         val onItemClick: (option: String) -> Unit = { option ->
@@ -124,6 +132,9 @@ private fun ToggleButton(
                     val key = it
                     if (key == option) {
                         state[key] = option
+                        if (selectedOptionState != null) {
+                            selectedOptionState.value = option
+                        }
                     } else {
                         state.remove(key)
                     }
@@ -132,6 +143,9 @@ private fun ToggleButton(
                 val key = option
                 if (!state.contains(key)) {
                     state[key] = option
+                    if (selectedOptionState != null) {
+                        selectedOptionState.value = option
+                    }
                 } else {
                     state.remove(key)
                 }

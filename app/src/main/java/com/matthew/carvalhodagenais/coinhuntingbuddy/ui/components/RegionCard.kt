@@ -6,12 +6,16 @@ import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RegionCard(selectedRegion: String = "") {
+fun RegionCard(
+    selectedRegion: String = "",
+    selectedRegionState: MutableState<String>
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,7 +35,8 @@ fun RegionCard(selectedRegion: String = "") {
                     "U.S.A"
                 ),
                 isMultiSelect = false,
-                selectedOption = selectedRegion
+                selectedOption = selectedRegion,
+                selectedOptionState = selectedRegionState
             )
         }
     }
