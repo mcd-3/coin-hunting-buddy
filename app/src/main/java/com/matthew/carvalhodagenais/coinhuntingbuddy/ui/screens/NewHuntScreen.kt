@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 
@@ -40,8 +40,19 @@ fun NewHuntScreen(navController: NavController) {
                 .verticalScroll(rememberScrollState())
                 .fillMaxHeight()
         ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "What are you hunting?",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                )
+            }
             Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
-            RegionCard()
+            RegionCard(selectedRegion = "Canada")
             Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
             RollsCard()
         }

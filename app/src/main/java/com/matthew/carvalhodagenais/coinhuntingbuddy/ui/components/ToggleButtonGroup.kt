@@ -29,7 +29,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ToggleButtonGroup(options: Array<String>, isMultiSelect: Boolean) {
+fun ToggleButtonGroup(
+    options: Array<String>,
+    isMultiSelect: Boolean,
+    selectedOption: String = ""
+) {
     val selectionType: SelectionType =
         if (isMultiSelect) SelectionType.MULTIPLE
         else SelectionType.SINGLE
@@ -44,7 +48,8 @@ fun ToggleButtonGroup(options: Array<String>, isMultiSelect: Boolean) {
                 start = 12.dp,
                 bottom = 8.dp
             ),
-        onClick = {  }
+        onClick = {  },
+        selectedOption = selectedOption
     )
 }
 
@@ -87,12 +92,14 @@ private fun ToggleButton(
     options: Array<String>,
     modifier: Modifier = Modifier,
     type: SelectionType = SelectionType.SINGLE,
-    onClick: (selectedOptionS: Array<String>) -> Unit = {}
+    onClick: (selectedOptions: Array<String>) -> Unit = {},
+    selectedOption: String
 ) {
     val state = remember { mutableStateMapOf<String, String>() }
+    var selectedFlag = false
 
     OutlinedButton(
-        onClick = { /*TODO*/ },
+        onClick = {  },
         border = BorderStroke(1.dp, Color.LightGray),
         shape = RoundedCornerShape(20),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.LightGray),
@@ -103,6 +110,12 @@ private fun ToggleButton(
     ) {
         if (options.isEmpty()) {
             return@OutlinedButton
+        }
+
+        // Auto select option if given
+        if (selectedOption != "" && !selectedFlag) {
+            state[selectedOption] = selectedOption
+            selectedFlag = true
         }
 
         val onItemClick: (option: String) -> Unit = { option ->

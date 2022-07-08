@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RegionCard() {
+fun RegionCard(selectedRegion: String = "") {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,7 +30,8 @@ fun RegionCard() {
                     "Canada",
                     "U.S.A"
                 ),
-                isMultiSelect = false
+                isMultiSelect = false,
+                selectedOption = selectedRegion
             )
         }
     }
