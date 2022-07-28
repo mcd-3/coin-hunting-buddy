@@ -1,5 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,11 +13,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.HuntActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.TextNumberConverter
 
@@ -39,8 +43,20 @@ private fun getCorrectRegionState(
     }
 }
 
+private fun startNewHuntActivity(
+    context: Context,
+    stateMap: Map<String, MutableState<TextFieldValue>>,
+    region: String
+) {
+    val intent = Intent(context, HuntActivity::class.java)
+    intent.putExtra("COIN_LIST", "")
+    intent.putExtra("COIN_REGION", region)
+    context.startActivity(intent)
+}
+
 @Composable
 fun NewHuntScreen(navController: NavController) {
+    val context = LocalContext.current
     val scaffoldState = rememberScaffoldState()
     val selectedRegionState = remember { mutableStateOf("Canada") }
     val canadaStateMap = mapOf(
@@ -124,7 +140,13 @@ fun NewHuntScreen(navController: NavController) {
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        startNewHuntActivity(
+                            context,
+                            canadaStateMap,
+                            "CA"
+                        )
+                    },
                     enabled = buttonIsEnabled,
                     shape = RectangleShape,
                     modifier = Modifier
