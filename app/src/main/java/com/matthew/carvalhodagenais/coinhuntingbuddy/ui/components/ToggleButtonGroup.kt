@@ -16,25 +16,25 @@
  */
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.matthew.carvalhodagenais.coinhuntingbuddy.states.ToggleButtonListState
 
 @Composable
 fun ToggleButtonGroup(
     options: Array<String>,
     isMultiSelect: Boolean,
-    toggleButtonListState: ToggleButtonListState
+    selectedOption: String = "",
+    selectedOptionState: MutableState<String>? = null
 ) {
     val selectionType: SelectionType =
         if (isMultiSelect) SelectionType.MULTIPLE
@@ -50,8 +50,9 @@ fun ToggleButtonGroup(
                 start = 12.dp,
                 bottom = 8.dp
             ),
-        toggleButtonListState = toggleButtonListState,
         onClick = {  },
+        selectedOption = selectedOption,
+        selectedOptionState = selectedOptionState
     )
 }
 
@@ -94,13 +95,15 @@ private fun ToggleButton(
     options: Array<String>,
     modifier: Modifier = Modifier,
     type: SelectionType = SelectionType.SINGLE,
-    toggleButtonListState: ToggleButtonListState,
-    onClick: (selectedOptionS: Array<String>) -> Unit = {}
+    onClick: (selectedOptions: Array<String>) -> Unit = {},
+    selectedOption: String,
+    selectedOptionState: MutableState<String>?
 ) {
     val state = remember { mutableStateMapOf<String, String>() }
+    var selectedFlag = false
 
     OutlinedButton(
-        onClick = { Log.d("LIST", toggleButtonListState.listState.toString()) },
+        onClick = {  },
         border = BorderStroke(1.dp, Color.LightGray),
         shape = RoundedCornerShape(20),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.LightGray),
@@ -113,26 +116,38 @@ private fun ToggleButton(
             return@OutlinedButton
         }
 
+        // Auto select option if given
+        if (selectedOption != "" && !selectedFlag) {
+            state[selectedOption] = selectedOption
+            selectedFlag = true
+
+            if (selectedOptionState != null) {
+                selectedOptionState.value = selectedOption
+            }
+        }
+
         val onItemClick: (option: String) -> Unit = { option ->
             if (type == SelectionType.SINGLE) {
                 options.forEach {
                     val key = it
                     if (key == option) {
                         state[key] = option
-                        toggleButtonListState.setFirst(option)
+                        if (selectedOptionState != null) {
+                            selectedOptionState.value = option
+                        }
                     } else {
                         state.remove(key)
                     }
-
                 }
             } else {
                 val key = option
                 if (!state.contains(key)) {
                     state[key] = option
-                    toggleButtonListState.add(option)
+                    if (selectedOptionState != null) {
+                        selectedOptionState.value = option
+                    }
                 } else {
                     state.remove(key)
-                    toggleButtonListState.remove(option)
                 }
             }
             onClick(state.values.toTypedArray())

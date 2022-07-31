@@ -6,17 +6,16 @@ import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.matthew.carvalhodagenais.coinhuntingbuddy.states.ToggleButtonListState
 
-// TODO: Set region using viewmodel
 @Composable
-fun RegionCard() {
-    val toggleButtonListState = remember { ToggleButtonListState() }
-
+fun RegionCard(
+    selectedRegion: String = "",
+    selectedRegionState: MutableState<String>
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,7 +35,8 @@ fun RegionCard() {
                     "U.S.A"
                 ),
                 isMultiSelect = false,
-                toggleButtonListState = toggleButtonListState
+                selectedOption = selectedRegion,
+                selectedOptionState = selectedRegionState
             )
         }
     }

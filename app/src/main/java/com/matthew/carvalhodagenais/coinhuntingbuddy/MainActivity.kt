@@ -43,7 +43,7 @@ fun DefaultPreview() {
         val systemUiController = rememberSystemUiController()
         SideEffect {
             systemUiController.setStatusBarColor(
-                color = Color.Red
+                color = Color.LightGray
             )
         }
 
