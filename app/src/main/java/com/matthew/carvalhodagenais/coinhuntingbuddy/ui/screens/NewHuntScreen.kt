@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.HuntActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.TextNumberConverter
+import java.io.Serializable
 
 private const val HUNTS_INDEX = 0
 
@@ -49,7 +50,16 @@ private fun startNewHuntActivity(
     region: String
 ) {
     val intent = Intent(context, HuntActivity::class.java)
-    intent.putExtra("COIN_LIST", "")
+
+    val coinMap = mutableMapOf<String, Int>()
+    stateMap.forEach {
+        coinMap.put(
+            it.key,
+            TextNumberConverter.textFieldStringToInt(it.value.value)!!
+        )
+    }
+
+    intent.putExtra("COIN_LIST", coinMap as Serializable)
     intent.putExtra("COIN_REGION", region)
     context.startActivity(intent)
 }
@@ -144,7 +154,7 @@ fun NewHuntScreen(navController: NavController) {
                         startNewHuntActivity(
                             context,
                             canadaStateMap,
-                            "CA"
+                            if (selectedRegionState.value === "U.S.A") "US" else "CA"
                         )
                     },
                     enabled = buttonIsEnabled,
