@@ -12,7 +12,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -149,22 +148,18 @@ fun NewHuntScreen(navController: NavController) {
                 modifier = Modifier.weight(0.1f, false),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Button(
+                FullButton(
                     onClick = {
                         startNewHuntActivity(
                             context,
-                            canadaStateMap,
+                            // TODO: Replace this string comparison with something more optimized
+                            if (selectedRegionState.value === "U.S.A") usaStateMap else canadaStateMap,
                             if (selectedRegionState.value === "U.S.A") "US" else "CA"
                         )
                     },
-                    enabled = buttonIsEnabled,
-                    shape = RectangleShape,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                ) {
-                    Text("Begin Hunt", fontSize = 24.sp)
-                }
+                    text = "Begin Hunt",
+                    enabled = buttonIsEnabled
+                )
             }
         }
     }
