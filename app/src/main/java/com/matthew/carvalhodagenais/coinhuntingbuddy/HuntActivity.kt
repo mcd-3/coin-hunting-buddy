@@ -5,21 +5,39 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.TabButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
+
+fun getButtonWeight(sizeOfMap: Int): Float {
+    return when (sizeOfMap) {
+        1 -> 1f
+        2 -> 0.5f
+        3 -> 0.33f
+        4 -> 0.25f
+        5 -> 0.2f
+        6 -> 0.165f
+        else -> 0.33f
+    }
+}
 
 class HuntActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val region = intent.getStringExtra("COIN_REGION")
-        val coinList = intent.getSerializableExtra("COIN_LIST") as HashMap<*, *>
+        val coinList = (
+                intent.getSerializableExtra("COIN_LIST") as HashMap<*, *>
+        ).filterValues { it != 0 }
 
         setContent {
             CoinHuntingBuddyTheme {
@@ -64,6 +82,30 @@ class HuntActivity : ComponentActivity() {
                             title = { Text(text = "Coin Hunt") }
                         )
                         Text(text = region.toString())
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(32.dp)
+                                .padding(start = 4.dp, end = 4.dp),
+                            horizontalArrangement = Arrangement.Start
+                        ) {
+                            val first = coinList.keys.first().toString()
+                            val last = coinList.keys.last().toString()
+                            val selectedKey = remember { mutableStateOf(first) }
+                            coinList.forEach {
+                                TabButton(
+                                    onClick = {
+                                        selectedKey.value = it.key.toString()
+                                    },
+                                    text = MoneyStringToSymbolUtil.convert(it.key.toString()),
+                                    leftIsRounded = first == it.key.toString(),
+                                    rightIsRounded = last == it.key.toString(),
+                                    key = it.key.toString(),
+                                    selectedKey = selectedKey,
+                                    modifier = Modifier.weight(getButtonWeight(coinList.size)))
+                            }
+                        }
 
                         coinList.forEach {
                             Text(text = "${it.key} : ${it.value}")
