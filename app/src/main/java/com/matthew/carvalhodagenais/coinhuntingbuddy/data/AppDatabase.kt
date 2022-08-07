@@ -59,6 +59,8 @@ abstract class AppDatabase: RoomDatabase() {
             // Insert Regions
             instance?.regionDao()?.insert(
                 Region(1, "ca", "Canada"))
+            instance?.regionDao()?.insert(
+                Region(2, "us", "U.S.A"))
 
             // Insert Grades
             instance?.gradeDao()?.insert(
@@ -95,6 +97,19 @@ abstract class AppDatabase: RoomDatabase() {
                 CoinType(7, "1 Dollar (\"Loonie\")", 1.0, 1))
             instance?.coinTypeDao()?.insert(
                 CoinType(8, "2 Dollars (\"Toonie\")", 2.0, 1))
+
+            instance?.coinTypeDao()?.insert(
+                CoinType(9, "Penny", 0.01, 2))
+            instance?.coinTypeDao()?.insert(
+                CoinType(10, "Nickel", 0.05, 2))
+            instance?.coinTypeDao()?.insert(
+                CoinType(11, "Dime", 0.1, 2))
+            instance?.coinTypeDao()?.insert(
+                CoinType(12, "Quarter", 0.25, 2))
+            instance?.coinTypeDao()?.insert(
+                CoinType(13, "Half-Dollar", 0.50, 2))
+            instance?.coinTypeDao()?.insert(
+                CoinType(14, "Dollar", 1.0, 2))
 
             Log.d("DB", "Database has been successfully populated")
         }

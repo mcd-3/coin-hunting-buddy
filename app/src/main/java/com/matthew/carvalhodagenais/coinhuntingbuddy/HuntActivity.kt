@@ -2,6 +2,7 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -14,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.CoinTypeHuntPanel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FullButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.TabButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
@@ -36,12 +39,25 @@ class HuntActivity : ComponentActivity() {
 
         val region = intent.getStringExtra("COIN_REGION")
         val coinList = (
-                intent.getSerializableExtra("COIN_LIST") as HashMap<*, *>
+                intent.getSerializableExtra("COIN_LIST") as HashMap<String, Int>
         ).filterValues { it != 0 }
 
         setContent {
             CoinHuntingBuddyTheme {
                 val systemUiController = rememberSystemUiController()
+                val completeHuntFlag = remember { mutableStateOf(false) }
+
+                // Keys of the main list
+                val firstKey = coinList.keys.first().toString()
+                val lastKey = coinList.keys.last().toString()
+                val selectedKey = remember { mutableStateOf(firstKey) }
+
+                // Use this list to remove rolls from
+                val tempCoinList = coinList.toMutableMap()
+                val currentRollAmount = remember {
+                    mutableStateOf(tempCoinList[selectedKey.value] as Int)
+                }
+
                 SideEffect {
                     systemUiController.setStatusBarColor(
                         color = Color.LightGray
@@ -87,21 +103,19 @@ class HuntActivity : ComponentActivity() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(32.dp)
-                                .padding(start = 4.dp, end = 4.dp),
+                                .padding(start = 20.dp, end = 20.dp),
                             horizontalArrangement = Arrangement.Start
                         ) {
-                            val first = coinList.keys.first().toString()
-                            val last = coinList.keys.last().toString()
-                            val selectedKey = remember { mutableStateOf(first) }
                             coinList.forEach {
                                 TabButton(
                                     onClick = {
-                                        selectedKey.value = it.key.toString()
+                                        currentRollAmount.value = tempCoinList[it.key] as Int
+                                        selectedKey.value = it.key
                                     },
-                                    text = MoneyStringToSymbolUtil.convert(it.key.toString()),
-                                    leftIsRounded = first == it.key.toString(),
-                                    rightIsRounded = last == it.key.toString(),
-                                    key = it.key.toString(),
+                                    text = MoneyStringToSymbolUtil.convert(it.key),
+                                    leftIsRounded = firstKey == it.key,
+                                    rightIsRounded = lastKey == it.key,
+                                    key = it.key,
                                     selectedKey = selectedKey,
                                     modifier = Modifier.weight(getButtonWeight(coinList.size)))
                             }
@@ -110,6 +124,29 @@ class HuntActivity : ComponentActivity() {
                         coinList.forEach {
                             Text(text = "${it.key} : ${it.value}")
                         }
+
+                        CoinTypeHuntPanel(
+                            regionCode = region.toString(),
+                            coinKeyState = selectedKey,
+                            rollsLeftState = currentRollAmount,
+                            unwrapRollOnClick = {
+                                tempCoinList.replace(
+                                    selectedKey.value,
+                                    tempCoinList[selectedKey.value] as Int - 1
+                                )
+
+                                currentRollAmount.value =
+                                    tempCoinList[selectedKey.value] as Int
+                            }
+                        )
+
+                        FullButton(
+                            onClick = {
+
+                            },
+                            text = "Complete Hunt",
+                            enabled = completeHuntFlag.value
+                        )
                     }
                 }
             }

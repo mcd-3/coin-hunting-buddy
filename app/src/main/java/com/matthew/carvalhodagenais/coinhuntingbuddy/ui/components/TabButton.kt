@@ -1,6 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
