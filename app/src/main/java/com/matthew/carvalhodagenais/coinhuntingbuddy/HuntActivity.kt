@@ -2,7 +2,6 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -95,9 +94,13 @@ class HuntActivity : ComponentActivity() {
                     Column {
                         TopAppBar(
                             backgroundColor = Color.White,
-                            title = { Text(text = "Coin Hunt") }
+                            title = { Text(text = "Coin Hunt") },
+                            elevation = 0.dp
                         )
-                        Text(text = region.toString())
+
+                        Spacer(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(20.dp))
 
                         Row(
                             modifier = Modifier
@@ -121,10 +124,6 @@ class HuntActivity : ComponentActivity() {
                             }
                         }
 
-                        coinList.forEach {
-                            Text(text = "${it.key} : ${it.value}")
-                        }
-
                         CoinTypeHuntPanel(
                             regionCode = region.toString(),
                             coinKeyState = selectedKey,
@@ -140,9 +139,15 @@ class HuntActivity : ComponentActivity() {
                             }
                         )
 
+                        // Remove this
+                        coinList.forEach {
+                            Text(text = "${it.key} : ${it.value}")
+                        }
+
                         FullButton(
                             onClick = {
-
+                                // Save all finds to DB
+                                // Return to MainActivity
                             },
                             text = "Complete Hunt",
                             enabled = completeHuntFlag.value
