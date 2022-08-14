@@ -44,7 +44,6 @@ class HuntActivity : ComponentActivity() {
         setContent {
             CoinHuntingBuddyTheme {
                 val systemUiController = rememberSystemUiController()
-                val completeHuntFlag = remember { mutableStateOf(false) }
 
                 // Keys of the main list
                 val firstKey = coinList.keys.first().toString()
@@ -56,6 +55,7 @@ class HuntActivity : ComponentActivity() {
                 val currentRollAmount = remember {
                     mutableStateOf(tempCoinList[selectedKey.value] as Int)
                 }
+                val completeHuntFlag = remember { mutableStateOf(tempCoinList.all { it.value == 0 }) }
 
                 SideEffect {
                     systemUiController.setStatusBarColor(
@@ -136,6 +136,8 @@ class HuntActivity : ComponentActivity() {
 
                                 currentRollAmount.value =
                                     tempCoinList[selectedKey.value] as Int
+
+                                completeHuntFlag.value = tempCoinList.all { it.value == 0 }
                             }
                         )
 
