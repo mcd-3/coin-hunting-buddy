@@ -26,6 +26,7 @@ fun CoinTypeHuntPanel(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxHeight()
             .padding(
                 start = 10.dp,
                 end = 10.dp,
