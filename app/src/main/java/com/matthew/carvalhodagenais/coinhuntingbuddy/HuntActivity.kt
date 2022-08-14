@@ -90,7 +90,6 @@ class HuntActivity : ComponentActivity() {
                         )
                     }
 
-
                     Column {
                         TopAppBar(
                             backgroundColor = Color.White,
@@ -100,59 +99,58 @@ class HuntActivity : ComponentActivity() {
 
                         Spacer(modifier = Modifier
                             .fillMaxWidth()
-                            .height(20.dp))
+                            .height(10.dp))
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(32.dp)
-                                .padding(start = 20.dp, end = 20.dp),
-                            horizontalArrangement = Arrangement.Start
-                        ) {
-                            coinList.forEach {
-                                TabButton(
-                                    onClick = {
-                                        currentRollAmount.value = tempCoinList[it.key] as Int
-                                        selectedKey.value = it.key
-                                    },
-                                    text = MoneyStringToSymbolUtil.convert(it.key),
-                                    leftIsRounded = firstKey == it.key,
-                                    rightIsRounded = lastKey == it.key,
-                                    key = it.key,
-                                    selectedKey = selectedKey,
-                                    modifier = Modifier.weight(getButtonWeight(coinList.size)))
+                        Column(modifier = Modifier.weight(0.7f),) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(32.dp)
+                                    .padding(start = 20.dp, end = 20.dp),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                coinList.forEach {
+                                    TabButton(
+                                        onClick = {
+                                            currentRollAmount.value = tempCoinList[it.key] as Int
+                                            selectedKey.value = it.key
+                                        },
+                                        text = MoneyStringToSymbolUtil.convert(it.key),
+                                        leftIsRounded = firstKey == it.key,
+                                        rightIsRounded = lastKey == it.key,
+                                        key = it.key,
+                                        selectedKey = selectedKey,
+                                        modifier = Modifier.weight(getButtonWeight(coinList.size)))
+                                }
                             }
+
+                            CoinTypeHuntPanel(
+                                coinKeyState = selectedKey,
+                                rollsLeftState = currentRollAmount,
+                                unwrapRollOnClick = {
+                                    tempCoinList.replace(
+                                        selectedKey.value,
+                                        tempCoinList[selectedKey.value] as Int - 1
+                                    )
+
+                                    currentRollAmount.value =
+                                        tempCoinList[selectedKey.value] as Int
+
+                                    completeHuntFlag.value = tempCoinList.all { it.value == 0 }
+                                }
+                            )
                         }
 
-                        CoinTypeHuntPanel(
-                            coinKeyState = selectedKey,
-                            rollsLeftState = currentRollAmount,
-                            unwrapRollOnClick = {
-                                tempCoinList.replace(
-                                    selectedKey.value,
-                                    tempCoinList[selectedKey.value] as Int - 1
-                                )
-
-                                currentRollAmount.value =
-                                    tempCoinList[selectedKey.value] as Int
-
-                                completeHuntFlag.value = tempCoinList.all { it.value == 0 }
-                            }
-                        )
-
-                        // Remove this
-                        coinList.forEach {
-                            Text(text = "${it.key} : ${it.value}")
+                        Row(Modifier.weight(0.1f)) {
+                            FullButton(
+                                onClick = {
+                                    // Save all finds to DB
+                                    // Return to MainActivity
+                                },
+                                text = "Complete Hunt",
+                                enabled = completeHuntFlag.value
+                            )
                         }
-
-                        FullButton(
-                            onClick = {
-                                // Save all finds to DB
-                                // Return to MainActivity
-                            },
-                            text = "Complete Hunt",
-                            enabled = completeHuntFlag.value
-                        )
                     }
                 }
             }

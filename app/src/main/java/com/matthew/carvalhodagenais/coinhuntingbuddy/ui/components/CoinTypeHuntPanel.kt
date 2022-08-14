@@ -114,6 +114,9 @@ fun CoinTypeHuntPanel(
                 }
             }
 
+            Spacer(modifier = Modifier.height(12.dp))
+            FindsPanel()
+
             // Find List
             Text(text = "List of Finds goes here")
         }
