@@ -94,7 +94,7 @@ class HuntActivity : ComponentActivity() {
                     Column {
                         TopAppBar(
                             backgroundColor = Color.White,
-                            title = { Text(text = "Coin Hunt") },
+                            title = { Text(text = if (region == "US") "American Coin Hunt" else "Canadian Coin Hunt") },
                             elevation = 0.dp
                         )
 
@@ -125,7 +125,6 @@ class HuntActivity : ComponentActivity() {
                         }
 
                         CoinTypeHuntPanel(
-                            regionCode = region.toString(),
                             coinKeyState = selectedKey,
                             rollsLeftState = currentRollAmount,
                             unwrapRollOnClick = {

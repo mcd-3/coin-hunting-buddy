@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CoinTypeHuntPanel(
-    regionCode: String,
     coinKeyState: MutableState<String>,
     rollsLeftState: MutableState<Int>,
     unwrapRollOnClick: () -> Unit,
@@ -114,8 +113,6 @@ fun CoinTypeHuntPanel(
                     }
                 }
             }
-
-            Text(text = "region: $regionCode")
 
             // Find List
             Text(text = "List of Finds goes here")
