@@ -1,28 +1,38 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import android.content.Intent
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
+import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 
 @Composable
 fun CoinTypeHuntPanel(
     coinKeyState: MutableState<String>,
     rollsLeftState: MutableState<Int>,
     unwrapRollOnClick: () -> Unit,
-//  listOfFinds?
+    listOfFinds: MutableList<Find>
 ) {
+    val showAlertDialog = remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,7 +115,7 @@ fun CoinTypeHuntPanel(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { showAlertDialog.value = true },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 18.dp, end = 32.dp),
@@ -116,10 +126,64 @@ fun CoinTypeHuntPanel(
             }
 
             Spacer(modifier = Modifier.height(12.dp))
-            FindsPanel()
+            FindsPanel(findsList = listOfFinds)
 
-            // Find List
-            Text(text = "List of Finds goes here")
+            // Finds Form
+            val yearStringState = remember { mutableStateOf("") }
+            val varietyStringState = remember { mutableStateOf("") }
+            if(showAlertDialog.value){
+                AlertDialog(
+                    onDismissRequest = {
+                        showAlertDialog.value = false
+                        yearStringState.value = ""
+                        varietyStringState.value = ""
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            val find = Find(yearStringState.value, varietyStringState.value)
+                            listOfFinds.add(find)
+                            yearStringState.value = ""
+                            varietyStringState.value = ""
+                            showAlertDialog.value = false
+                        }){
+                            Text(text = "Done")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            showAlertDialog.value = false
+                            yearStringState.value = ""
+                            varietyStringState.value = ""
+                        }) {
+                            Text(text = "Cancel")
+                        }
+                    },
+                    title = { Text(text = "New Find") },
+                    text = {
+                        Column() {
+                            Row() {
+                                Text(text = "Year:")
+                                BasicTextField(
+                                    value = yearStringState.value,
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    onValueChange = {
+                                        yearStringState.value = it
+                                    }
+                                )
+                            }
+                            Row() {
+                                Text(text = "Variety:")
+                                BasicTextField(
+                                    value = varietyStringState.value,
+                                    onValueChange = {
+                                        varietyStringState.value = it
+                                    }
+                                )
+                            }
+                        }
+                    }
+                )
+            }
         }
     }
 }

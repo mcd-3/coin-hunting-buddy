@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.CoinTypeHuntPanel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FullButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.TabButton
@@ -56,6 +58,10 @@ class HuntActivity : ComponentActivity() {
                     mutableStateOf(tempCoinList[selectedKey.value] as Int)
                 }
                 val completeHuntFlag = remember { mutableStateOf(tempCoinList.all { it.value == 0 }) }
+
+                // List of total finds to display in panel
+                // Will be filtered by coin type
+                val listOfFinds = remember { mutableListOf<Find>() }
 
                 SideEffect {
                     systemUiController.setStatusBarColor(
@@ -127,6 +133,7 @@ class HuntActivity : ComponentActivity() {
                             CoinTypeHuntPanel(
                                 coinKeyState = selectedKey,
                                 rollsLeftState = currentRollAmount,
+                                listOfFinds = listOfFinds,
                                 unwrapRollOnClick = {
                                     tempCoinList.replace(
                                         selectedKey.value,
