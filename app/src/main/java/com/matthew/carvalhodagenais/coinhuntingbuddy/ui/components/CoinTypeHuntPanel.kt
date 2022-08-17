@@ -1,8 +1,8 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +29,7 @@ fun CoinTypeHuntPanel(
     listOfFinds: MutableList<Find>
 ) {
     val showAlertDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -127,20 +129,37 @@ fun CoinTypeHuntPanel(
             // Finds Form
             val yearStringState = remember { mutableStateOf("") }
             val varietyStringState = remember { mutableStateOf("") }
+            val mintMarkStringState = remember { mutableStateOf("") }
+            val errorStringState = remember { mutableStateOf("") }
             if(showAlertDialog.value){
                 AlertDialog(
                     onDismissRequest = {
                         showAlertDialog.value = false
                         yearStringState.value = ""
                         varietyStringState.value = ""
+                        mintMarkStringState.value = ""
+                        errorStringState.value = ""
                     },
                     confirmButton = {
                         TextButton(onClick = {
-                            val find = Find(yearStringState.value, varietyStringState.value)
+                            val find = Find(
+                                year = yearStringState.value,
+                                variety = varietyStringState.value,
+                                mintMark = mintMarkStringState.value,
+                                error = errorStringState.value
+                            )
                             listOfFinds.add(find)
                             yearStringState.value = ""
                             varietyStringState.value = ""
+                            mintMarkStringState.value = ""
+                            errorStringState.value = ""
                             showAlertDialog.value = false
+                            val toast = Toast.makeText(
+                                context,
+                                "Added a new find!",
+                                Toast.LENGTH_LONG
+                            )
+                            toast.show()
                         }){
                             Text(text = "Done")
                         }
@@ -150,19 +169,26 @@ fun CoinTypeHuntPanel(
                             showAlertDialog.value = false
                             yearStringState.value = ""
                             varietyStringState.value = ""
+                            mintMarkStringState.value = ""
+                            errorStringState.value = ""
                         }) {
                             Text(text = "Cancel")
                         }
                     },
-                    title = { Text(text = "New Find") },
+                    title = { Text(text = "New Find\n") },
                     text = {
                         Column() {
                             Row() {
-                                Text(text = "Year:")
-                                // TODO: replace with year select
-                                BasicTextField(
+                                OutlinedTextField(
                                     value = yearStringState.value,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    label = { Text(text = "Year") },
+                                    placeholder = { Text(text = "Year") },
+                                    modifier = Modifier
+                                        .weight(0.5f)
+                                        .padding(end = 4.dp),
+                                    keyboardOptions = KeyboardOptions(
+                                        keyboardType = KeyboardType.Number
+                                    ),
                                     onValueChange = {
                                         val maxCharLength = 4
                                         if (it.length <= maxCharLength && !it.contains("-", true)) {
@@ -183,16 +209,36 @@ fun CoinTypeHuntPanel(
                                         }
                                     }
                                 )
-                            }
-                            Row() {
-                                Text(text = "Variety:")
-                                BasicTextField(
-                                    value = varietyStringState.value,
+                                OutlinedTextField(
+                                    value = mintMarkStringState.value,
+                                    label = { Text(text = "Mint Mark") },
+                                    placeholder = { Text(text = "Mint Mark") },
+                                    modifier = Modifier
+                                        .weight(0.5f)
+                                        .padding(start = 4.dp),
                                     onValueChange = {
-                                        varietyStringState.value = it
+                                        mintMarkStringState.value = it
                                     }
                                 )
                             }
+                            Spacer(modifier = Modifier.height(12.dp))
+                            OutlinedTextField(
+                                value = varietyStringState.value,
+                                label = { Text(text = "Variety") },
+                                placeholder = { Text(text = "Variety of the coin") },
+                                onValueChange = {
+                                    varietyStringState.value = it
+                                }
+                            )
+                            Spacer(modifier = Modifier.height(12.dp))
+                            OutlinedTextField(
+                                value = errorStringState.value,
+                                label = { Text(text = "Error") },
+                                placeholder = { Text(text = "Error on the coin") },
+                                onValueChange = {
+                                    errorStringState.value = it
+                                }
+                            )
                         }
                     }
                 )
