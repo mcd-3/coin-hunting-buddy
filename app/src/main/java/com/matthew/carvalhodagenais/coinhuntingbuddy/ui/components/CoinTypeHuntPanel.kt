@@ -1,8 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import android.content.Intent
-import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
@@ -21,7 +18,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 
 @Composable
@@ -163,11 +159,28 @@ fun CoinTypeHuntPanel(
                         Column() {
                             Row() {
                                 Text(text = "Year:")
+                                // TODO: replace with year select
                                 BasicTextField(
                                     value = yearStringState.value,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     onValueChange = {
-                                        yearStringState.value = it
+                                        val maxCharLength = 4
+                                        if (it.length <= maxCharLength && !it.contains("-", true)) {
+                                            if (it.length > 1 && it[0] == '0') {
+                                                val newStr = it.drop(1)
+                                                yearStringState.value = newStr
+                                            } else {
+                                                if (it.contains(" ")) {
+                                                    yearStringState.value = it.replace(" ", "")
+                                                } else {
+                                                    yearStringState.value = it
+                                                }
+                                            }
+                                        }
+
+                                        if (yearStringState.value.isBlank()) {
+                                            yearStringState.value = "0"
+                                        }
                                     }
                                 )
                             }
