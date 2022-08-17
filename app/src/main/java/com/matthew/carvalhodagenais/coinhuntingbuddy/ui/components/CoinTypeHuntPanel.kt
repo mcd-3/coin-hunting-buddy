@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 
 @Composable
 fun CoinTypeHuntPanel(
@@ -29,6 +31,7 @@ fun CoinTypeHuntPanel(
     listOfFinds: MutableList<Find>
 ) {
     val showAlertDialog = remember { mutableStateOf(false) }
+    val currentCoinTypeInt = MoneyStringToSymbolUtil.stringToInt(coinKeyState.value)
     val context = LocalContext.current
 
     Card(
@@ -124,7 +127,14 @@ fun CoinTypeHuntPanel(
             }
 
             Spacer(modifier = Modifier.height(12.dp))
-            FindsPanel(findsList = listOfFinds)
+
+            val filteredListOfFinds = mutableListOf<Find>()
+            listOfFinds.forEach {
+                if (it.findType == currentCoinTypeInt) {
+                    filteredListOfFinds.add(it)
+                }
+            }
+            FindsPanel(findsList = filteredListOfFinds)
 
             // Finds Form
             val yearStringState = remember { mutableStateOf("") }
@@ -146,7 +156,8 @@ fun CoinTypeHuntPanel(
                                 year = yearStringState.value,
                                 variety = varietyStringState.value,
                                 mintMark = mintMarkStringState.value,
-                                error = errorStringState.value
+                                error = errorStringState.value,
+                                findType = currentCoinTypeInt
                             )
                             listOfFinds.add(find)
                             yearStringState.value = ""
