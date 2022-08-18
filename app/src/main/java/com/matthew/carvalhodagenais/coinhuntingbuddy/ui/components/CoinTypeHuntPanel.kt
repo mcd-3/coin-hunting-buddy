@@ -128,6 +128,7 @@ fun CoinTypeHuntPanel(
 
             Spacer(modifier = Modifier.height(12.dp))
 
+            // Filter out list of finds by coin type
             val filteredListOfFinds = mutableListOf<Find>()
             listOfFinds.forEach {
                 if (it.findType == currentCoinTypeInt) {
