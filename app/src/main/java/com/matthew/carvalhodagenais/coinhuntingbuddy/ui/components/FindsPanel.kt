@@ -10,13 +10,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
@@ -53,7 +53,37 @@ fun FindsPanel(
         }
 
         if (findsList.isEmpty()) {
-            Text(text = "None :(", modifier = Modifier.padding(start = startPadding))
+            Column() {
+                Row(
+                    modifier = Modifier
+                        .weight(0.3f)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "You haven't found anything!",
+                        fontSize = 22.sp,
+                        color = Color.LightGray,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .weight(0.7f)
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        modifier = Modifier.size(100.dp),
+                        imageVector = Icons.Filled.Search,
+                        tint = Color.LightGray,
+                        contentDescription = "",
+                    )
+                }
+            }
         } else {
             Column(
                 modifier = Modifier
