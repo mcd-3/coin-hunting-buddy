@@ -5,8 +5,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,11 +23,11 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 
 @Composable
 fun FindsPanel(
-    findsList: List<Find>,
+    findsList: MutableList<Find>,
 ) {
     val startPadding = 8.dp
     val endPadding = 8.dp
-    val startPaddingExtra = 26.dp
+
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -99,22 +105,34 @@ fun FindsPanel(
                                 "$varietyStr - $errorStr"
                             }
 
-                            Column {
-                                Text(
-                                    text = "\u25CF $coinStringFirst",
-                                    fontSize = 20.sp,
-                                    modifier = Modifier.padding(start = startPadding)
-                                )
-                                if (coinStringSecond.isNotEmpty()) {
-                                    Text(
-                                        text = coinStringSecond,
-                                        fontStyle = FontStyle.Italic,
-                                        modifier = Modifier.padding(start = startPaddingExtra)
+                            Row() {
+                                IconButton(
+                                    modifier = Modifier.weight(0.15f),
+                                    onClick = {
+                                        findsList.removeAt(index)
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Cancel,
+                                        contentDescription = "Cancel",
+                                        tint = Color(0xFFE6382C)
                                     )
                                 }
+                                Column(modifier = Modifier.weight(0.85f)) {
+                                    Text(
+                                        text = coinStringFirst,
+                                        fontSize = 20.sp,
+                                    )
+                                    if (coinStringSecond.isNotEmpty()) {
+                                        Text(
+                                            text = coinStringSecond,
+                                            fontStyle = FontStyle.Italic
+                                        )
+                                    }
 
-                                if (index != findsList.size - 1) {
-                                    Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
+                                    if (index != findsList.size - 1) {
+                                        Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
+                                    }
                                 }
                             }
                         }
