@@ -34,6 +34,73 @@ fun getButtonWeight(sizeOfMap: Int): Float {
     }
 }
 
+fun arrangeCoinList(
+    list: Map<String, Int>,
+    region: String,
+    keysArray: Array<String>,
+    rollsArray: Array<Int>
+) {
+    if (region == "US") {
+        list.forEach {
+            when (it.key) {
+                "Pennies" -> {
+                  keysArray[0] = "Pennies"
+                  rollsArray[0] = list.get(it.key)!!
+                }
+                "Nickels" -> {
+                    keysArray[1] = "Nickels"
+                    rollsArray[1] = list.get(it.key)!!
+                }
+                "Dimes" -> {
+                    keysArray[2] = "Dimes"
+                    rollsArray[2] = list.get(it.key)!!
+                }
+                "Quarters" -> {
+                    keysArray[3] = "Quarters"
+                    rollsArray[3] = list.get(it.key)!!
+                }
+                "Half-Dollars" -> {
+                    keysArray[4] = "Half-Dollars"
+                    rollsArray[4] = list.get(it.key)!!
+                }
+                "Dollars" -> {
+                    keysArray[5] = "Dollars"
+                    rollsArray[5] = list.get(it.key)!!
+                }
+            }
+        }
+    } else { // Canada
+        list.forEach {
+            when (it.key) {
+                "1 Cents" -> {
+                    keysArray[0] = "1 Cents"
+                    rollsArray[0] = list.get(it.key)!!
+                }
+                "5 Cents" -> {
+                    keysArray[1] = "5 Cents"
+                    rollsArray[1] = list.get(it.key)!!
+                }
+                "10 Cents" -> {
+                    keysArray[2] = "10 Cents"
+                    rollsArray[2] = list.get(it.key)!!
+                }
+                "25 Cents" -> {
+                    keysArray[3] = "25 Cents"
+                    rollsArray[3] = list.get(it.key)!!
+                }
+                "Loonies" -> {
+                    keysArray[4] = "Loonies"
+                    rollsArray[4] = list.get(it.key)!!
+                }
+                "Toonies" -> {
+                    keysArray[5] = "Toonies"
+                    rollsArray[5] = list.get(it.key)!!
+                }
+            }
+        }
+    }
+}
+
 class HuntActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,18 +182,27 @@ class HuntActivity : ComponentActivity() {
                                     .padding(start = 20.dp, end = 20.dp),
                                 horizontalArrangement = Arrangement.Start
                             ) {
-                                coinList.forEach {
-                                    TabButton(
-                                        onClick = {
-                                            currentRollAmount.value = tempCoinList[it.key] as Int
-                                            selectedKey.value = it.key
-                                        },
-                                        text = MoneyStringToSymbolUtil.convert(it.key),
-                                        leftIsRounded = firstKey == it.key,
-                                        rightIsRounded = lastKey == it.key,
-                                        key = it.key,
-                                        selectedKey = selectedKey,
-                                        modifier = Modifier.weight(getButtonWeight(coinList.size)))
+                                // First, we need to arrange the list
+                                val keys = arrayOf("", "", "", "", "", "")
+                                val rolls = arrayOf(-1, -1, -1, -1, -1, -1,)
+
+                                arrangeCoinList(coinList, region!!, keys, rolls)
+
+                                keys.forEachIndexed { index, it ->
+                                    if (it != "") {
+                                        TabButton(
+                                            onClick = {
+                                                currentRollAmount.value = rolls[index]
+                                                selectedKey.value = keys[index]
+                                            },
+                                            text = MoneyStringToSymbolUtil.convert(keys[index]),
+                                            leftIsRounded = firstKey == keys[index],
+                                            rightIsRounded = lastKey == keys[index],
+                                            key = keys[index],
+                                            selectedKey = selectedKey,
+                                            modifier = Modifier.weight(getButtonWeight(coinList.size))
+                                        )
+                                    }
                                 }
                             }
 
