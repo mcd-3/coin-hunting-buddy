@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +21,11 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.TabButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 
+/**
+ * Determines the weight of TabButtons
+ *
+ * @param sizeOfMap Int - Size of map
+ */
 fun getButtonWeight(sizeOfMap: Int): Float {
     return when (sizeOfMap) {
         1 -> 1f
@@ -34,67 +38,75 @@ fun getButtonWeight(sizeOfMap: Int): Float {
     }
 }
 
-fun arrangeCoinList(
-    list: Map<String, Int>,
+/**
+ * Maps a map of coins' Key and Value to arrays
+ *
+ * @param map Map<String, Int> - Base map to use
+ * @param region String - Region of the coins
+ * @param keysArray Array<String> - Array of keys. Max size is 6
+ * * @param rollsArray<Int> - Array of rolls. Max size is 6
+ */
+fun arrangeCoinMap(
+    map: Map<String, Int>,
     region: String,
     keysArray: Array<String>,
     rollsArray: Array<Int>
 ) {
     if (region == "US") {
-        list.forEach {
+        map.forEach {
             when (it.key) {
                 "Pennies" -> {
                   keysArray[0] = "Pennies"
-                  rollsArray[0] = list.get(it.key)!!
+                  rollsArray[0] = map.get(it.key)!!
                 }
                 "Nickels" -> {
                     keysArray[1] = "Nickels"
-                    rollsArray[1] = list.get(it.key)!!
+                    rollsArray[1] = map.get(it.key)!!
                 }
                 "Dimes" -> {
                     keysArray[2] = "Dimes"
-                    rollsArray[2] = list.get(it.key)!!
+                    rollsArray[2] = map.get(it.key)!!
                 }
                 "Quarters" -> {
                     keysArray[3] = "Quarters"
-                    rollsArray[3] = list.get(it.key)!!
+                    rollsArray[3] = map.get(it.key)!!
                 }
                 "Half-Dollars" -> {
                     keysArray[4] = "Half-Dollars"
-                    rollsArray[4] = list.get(it.key)!!
+                    rollsArray[4] = map.get(it.key)!!
                 }
                 "Dollars" -> {
                     keysArray[5] = "Dollars"
-                    rollsArray[5] = list.get(it.key)!!
+                    rollsArray[5] = map.get(it.key)!!
                 }
             }
         }
     } else { // Canada
-        list.forEach {
+        map.forEach {
             when (it.key) {
                 "1 Cents" -> {
                     keysArray[0] = "1 Cents"
-                    rollsArray[0] = list.get(it.key)!!
+                    rollsArray[0] = map.get(it.key)!!
                 }
                 "5 Cents" -> {
                     keysArray[1] = "5 Cents"
-                    rollsArray[1] = list.get(it.key)!!
+                    rollsArray[1] = map.get(it.key)!!
                 }
                 "10 Cents" -> {
                     keysArray[2] = "10 Cents"
-                    rollsArray[2] = list.get(it.key)!!
+                    rollsArray[2] = map.get(it.key)!!
                 }
                 "25 Cents" -> {
                     keysArray[3] = "25 Cents"
-                    rollsArray[3] = list.get(it.key)!!
+                    rollsArray[3] = map.get(it.key)!!
                 }
                 "Loonies" -> {
                     keysArray[4] = "Loonies"
-                    rollsArray[4] = list.get(it.key)!!
+                    rollsArray[4] = map.get(it.key)!!
                 }
                 "Toonies" -> {
                     keysArray[5] = "Toonies"
-                    rollsArray[5] = list.get(it.key)!!
+                    rollsArray[5] = map.get(it.key)!!
                 }
             }
         }
@@ -186,7 +198,7 @@ class HuntActivity : ComponentActivity() {
                                 val keys = arrayOf("", "", "", "", "", "")
                                 val rolls = arrayOf(-1, -1, -1, -1, -1, -1,)
 
-                                arrangeCoinList(coinList, region!!, keys, rolls)
+                                arrangeCoinMap(coinList, region!!, keys, rolls)
 
                                 keys.forEachIndexed { index, it ->
                                     if (it != "") {
