@@ -12,6 +12,12 @@ enum class CoinTypes {
 
 class MoneyStringToSymbolUtil {
     companion object {
+        /**
+         * Converts a coin string to it's appropriate symbol
+         *
+         * @param str String - String to convert to money symbol
+         * @return String - Converted string to coin symbol
+         */
         fun convert(str: String): String {
             return when (str.lowercase()) {
                 "1 cents" -> "1¢"
@@ -30,7 +36,13 @@ class MoneyStringToSymbolUtil {
             }
         }
 
-        fun stringToInt(str: String): CoinTypes {
+        /**
+         * Converts a coin string to coin type
+         *
+         * @param str String - String to convert to CoinType enum
+         * @return CoinTypes
+         */
+        fun stringToCoinType(str: String): CoinTypes {
             return when (str.lowercase()) {
                 "1 cents" -> CoinTypes.PENNY
                 "5 cents" -> CoinTypes.NICKEL

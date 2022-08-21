@@ -31,7 +31,7 @@ fun CoinTypeHuntPanel(
     listOfFinds: MutableList<Find>
 ) {
     val showAlertDialog = remember { mutableStateOf(false) }
-    val currentCoinType = MoneyStringToSymbolUtil.stringToInt(coinKeyState.value)
+    val currentCoinType = MoneyStringToSymbolUtil.stringToCoinType(coinKeyState.value)
     val context = LocalContext.current
 
     Card(
