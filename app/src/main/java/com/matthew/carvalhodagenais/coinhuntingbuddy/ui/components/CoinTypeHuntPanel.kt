@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -105,7 +106,7 @@ fun CoinTypeHuntPanel(
                             .fillMaxWidth()
                             .padding(start = 32.dp, end = 18.dp),
                     ) {
-                        Text(text = "Unwrap Roll")
+                        Text(text = "Unwrap Roll", textAlign = TextAlign.Center)
                     }
                 }
                 Column(
@@ -120,7 +121,7 @@ fun CoinTypeHuntPanel(
                             .fillMaxWidth()
                             .padding(start = 18.dp, end = 32.dp),
                     ) {
-                        Text(text = "New Find")
+                        Text(text = "New Find", textAlign = TextAlign.Center)
                     }
                 }
             }
@@ -181,8 +182,8 @@ fun CoinTypeHuntPanel(
                     },
                     title = { Text(text = "New Find\n") },
                     text = {
-                        Column() {
-                            Row() {
+                        Column {
+                            Row {
                                 OutlinedTextField(
                                     value = yearStringState.value,
                                     label = { Text(text = "Year") },
