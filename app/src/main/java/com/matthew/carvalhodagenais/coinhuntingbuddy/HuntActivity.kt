@@ -58,27 +58,27 @@ fun arrangeCoinMap(
             when (it.key) {
                 "Pennies" -> {
                   keysArray[0] = "Pennies"
-                  rollsArray[0] = map.get(it.key)!!
+                  rollsArray[0] = map[it.key]!!
                 }
                 "Nickels" -> {
                     keysArray[1] = "Nickels"
-                    rollsArray[1] = map.get(it.key)!!
+                    rollsArray[1] = map[it.key]!!
                 }
                 "Dimes" -> {
                     keysArray[2] = "Dimes"
-                    rollsArray[2] = map.get(it.key)!!
+                    rollsArray[2] = map[it.key]!!
                 }
                 "Quarters" -> {
                     keysArray[3] = "Quarters"
-                    rollsArray[3] = map.get(it.key)!!
+                    rollsArray[3] = map[it.key]!!
                 }
                 "Half-Dollars" -> {
                     keysArray[4] = "Half-Dollars"
-                    rollsArray[4] = map.get(it.key)!!
+                    rollsArray[4] = map[it.key]!!
                 }
                 "Dollars" -> {
                     keysArray[5] = "Dollars"
-                    rollsArray[5] = map.get(it.key)!!
+                    rollsArray[5] = map[it.key]!!
                 }
             }
         }
@@ -87,27 +87,27 @@ fun arrangeCoinMap(
             when (it.key) {
                 "1 Cents" -> {
                     keysArray[0] = "1 Cents"
-                    rollsArray[0] = map.get(it.key)!!
+                    rollsArray[0] = map[it.key]!!
                 }
                 "5 Cents" -> {
                     keysArray[1] = "5 Cents"
-                    rollsArray[1] = map.get(it.key)!!
+                    rollsArray[1] = map[it.key]!!
                 }
                 "10 Cents" -> {
                     keysArray[2] = "10 Cents"
-                    rollsArray[2] = map.get(it.key)!!
+                    rollsArray[2] = map[it.key]!!
                 }
                 "25 Cents" -> {
                     keysArray[3] = "25 Cents"
-                    rollsArray[3] = map.get(it.key)!!
+                    rollsArray[3] = map[it.key]!!
                 }
                 "Loonies" -> {
                     keysArray[4] = "Loonies"
-                    rollsArray[4] = map.get(it.key)!!
+                    rollsArray[4] = map[it.key]!!
                 }
                 "Toonies" -> {
                     keysArray[5] = "Toonies"
-                    rollsArray[5] = map.get(it.key)!!
+                    rollsArray[5] = map[it.key]!!
                 }
             }
         }
@@ -187,7 +187,7 @@ class HuntActivity : ComponentActivity() {
                             .fillMaxWidth()
                             .height(10.dp))
 
-                        Column(modifier = Modifier.weight(0.7f),) {
+                        Column(modifier = Modifier.weight(0.7f)) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -197,7 +197,7 @@ class HuntActivity : ComponentActivity() {
                             ) {
                                 // First, we need to arrange the list
                                 val keys = arrayOf("", "", "", "", "", "")
-                                val rolls = arrayOf(-1, -1, -1, -1, -1, -1,)
+                                val rolls = arrayOf(-1, -1, -1, -1, -1, -1)
 
                                 arrangeCoinMap(coinList, region!!, keys, rolls)
 
