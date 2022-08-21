@@ -1,5 +1,15 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.utils
 
+enum class CoinTypes {
+    PENNY,
+    NICKEL,
+    DIME,
+    QUARTER,
+    LOONIE_OR_HALF_DOLLAR,
+    TOONIE_OR_US_DOLLAR,
+    UNDEFINED
+}
+
 class MoneyStringToSymbolUtil {
     companion object {
         fun convert(str: String): String {
@@ -20,21 +30,21 @@ class MoneyStringToSymbolUtil {
             }
         }
 
-        fun stringToInt(str: String): Int {
+        fun stringToInt(str: String): CoinTypes {
             return when (str.lowercase()) {
-                "1 cents" -> 0
-                "5 cents" -> 1
-                "10 cents" -> 2
-                "25 cents" -> 3
-                "loonies" -> 4
-                "toonies" -> 5
-                "pennies" -> 0
-                "nickels" -> 1
-                "dimes" -> 2
-                "quarters" -> 3
-                "half-dollars" -> 4
-                "dollars" -> 5
-                else -> -1
+                "1 cents" -> CoinTypes.PENNY
+                "5 cents" -> CoinTypes.NICKEL
+                "10 cents" -> CoinTypes.DIME
+                "25 cents" -> CoinTypes.QUARTER
+                "loonies" -> CoinTypes.LOONIE_OR_HALF_DOLLAR
+                "toonies" -> CoinTypes.TOONIE_OR_US_DOLLAR
+                "pennies" -> CoinTypes.PENNY
+                "nickels" -> CoinTypes.NICKEL
+                "dimes" -> CoinTypes.DIME
+                "quarters" -> CoinTypes.QUARTER
+                "half-dollars" -> CoinTypes.LOONIE_OR_HALF_DOLLAR
+                "dollars" -> CoinTypes.TOONIE_OR_US_DOLLAR
+                else -> CoinTypes.UNDEFINED
             }
         }
     }

@@ -20,11 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.CoinTypes
 
 @Composable
 fun FindsPanel(
     findsList: MutableList<Find>,
-    currentCoinTypeInt: Int
+    currentCoinType: CoinTypes
 ) {
     val startPadding = 8.dp
     val endPadding = 8.dp
@@ -32,7 +33,7 @@ fun FindsPanel(
     // Filter out list of finds by coin type
     val filteredListOfFinds = mutableListOf<Find>()
     findsList.forEach {
-        if (it.findType == currentCoinTypeInt) {
+        if (it.findType == currentCoinType) {
             filteredListOfFinds.add(it)
         }
     }
@@ -100,7 +101,7 @@ fun FindsPanel(
                     .padding(bottom = 8.dp)
             ) {
                 findsList.forEachIndexed { index, it ->
-                    if (it.findType == currentCoinTypeInt) {
+                    if (it.findType == currentCoinType) {
                         val topPadding = if (index == 0) 2.dp else 8.dp
 
                         Row(

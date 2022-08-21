@@ -30,7 +30,7 @@ fun CoinTypeHuntPanel(
     listOfFinds: MutableList<Find>
 ) {
     val showAlertDialog = remember { mutableStateOf(false) }
-    val currentCoinTypeInt = MoneyStringToSymbolUtil.stringToInt(coinKeyState.value)
+    val currentCoinType = MoneyStringToSymbolUtil.stringToInt(coinKeyState.value)
     val context = LocalContext.current
 
     Card(
@@ -127,7 +127,7 @@ fun CoinTypeHuntPanel(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            FindsPanel(findsList = listOfFinds, currentCoinTypeInt = currentCoinTypeInt)
+            FindsPanel(findsList = listOfFinds, currentCoinType = currentCoinType)
 
             // Finds Form
             val yearStringState = remember { mutableStateOf("") }
@@ -150,7 +150,7 @@ fun CoinTypeHuntPanel(
                                 variety = varietyStringState.value,
                                 mintMark = mintMarkStringState.value,
                                 error = errorStringState.value,
-                                findType = currentCoinTypeInt
+                                findType = currentCoinType
                             )
                             listOfFinds.add(find)
                             yearStringState.value = ""
