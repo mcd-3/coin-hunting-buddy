@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -140,7 +141,7 @@ class HuntActivity : ComponentActivity() {
 
                 // List of total finds to display in panel
                 // Will be filtered by coin type
-                val listOfFinds = remember { mutableListOf<Find>() }
+                val listOfFinds = remember { mutableStateListOf<Find>() }
 
                 SideEffect {
                     systemUiController.setStatusBarColor(

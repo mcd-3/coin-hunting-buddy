@@ -24,9 +24,18 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 @Composable
 fun FindsPanel(
     findsList: MutableList<Find>,
+    currentCoinTypeInt: Int
 ) {
     val startPadding = 8.dp
     val endPadding = 8.dp
+
+    // Filter out list of finds by coin type
+    val filteredListOfFinds = mutableListOf<Find>()
+    findsList.forEach {
+        if (it.findType == currentCoinTypeInt) {
+            filteredListOfFinds.add(it)
+        }
+    }
 
     Column {
         Row(
@@ -52,7 +61,7 @@ fun FindsPanel(
             )
         }
 
-        if (findsList.isEmpty()) {
+        if (filteredListOfFinds.isEmpty()) {
             Column() {
                 Row(
                     modifier = Modifier
@@ -91,77 +100,78 @@ fun FindsPanel(
                     .padding(bottom = 8.dp)
             ) {
                 findsList.forEachIndexed { index, it ->
+                    if (it.findType == currentCoinTypeInt) {
+                        val topPadding = if (index == 0) 2.dp else 8.dp
 
-                    val topPadding = if (index == 0) 2.dp else 8.dp
-
-                    Row(
-                        modifier = Modifier.padding(
-                            start = startPadding,
-                            end = endPadding,
-                            top = topPadding
-                        )
-                    ) {
-                        if (
-                            it.year.isEmpty() &&
-                            it.mintMark.isEmpty() &&
-                            it.variety.isEmpty() &&
-                            it.error.isEmpty()
+                        Row(
+                            modifier = Modifier.padding(
+                                start = startPadding,
+                                end = endPadding,
+                                top = topPadding
+                            )
                         ) {
-                            Text(text = "Unknown Coin", modifier = Modifier.padding(start = startPadding))
-                        } else {
-                            val yearStr = it.year.ifEmpty { "Illegible Year" }
-                            val mintMarkStr = it.mintMark.ifEmpty { "" }
-                            val varietyStr = it.variety.ifEmpty { "" }
-                            val errorStr = it.error.ifEmpty { "" }
-
-                            var coinStringFirst = ""
-                            var coinStringSecond = ""
-
-                            coinStringFirst = if (it.year.isEmpty() && mintMarkStr.isEmpty()) {
-                                yearStr
-                            } else if (it.year.isEmpty()) {
-                                "$yearStr - $mintMarkStr"
+                            if (
+                                it.year.isEmpty() &&
+                                it.mintMark.isEmpty() &&
+                                it.variety.isEmpty() &&
+                                it.error.isEmpty()
+                            ) {
+                                Text(text = "Unknown Coin", modifier = Modifier.padding(start = startPadding))
                             } else {
-                                "$yearStr$mintMarkStr"
-                            }
+                                val yearStr = it.year.ifEmpty { "Illegible Year" }
+                                val mintMarkStr = it.mintMark.ifEmpty { "" }
+                                val varietyStr = it.variety.ifEmpty { "" }
+                                val errorStr = it.error.ifEmpty { "" }
 
-                            coinStringSecond = if (varietyStr.isEmpty() && errorStr.isEmpty()) {
-                                ""
-                            } else if (varietyStr.isEmpty()) {
-                                errorStr
-                            } else if (errorStr.isEmpty()) {
-                                varietyStr
-                            } else {
-                                "$varietyStr - $errorStr"
-                            }
+                                var coinStringFirst = ""
+                                var coinStringSecond = ""
 
-                            Row() {
-                                IconButton(
-                                    modifier = Modifier.weight(0.15f),
-                                    onClick = {
-                                        findsList.removeAt(index)
-                                    }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Cancel,
-                                        contentDescription = "Cancel",
-                                        tint = Color(0xFFE6382C)
-                                    )
+                                coinStringFirst = if (it.year.isEmpty() && mintMarkStr.isEmpty()) {
+                                    yearStr
+                                } else if (it.year.isEmpty()) {
+                                    "$yearStr - $mintMarkStr"
+                                } else {
+                                    "$yearStr$mintMarkStr"
                                 }
-                                Column(modifier = Modifier.weight(0.85f)) {
-                                    Text(
-                                        text = coinStringFirst,
-                                        fontSize = 20.sp,
-                                    )
-                                    if (coinStringSecond.isNotEmpty()) {
-                                        Text(
-                                            text = coinStringSecond,
-                                            fontStyle = FontStyle.Italic
+
+                                coinStringSecond = if (varietyStr.isEmpty() && errorStr.isEmpty()) {
+                                    ""
+                                } else if (varietyStr.isEmpty()) {
+                                    errorStr
+                                } else if (errorStr.isEmpty()) {
+                                    varietyStr
+                                } else {
+                                    "$varietyStr - $errorStr"
+                                }
+
+                                Row() {
+                                    IconButton(
+                                        modifier = Modifier.weight(0.15f),
+                                        onClick = {
+                                            findsList.removeAt(index)
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Cancel,
+                                            contentDescription = "Cancel",
+                                            tint = Color(0xFFE6382C)
                                         )
                                     }
+                                    Column(modifier = Modifier.weight(0.85f)) {
+                                        Text(
+                                            text = coinStringFirst,
+                                            fontSize = 20.sp,
+                                        )
+                                        if (coinStringSecond.isNotEmpty()) {
+                                            Text(
+                                                text = coinStringSecond,
+                                                fontStyle = FontStyle.Italic
+                                            )
+                                        }
 
-                                    if (index != findsList.size - 1) {
-                                        Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
+                                        if (index != findsList.size - 1) {
+                                            Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
+                                        }
                                     }
                                 }
                             }

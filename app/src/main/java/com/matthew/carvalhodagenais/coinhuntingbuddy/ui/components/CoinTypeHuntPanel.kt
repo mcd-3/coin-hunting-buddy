@@ -127,14 +127,7 @@ fun CoinTypeHuntPanel(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Filter out list of finds by coin type
-            val filteredListOfFinds = mutableListOf<Find>()
-            listOfFinds.forEach {
-                if (it.findType == currentCoinTypeInt) {
-                    filteredListOfFinds.add(it)
-                }
-            }
-            FindsPanel(findsList = filteredListOfFinds)
+            FindsPanel(findsList = listOfFinds, currentCoinTypeInt = currentCoinTypeInt)
 
             // Finds Form
             val yearStringState = remember { mutableStateOf("") }
