@@ -9,9 +9,12 @@ class ViewModelFactory(private val application: Application):
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when (MainActivityViewModel::class.java) {
-            modelClass ->
+
+        return when {
+            modelClass.isAssignableFrom(MainActivityViewModel::class.java) ->
                 MainActivityViewModel(application) as T
+            modelClass.isAssignableFrom(HuntActivityViewModel::class.java) ->
+                HuntActivityViewModel(application) as T
             else -> IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}") as T
         }
     }

@@ -15,6 +15,9 @@ interface FindDAO {
     @Delete
     suspend fun delete(find: Find)
 
+    @Query("SELECT * FROM finds_table")
+    fun getAllFinds(): LiveData<List<Find>>
+
     @Query("SELECT * FROM finds_table WHERE id = :id")
     fun getFindById(id: Int): LiveData<Find>
 

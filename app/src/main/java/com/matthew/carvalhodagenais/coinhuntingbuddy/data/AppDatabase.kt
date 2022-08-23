@@ -26,6 +26,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun gradeDao(): GradeDAO
     abstract fun coinTypeDao(): CoinTypeDAO
     abstract fun huntGroupDao(): HuntGroupDAO
+    abstract fun findDao(): FindDAO
 
     companion object {
 
