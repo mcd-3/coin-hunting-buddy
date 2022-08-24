@@ -5,10 +5,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,23 +14,32 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Grade
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
+// Unfortunately, we need to opt in to experimental APIs for ExposedDropdownMenuBox
+// We will need to wait until Compose is in a better state before disabling this
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CoinTypeHuntPanel(
     coinKeyState: MutableState<String>,
     rollsLeftState: MutableState<Int>,
     unwrapRollOnClick: () -> Unit,
-    listOfFinds: MutableList<Find>
+    listOfFinds: MutableList<Find>,
+    viewModel: HuntActivityViewModel = viewModel()
 ) {
     val showAlertDialog = remember { mutableStateOf(false) }
     val currentCoinType = MoneyStringToSymbolUtil.stringToCoinType(coinKeyState.value)
     val context = LocalContext.current
+    val gradesState: State<List<Grade>> = viewModel.getGrades().observeAsState(initial = listOf())
 
     Card(
         modifier = Modifier
@@ -190,7 +197,8 @@ fun CoinTypeHuntPanel(
                                     placeholder = { Text(text = "Year") },
                                     modifier = Modifier
                                         .weight(0.5f)
-                                        .padding(end = 4.dp),
+                                        .padding(end = 4.dp)
+                                        .align(Alignment.Top),
                                     keyboardOptions = KeyboardOptions(
                                         keyboardType = KeyboardType.Number
                                     ),
@@ -214,17 +222,50 @@ fun CoinTypeHuntPanel(
                                         }
                                     }
                                 )
-                                OutlinedTextField(
-                                    value = mintMarkStringState.value,
-                                    label = { Text(text = "Mint Mark") },
-                                    placeholder = { Text(text = "Mint Mark") },
+
+                                var expanded by remember { mutableStateOf(false) }
+                                var selectedOption by remember { mutableStateOf(gradesState.value[0]) }
+                                ExposedDropdownMenuBox(
+                                    expanded = expanded,
+                                    onExpandedChange = {
+                                        expanded = !expanded
+                                    },
                                     modifier = Modifier
                                         .weight(0.5f)
-                                        .padding(start = 4.dp),
-                                    onValueChange = {
-                                        mintMarkStringState.value = it
+                                        .padding(start = 4.dp)
+                                        .align(Alignment.Bottom),
+                                ) {
+                                    TextField(
+                                        readOnly = true,
+                                        value = TextFieldValue(selectedOption.code),
+                                        onValueChange = { },
+                                        trailingIcon = {
+                                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                                expanded = expanded
+                                            )
+                                        },
+                                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                                        label = { Text(text = "Mint Mark") },
+                                    )
+                                    ExposedDropdownMenu(
+                                        expanded = expanded,
+                                        onDismissRequest = {
+                                            expanded = false
+                                        }
+                                    ) {
+                                        gradesState.value.forEach {
+                                            DropdownMenuItem(
+                                                onClick = {
+                                                    selectedOption = it
+                                                    expanded = false
+                                                    mintMarkStringState.value = selectedOption.code
+                                                }
+                                            ) {
+                                                Text(text = it.code)
+                                            }
+                                        }
                                     }
-                                )
+                                }
                             }
                             Spacer(modifier = Modifier.height(12.dp))
                             OutlinedTextField(

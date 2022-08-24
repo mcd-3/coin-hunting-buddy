@@ -44,10 +44,8 @@ abstract class AppDatabase: RoomDatabase() {
                         .build()
                         .also {
                             Log.d("DB", it.openHelper.writableDatabase.path)
+                            insertInitialData()
                         }
-                    GlobalScope.launch {
-                        insertInitialData()
-                    }
                 }
             }
             return instance

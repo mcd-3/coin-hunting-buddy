@@ -21,6 +21,6 @@ interface FindDAO {
     @Query("SELECT * FROM finds_table WHERE id = :id")
     fun getFindById(id: Int): LiveData<Find>
 
-    @Query("SELECT * FROM finds_table WHERE hunt_id IN (SELECT * FROM hunt_table WHERE id = :id)")
+    @Query("SELECT * FROM finds_table WHERE hunt_id IN (SELECT id FROM hunt_table WHERE id = :id)")
     fun getFindByHuntId(id: Int): LiveData<List<Find>>
 }
