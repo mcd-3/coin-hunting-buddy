@@ -142,6 +142,7 @@ fun CoinTypeHuntPanel(
             val varietyStringState = remember { mutableStateOf("") }
             val mintMarkStringState = remember { mutableStateOf("") }
             val errorStringState = remember { mutableStateOf("") }
+            val gradeStringState = remember { mutableStateOf("") }
             if(showAlertDialog.value){
                 AlertDialog(
                     onDismissRequest = {
@@ -149,6 +150,7 @@ fun CoinTypeHuntPanel(
                         yearStringState.value = ""
                         varietyStringState.value = ""
                         mintMarkStringState.value = ""
+                        gradeStringState.value = ""
                         errorStringState.value = ""
                     },
                     confirmButton = {
@@ -158,6 +160,7 @@ fun CoinTypeHuntPanel(
                                 variety = varietyStringState.value,
                                 mintMark = mintMarkStringState.value,
                                 error = errorStringState.value,
+                                grade = gradeStringState.value,
                                 findType = currentCoinType
                             )
                             listOfFinds.add(find)
@@ -165,6 +168,7 @@ fun CoinTypeHuntPanel(
                             varietyStringState.value = ""
                             mintMarkStringState.value = ""
                             errorStringState.value = ""
+                            gradeStringState.value = ""
                             showAlertDialog.value = false
                             val toast = Toast.makeText(
                                 context,
@@ -182,6 +186,7 @@ fun CoinTypeHuntPanel(
                             yearStringState.value = ""
                             varietyStringState.value = ""
                             mintMarkStringState.value = ""
+                            gradeStringState.value = ""
                             errorStringState.value = ""
                         }) {
                             Text(text = "Cancel")
@@ -225,6 +230,7 @@ fun CoinTypeHuntPanel(
 
                                 var expanded by remember { mutableStateOf(false) }
                                 var selectedOption by remember { mutableStateOf(gradesState.value[0]) }
+                                gradeStringState.value = selectedOption.code
                                 ExposedDropdownMenuBox(
                                     expanded = expanded,
                                     onExpandedChange = {
@@ -245,7 +251,7 @@ fun CoinTypeHuntPanel(
                                             )
                                         },
                                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                        label = { Text(text = "Mint Mark") },
+                                        label = { Text(text = "Grade") },
                                     )
                                     ExposedDropdownMenu(
                                         expanded = expanded,
@@ -258,7 +264,7 @@ fun CoinTypeHuntPanel(
                                                 onClick = {
                                                     selectedOption = it
                                                     expanded = false
-                                                    mintMarkStringState.value = selectedOption.code
+                                                    gradeStringState.value = selectedOption.code
                                                 }
                                             ) {
                                                 Text(text = it.code)
@@ -267,6 +273,15 @@ fun CoinTypeHuntPanel(
                                     }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(12.dp))
+                            OutlinedTextField(
+                                value = mintMarkStringState.value,
+                                label = { Text(text = "Mint Mark") },
+                                placeholder = { Text(text = "P") },
+                                onValueChange = {
+                                    mintMarkStringState.value = it
+                                }
+                            )
                             Spacer(modifier = Modifier.height(12.dp))
                             OutlinedTextField(
                                 value = varietyStringState.value,

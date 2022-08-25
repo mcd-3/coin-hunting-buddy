@@ -7,5 +7,6 @@ data class Find(
     val variety: String = "",
     val mintMark: String = "",
     val error: String = "",
+    val grade: String = "",
     val findType: CoinTypes
 )

@@ -117,7 +117,7 @@ fun FindsPanel(
                                 it.variety.isEmpty() &&
                                 it.error.isEmpty()
                             ) {
-                                Text(text = "Unknown Coin", modifier = Modifier.padding(start = startPadding))
+                                Text(text = "Unknown Coin - ${it.grade}", modifier = Modifier.padding(start = startPadding))
                             } else {
                                 val yearStr = it.year.ifEmpty { "Illegible Year" }
                                 val mintMarkStr = it.mintMark.ifEmpty { "" }
@@ -160,7 +160,7 @@ fun FindsPanel(
                                     }
                                     Column(modifier = Modifier.weight(0.85f)) {
                                         Text(
-                                            text = coinStringFirst,
+                                            text = "$coinStringFirst - ${it.grade}",
                                             fontSize = 20.sp,
                                         )
                                         if (coinStringSecond.isNotEmpty()) {
