@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.CoinTypeHuntPanel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.ConfirmCancelAlertDialog
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FullButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.TabButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
@@ -160,24 +161,18 @@ class HuntActivity : ComponentActivity() {
                         showAlertDialog.value = true
                     }
                     if(showAlertDialog.value){
-                        AlertDialog(
-                            onDismissRequest = { showAlertDialog.value = false },
-                            confirmButton = {
-                                TextButton(onClick = {
-                                    val intent = Intent(this, MainActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    startActivity(intent)
-                                }){
-                                    Text(text = "Yes")
-                                }
+                        ConfirmCancelAlertDialog(
+                            title = "Are you sure you want to stop this hunt?",
+                            body = "This hunt and any finds will not be saved.",
+                            confirmLabel = "Yes",
+                            cancelLabel = "No",
+                            toggledState = showAlertDialog,
+                            onConfirm = {
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
                             },
-                            dismissButton = {
-                                TextButton(onClick = { showAlertDialog.value = false }) {
-                                    Text(text = "No")
-                                }
-                            },
-                            title = { Text(text = "Are you sure you want to stop this hunt?") },
-                            text = { Text(text = "This hunt and any finds will not be saved.") }
+                            onCancel = { showAlertDialog.value = false }
                         )
                     }
 
@@ -243,32 +238,24 @@ class HuntActivity : ComponentActivity() {
                         }
 
                         if(showHuntCompleteDialog.value){
-                            AlertDialog(
-                                onDismissRequest = { showHuntCompleteDialog.value = false },
-                                confirmButton = {
-                                    TextButton(onClick = {
-                                        val intent = Intent(context, MainActivity::class.java)
-                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        startActivity(intent)
-                                    }){
-                                        Text(text = "Complete Hunt")
-                                    }
+                            ConfirmCancelAlertDialog(
+                                title = "Complete Hunt?",
+                                body = "Make sure to double check your finds before wrapping up!",
+                                confirmLabel = "Complete Hunt",
+                                cancelLabel = "Cancel",
+                                toggledState = showHuntCompleteDialog,
+                                onConfirm = {
+                                    val intent = Intent(context, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
                                 },
-                                dismissButton = {
-                                    TextButton(onClick = { showHuntCompleteDialog.value = false }) {
-                                        Text(text = "Cancel")
-                                    }
-                                },
-                                title = { Text(text = "Complete Hunt?") },
-                                text = { Text(text = "Make sure to double check your finds before wrapping up!") }
+                                onCancel = { showHuntCompleteDialog.value = false }
                             )
                         }
                         Row(Modifier.weight(0.1f)) {
                             FullButton(
                                 onClick = {
-                                    // Save all finds to DB
                                     showHuntCompleteDialog.value = true
-                                    // Return to MainActivity
                                 },
                                 text = "Complete Hunt",
                                 enabled = completeHuntFlag.value
