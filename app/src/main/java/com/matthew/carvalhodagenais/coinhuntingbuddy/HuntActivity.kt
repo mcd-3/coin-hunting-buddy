@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
@@ -126,6 +127,7 @@ class HuntActivity : ComponentActivity() {
         setContent {
             CoinHuntingBuddyTheme {
                 val systemUiController = rememberSystemUiController()
+                val context = LocalContext.current
 
                 // Keys of the main list
                 val firstKey = coinList.keys.first().toString()
@@ -137,6 +139,9 @@ class HuntActivity : ComponentActivity() {
                 val currentRollAmount = remember {
                     mutableStateOf(tempCoinList[selectedKey.value] as Int)
                 }
+
+                // Flags
+                val showHuntCompleteDialog = remember { mutableStateOf(false)}
                 val completeHuntFlag = remember { mutableStateOf(tempCoinList.all { it.value == 0 }) }
 
                 // List of total finds to display in panel
@@ -156,7 +161,7 @@ class HuntActivity : ComponentActivity() {
                     }
                     if(showAlertDialog.value){
                         AlertDialog(
-                            onDismissRequest = { /* Do nothing */ },
+                            onDismissRequest = { showAlertDialog.value = false },
                             confirmButton = {
                                 TextButton(onClick = {
                                     val intent = Intent(this, MainActivity::class.java)
@@ -237,10 +242,32 @@ class HuntActivity : ComponentActivity() {
                             )
                         }
 
+                        if(showHuntCompleteDialog.value){
+                            AlertDialog(
+                                onDismissRequest = { showHuntCompleteDialog.value = false },
+                                confirmButton = {
+                                    TextButton(onClick = {
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        startActivity(intent)
+                                    }){
+                                        Text(text = "Complete Hunt")
+                                    }
+                                },
+                                dismissButton = {
+                                    TextButton(onClick = { showHuntCompleteDialog.value = false }) {
+                                        Text(text = "Cancel")
+                                    }
+                                },
+                                title = { Text(text = "Complete Hunt?") },
+                                text = { Text(text = "Make sure to double check your finds before wrapping up!") }
+                            )
+                        }
                         Row(Modifier.weight(0.1f)) {
                             FullButton(
                                 onClick = {
                                     // Save all finds to DB
+                                    showHuntCompleteDialog.value = true
                                     // Return to MainActivity
                                 },
                                 text = "Complete Hunt",
