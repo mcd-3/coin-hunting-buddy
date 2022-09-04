@@ -22,6 +22,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.ConfirmCancel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FullButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.TabButton
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 
 /**
@@ -130,16 +131,8 @@ class HuntActivity : ComponentActivity() {
                 val systemUiController = rememberSystemUiController()
                 val context = LocalContext.current
 
-                // Keys of the main list
-                val firstKey = coinList.keys.first().toString()
-                val lastKey = coinList.keys.last().toString()
-                val selectedKey = remember { mutableStateOf(firstKey) }
-
                 // Use this list to remove rolls from
                 val tempCoinList = coinList.toMutableMap()
-                val currentRollAmount = remember {
-                    mutableStateOf(tempCoinList[selectedKey.value] as Int)
-                }
 
                 // Flags
                 val showHuntCompleteDialog = remember { mutableStateOf(false)}
@@ -188,6 +181,12 @@ class HuntActivity : ComponentActivity() {
                             .height(10.dp))
 
                         Column(modifier = Modifier.weight(0.7f)) {
+
+                            val selectedKey = remember { mutableStateOf("") }
+                            val currentRollAmount = remember {
+                                mutableStateOf(0)
+                            }
+
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -200,6 +199,18 @@ class HuntActivity : ComponentActivity() {
                                 val rolls = arrayOf(-1, -1, -1, -1, -1, -1)
 
                                 arrangeCoinMap(coinList, region!!, keys, rolls)
+
+                                val firstKey = keys[
+                                    ArrayTools.firstIndexWhereNot(rolls, -1)!!
+                                ]
+                                val lastKey = keys[
+                                    ArrayTools.lastIndexWhereNot(rolls, -1)!!
+                                ]
+
+                                if (selectedKey.value.isEmpty()) {
+                                    selectedKey.value = firstKey
+                                    currentRollAmount.value = tempCoinList[selectedKey.value]!!
+                                }
 
                                 keys.forEachIndexed { index, it ->
                                     if (it != "") {
