@@ -205,8 +205,8 @@ class HuntActivity : ComponentActivity() {
                                     if (it != "") {
                                         TabButton(
                                             onClick = {
-                                                currentRollAmount.value = rolls[index]
                                                 selectedKey.value = keys[index]
+                                                currentRollAmount.value = tempCoinList[selectedKey.value]!!
                                             },
                                             text = MoneyStringToSymbolUtil.convert(keys[index]),
                                             leftIsRounded = firstKey == keys[index],
@@ -224,14 +224,13 @@ class HuntActivity : ComponentActivity() {
                                 rollsLeftState = currentRollAmount,
                                 listOfFinds = listOfFinds,
                                 unwrapRollOnClick = {
+                                    val rollsMinusOne = tempCoinList[selectedKey.value] as Int - 1
                                     tempCoinList.replace(
                                         selectedKey.value,
-                                        tempCoinList[selectedKey.value] as Int - 1
+                                        rollsMinusOne
                                     )
 
-                                    currentRollAmount.value =
-                                        tempCoinList[selectedKey.value] as Int
-
+                                    currentRollAmount.value = rollsMinusOne
                                     completeHuntFlag.value = tempCoinList.all { it.value == 0 }
                                 }
                             )
