@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
@@ -11,7 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
@@ -125,9 +128,10 @@ fun HuntBox(
     // Will be filtered by coin type
     val listOfFinds = remember { mutableStateListOf<Find>() }
 
+    // Context is needed here to go back to MainActivity
+    val context = LocalContext.current
 
     Surface {
-
         val showAlertDialog = remember { mutableStateOf(false) }
         BackHandler {
             showAlertDialog.value = true
@@ -140,9 +144,9 @@ fun HuntBox(
                 cancelLabel = "No",
                 toggledState = showAlertDialog,
                 onConfirm = {
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(intent)
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    context.startActivity(intent)
                 },
                 onCancel = { showAlertDialog.value = false }
             )
