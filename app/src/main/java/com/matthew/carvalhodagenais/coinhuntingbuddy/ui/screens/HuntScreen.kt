@@ -1,21 +1,19 @@
-package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
+package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 
@@ -113,9 +111,11 @@ fun arrangeCoinMap(
 }
 
 @Composable
-fun HuntBox(
+fun HuntScreen(
     region: String,
-    coinList: Map<String, Int>
+    coinList: Map<String, Int>,
+    listOfFinds: MutableList<Find>,
+    huntDoneFlag: MutableState<Boolean>
 ) {
     // Use this list to remove rolls from
     val tempCoinList = coinList.toMutableMap()
@@ -124,14 +124,18 @@ fun HuntBox(
     val showHuntCompleteDialog = remember { mutableStateOf(false)}
     val completeHuntFlag = remember { mutableStateOf(tempCoinList.all { it.value == 0 }) }
 
-    // List of total finds to display in panel
-    // Will be filtered by coin type
-    val listOfFinds = remember { mutableStateListOf<Find>() }
-
     // Context is needed here to go back to MainActivity
     val context = LocalContext.current
 
-    Surface {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                backgroundColor = Color.White,
+                title = { Text(text = if (region == "US") "American Coin Hunt" else "Canadian Coin Hunt") },
+                elevation = 0.dp
+            )
+        },
+    ) {
         val showAlertDialog = remember { mutableStateOf(false) }
         BackHandler {
             showAlertDialog.value = true
@@ -153,12 +157,6 @@ fun HuntBox(
         }
 
         Column {
-            TopAppBar(
-                backgroundColor = Color.White,
-                title = { Text(text = if (region == "US") "American Coin Hunt" else "Canadian Coin Hunt") },
-                elevation = 0.dp
-            )
-
             Spacer(modifier = Modifier
                 .fillMaxWidth()
                 .height(10.dp))
@@ -238,9 +236,7 @@ fun HuntBox(
                     cancelLabel = "Cancel",
                     toggledState = showHuntCompleteDialog,
                     onConfirm = {
-//                        val intent = Intent(context, MainActivity::class.java)
-//                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                        startActivity(intent)
+                        huntDoneFlag.value = true
                     },
                     onCancel = { showHuntCompleteDialog.value = false }
                 )
