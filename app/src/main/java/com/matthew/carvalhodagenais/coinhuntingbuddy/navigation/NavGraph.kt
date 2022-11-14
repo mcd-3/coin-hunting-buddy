@@ -1,4 +1,4 @@
-package com.matthew.carvalhodagenais.coinhuntingbuddy.ui
+package com.matthew.carvalhodagenais.coinhuntingbuddy.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

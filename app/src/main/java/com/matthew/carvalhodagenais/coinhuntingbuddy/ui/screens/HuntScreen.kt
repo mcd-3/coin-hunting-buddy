@@ -240,7 +240,9 @@ fun HuntScreen(
                     cancelLabel = "Cancel",
                     toggledState = showHuntCompleteDialog,
                     onConfirm = {
-                        huntDoneFlag.value = true
+                        showHuntCompleteDialog.value = false
+                        navController.popBackStack()
+                        navController.navigate(navString)
                     },
                     onCancel = { showHuntCompleteDialog.value = false }
                 )
@@ -248,8 +250,7 @@ fun HuntScreen(
             Row(Modifier.weight(0.1f)) {
                 FullButton(
                     onClick = {
-                        navController.popBackStack()
-                        navController.navigate(navString)
+                        showHuntCompleteDialog.value = true
                     },
                     text = "Complete Hunt",
                     enabled = completeHuntFlag.value

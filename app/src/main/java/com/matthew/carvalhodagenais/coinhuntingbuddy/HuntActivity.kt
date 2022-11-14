@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.SetupSecondaryNavGraph
+import com.matthew.carvalhodagenais.coinhuntingbuddy.navigation.SetupSecondaryNavGraph
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 
 class HuntActivity : ComponentActivity() {
