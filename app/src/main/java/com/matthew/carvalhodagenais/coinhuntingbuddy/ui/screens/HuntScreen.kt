@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
@@ -112,6 +113,7 @@ fun arrangeCoinMap(
 
 @Composable
 fun HuntScreen(
+    navController: NavController,
     region: String,
     coinList: Map<String, Int>,
     listOfFinds: MutableList<Find>,
@@ -126,6 +128,8 @@ fun HuntScreen(
 
     // Context is needed here to go back to MainActivity
     val context = LocalContext.current
+
+    val navString = "review_screen"
 
     Scaffold(
         topBar = {
@@ -244,7 +248,8 @@ fun HuntScreen(
             Row(Modifier.weight(0.1f)) {
                 FullButton(
                     onClick = {
-                        showHuntCompleteDialog.value = true
+                        navController.popBackStack()
+                        navController.navigate(navString)
                     },
                     text = "Complete Hunt",
                     enabled = completeHuntFlag.value
