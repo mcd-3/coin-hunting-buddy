@@ -1,21 +1,24 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.*
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 @Composable
 fun SetupSecondaryNavGraph(
     navHostController: NavHostController,
     region: String,
     coinList: Map<String, Int>,
-    listOfFinds: MutableList<Find>,
-    huntDoneFlag: MutableState<Boolean>
+    listOfFinds: MutableList<Find>
 ) {
+
+    val viewModel: HuntActivityViewModel = viewModel()
+
     NavHost(
         navController = navHostController,
         startDestination = Screen.Hunt.route
@@ -24,17 +27,17 @@ fun SetupSecondaryNavGraph(
             route = Screen.Hunt.route
         ) {
             HuntScreen(
-                navHostController,
-                region,
-                coinList,
-                listOfFinds,
-                huntDoneFlag
+                viewModel = viewModel,
+                navController = navHostController,
+                region = region,
+                coinList = coinList,
+                listOfFinds = listOfFinds,
             )
         }
         composable(
             route = Screen.Review.route
         ) {
-            ReviewScreen(navController = navHostController)
+            ReviewScreen(viewModel = viewModel, navController = navHostController)
         }
     }
 }

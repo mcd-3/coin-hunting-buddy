@@ -6,10 +6,13 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 @Composable
 fun ReviewScreen(
+    viewModel: HuntActivityViewModel,
     navController: NavController,
 ) {
     // Get list of finds from ViewModel
@@ -23,6 +26,6 @@ fun ReviewScreen(
             )
         },
     ) {
-
+        Text(text = viewModel.getRegion())
     }
 }

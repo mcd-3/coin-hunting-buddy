@@ -11,12 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 
 /**
@@ -113,11 +115,11 @@ fun arrangeCoinMap(
 
 @Composable
 fun HuntScreen(
+    viewModel: HuntActivityViewModel,
     navController: NavController,
     region: String,
     coinList: Map<String, Int>,
     listOfFinds: MutableList<Find>,
-    huntDoneFlag: MutableState<Boolean>
 ) {
     // Use this list to remove rolls from
     val tempCoinList = coinList.toMutableMap()
@@ -240,6 +242,7 @@ fun HuntScreen(
                     cancelLabel = "Cancel",
                     toggledState = showHuntCompleteDialog,
                     onConfirm = {
+                        viewModel.setRegion(region)
                         showHuntCompleteDialog.value = false
                         navController.popBackStack()
                         navController.navigate(navString)

@@ -32,8 +32,6 @@ class HuntActivity : ComponentActivity() {
                 val systemUiController = rememberSystemUiController()
                 val listOfFinds = remember { mutableStateListOf<Find>() }
 
-                val huntDoneFlag = remember { mutableStateOf(false) }
-
                 SideEffect {
                     systemUiController.setStatusBarColor(
                         color = Color.LightGray
@@ -44,8 +42,7 @@ class HuntActivity : ComponentActivity() {
                     navController,
                     region!!,
                     coinList,
-                    listOfFinds,
-                    huntDoneFlag
+                    listOfFinds
                 )
             }
         }

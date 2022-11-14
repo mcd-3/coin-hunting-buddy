@@ -1,6 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
@@ -15,6 +16,7 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
     private val findRepository = FindRepository(application)
 
     val listOfFinds = mutableListOf<Find>()
+    private val huntRegionState = mutableStateOf("")
 
 
     fun getGrades(): LiveData<List<Grade>> {
@@ -36,6 +38,14 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getListOfFindsByCoinType() {
         // TODO: Return list of finds by coin type
+    }
+
+    fun setRegion(region: String) {
+        huntRegionState.value = region
+    }
+
+    fun getRegion(): String {
+        return huntRegionState.value
     }
 
 }
