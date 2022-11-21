@@ -11,10 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
-import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
@@ -119,7 +117,6 @@ fun HuntScreen(
     navController: NavController,
     region: String,
     coinList: Map<String, Int>,
-    listOfFinds: MutableList<Find>,
 ) {
     // Use this list to remove rolls from
     val tempCoinList = coinList.toMutableMap()
@@ -220,7 +217,7 @@ fun HuntScreen(
                 CoinTypeHuntPanel(
                     coinKeyState = selectedKey,
                     rollsLeftState = currentRollAmount,
-                    listOfFinds = listOfFinds,
+                    viewModel = viewModel,
                     unwrapRollOnClick = {
                         val rollsMinusOne = tempCoinList[selectedKey.value] as Int - 1
                         tempCoinList.replace(

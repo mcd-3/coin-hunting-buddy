@@ -4,14 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.navigation.SetupSecondaryNavGraph
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.CoinHuntingBuddyTheme
 
@@ -30,7 +26,6 @@ class HuntActivity : ComponentActivity() {
             navController = rememberNavController()
             CoinHuntingBuddyTheme {
                 val systemUiController = rememberSystemUiController()
-                val listOfFinds = remember { mutableStateListOf<Find>() }
 
                 SideEffect {
                     systemUiController.setStatusBarColor(
@@ -41,8 +36,7 @@ class HuntActivity : ComponentActivity() {
                 SetupSecondaryNavGraph(
                     navController,
                     region!!,
-                    coinList,
-                    listOfFinds
+                    coinList
                 )
             }
         }

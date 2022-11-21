@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 // Database written using the Room library
-@Database(version = 1,
+@Database(version = 2,
     exportSchema = false,
     entities = [
         Region::class,

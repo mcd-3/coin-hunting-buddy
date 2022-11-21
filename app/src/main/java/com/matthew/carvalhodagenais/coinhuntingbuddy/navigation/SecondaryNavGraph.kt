@@ -5,7 +5,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
@@ -13,8 +12,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityView
 fun SetupSecondaryNavGraph(
     navHostController: NavHostController,
     region: String,
-    coinList: Map<String, Int>,
-    listOfFinds: MutableList<Find>
+    coinList: Map<String, Int>
 ) {
 
     val viewModel: HuntActivityViewModel = viewModel()
@@ -30,8 +28,7 @@ fun SetupSecondaryNavGraph(
                 viewModel = viewModel,
                 navController = navHostController,
                 region = region,
-                coinList = coinList,
-                listOfFinds = listOfFinds,
+                coinList = coinList
             )
         }
         composable(

@@ -19,24 +19,18 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
-import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.CoinTypes
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 @Composable
 fun FindsPanel(
-    findsList: MutableList<Find>,
-    currentCoinType: CoinTypes
+    viewModel: HuntActivityViewModel,
+    currentCoinType: Int
 ) {
     val startPadding = 8.dp
     val endPadding = 8.dp
 
     // Filter out list of finds by coin type
-    val filteredListOfFinds = mutableListOf<Find>()
-    findsList.forEach {
-        if (it.findType == currentCoinType) {
-            filteredListOfFinds.add(it)
-        }
-    }
+    val filteredListOfFinds = viewModel.getListOfFindsByCoinType(currentCoinType)
 
     Column {
         Row(
@@ -100,8 +94,8 @@ fun FindsPanel(
                     .verticalScroll(rememberScrollState())
                     .padding(bottom = 8.dp)
             ) {
-                findsList.forEachIndexed { index, it ->
-                    if (it.findType == currentCoinType) {
+                viewModel.listOfFinds.forEachIndexed { index, it ->
+                    if (it.coinTypeId == currentCoinType) {
                         val topPadding = if (index == 0) 2.dp else 8.dp
 
                         Row(
@@ -112,34 +106,34 @@ fun FindsPanel(
                             )
                         ) {
                             if (
-                                it.year.isEmpty() &&
-                                it.mintMark.isEmpty() &&
-                                it.variety.isEmpty() &&
-                                it.error.isEmpty()
+                                it.year === null &&
+                                it.mintMark.isNullOrEmpty() &&
+                                it.variety.isNullOrEmpty() &&
+                                it.error.isNullOrEmpty()
                             ) {
-                                Text(text = "Unknown Coin - ${it.grade}", modifier = Modifier.padding(start = startPadding))
+                                Text(text = "Unknown Coin - ${viewModel.getGradeStringById(it.gradeId)}", modifier = Modifier.padding(start = startPadding))
                             } else {
-                                val yearStr = it.year.ifEmpty { "Illegible Year" }
-                                val mintMarkStr = it.mintMark.ifEmpty { "" }
-                                val varietyStr = it.variety.ifEmpty { "" }
-                                val errorStr = it.error.ifEmpty { "" }
+                                val yearStr = if (it.year === null) "Illegible Year" else it.year.toString()
+                                val mintMarkStr = if (it.mintMark.isNullOrEmpty()) "" else it.mintMark
+                                val varietyStr = if (it.variety.isNullOrEmpty()) "" else it.variety
+                                val errorStr = if (it.error.isNullOrEmpty()) "" else it.error
 
                                 var coinStringFirst = ""
                                 var coinStringSecond = ""
 
-                                coinStringFirst = if (it.year.isEmpty() && mintMarkStr.isEmpty()) {
+                                coinStringFirst = if (it.year === null && mintMarkStr!!.isEmpty()) {
                                     yearStr
-                                } else if (it.year.isEmpty()) {
+                                } else if (it.year === null) {
                                     "$yearStr - $mintMarkStr"
                                 } else {
                                     "$yearStr$mintMarkStr"
                                 }
 
-                                coinStringSecond = if (varietyStr.isEmpty() && errorStr.isEmpty()) {
+                                coinStringSecond = if (varietyStr!!.isEmpty() && errorStr!!.isEmpty()) {
                                     ""
                                 } else if (varietyStr.isEmpty()) {
-                                    errorStr
-                                } else if (errorStr.isEmpty()) {
+                                    errorStr!!
+                                } else if (errorStr!!.isEmpty()) {
                                     varietyStr
                                 } else {
                                     "$varietyStr - $errorStr"
@@ -149,7 +143,7 @@ fun FindsPanel(
                                     IconButton(
                                         modifier = Modifier.weight(0.15f),
                                         onClick = {
-                                            findsList.removeAt(index)
+                                            viewModel.listOfFinds.removeAt(index)
                                         }
                                     ) {
                                         Icon(
@@ -160,7 +154,7 @@ fun FindsPanel(
                                     }
                                     Column(modifier = Modifier.weight(0.85f)) {
                                         Text(
-                                            text = "$coinStringFirst - ${it.grade}",
+                                            text = "$coinStringFirst - ${viewModel.getGradeStringById(it.gradeId)}",
                                             fontSize = 20.sp,
                                         )
                                         if (coinStringSecond.isNotEmpty()) {
@@ -170,7 +164,7 @@ fun FindsPanel(
                                             )
                                         }
 
-                                        if (index != findsList.size - 1) {
+                                        if (index != viewModel.listOfFinds.size - 1) {
                                             Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
                                         }
                                     }
