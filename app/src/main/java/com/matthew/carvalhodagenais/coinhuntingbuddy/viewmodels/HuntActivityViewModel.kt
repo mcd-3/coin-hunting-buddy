@@ -15,29 +15,14 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
     private val gradeRepository = GradeRepository(application)
     private val findRepository = FindRepository(application)
 
+    // TODO: Change me
+    private val currentHuntId: Int = 0
+
     val listOfFinds = mutableListOf<Find>()
     private val huntRegionState = mutableStateOf("")
 
-
     fun getGrades(): LiveData<List<Grade>> {
         return gradeRepository.getGrades()
-    }
-
-    fun addFindToList(
-        year: String,
-        grade: String,
-        variety: String,
-        error: String
-    ) {
-        // TODO: Map the params to a new find object
-    }
-
-    fun removeFindFromList(listIndex: Int) {
-        // TODO: Remove item from list
-    }
-
-    fun getListOfFindsByCoinType() {
-        // TODO: Return list of finds by coin type
     }
 
     fun setRegion(region: String) {
