@@ -105,21 +105,21 @@ fun FindsPanel(
                                 top = topPadding
                             )
                         ) {
+                            var coinStringFirst = ""
+                            var coinStringSecond = ""
+
                             if (
                                 it.year === null &&
                                 it.mintMark.isNullOrEmpty() &&
                                 it.variety.isNullOrEmpty() &&
                                 it.error.isNullOrEmpty()
                             ) {
-                                Text(text = "Unknown Coin - ${viewModel.getGradeStringById(it.gradeId)}", modifier = Modifier.padding(start = startPadding))
+                                coinStringFirst = "Unknown Coin"
                             } else {
                                 val yearStr = if (it.year === null) "Illegible Year" else it.year.toString()
                                 val mintMarkStr = if (it.mintMark.isNullOrEmpty()) "" else it.mintMark
                                 val varietyStr = if (it.variety.isNullOrEmpty()) "" else it.variety
                                 val errorStr = if (it.error.isNullOrEmpty()) "" else it.error
-
-                                var coinStringFirst = ""
-                                var coinStringSecond = ""
 
                                 coinStringFirst = if (it.year === null && mintMarkStr!!.isEmpty()) {
                                     yearStr
@@ -138,35 +138,35 @@ fun FindsPanel(
                                 } else {
                                     "$varietyStr - $errorStr"
                                 }
+                            }
 
-                                Row() {
-                                    IconButton(
-                                        modifier = Modifier.weight(0.15f),
-                                        onClick = {
-                                            viewModel.listOfFinds.removeAt(index)
-                                        }
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Filled.Cancel,
-                                            contentDescription = "Cancel",
-                                            tint = Color(0xFFE6382C)
+                            Row() {
+                                IconButton(
+                                    modifier = Modifier.weight(0.15f),
+                                    onClick = {
+                                        viewModel.listOfFinds.removeAt(index)
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Cancel,
+                                        contentDescription = "Cancel",
+                                        tint = Color(0xFFE6382C)
+                                    )
+                                }
+                                Column(modifier = Modifier.weight(0.85f)) {
+                                    Text(
+                                        text = "$coinStringFirst - ${viewModel.getGradeStringById(it.gradeId)}",
+                                        fontSize = 20.sp,
+                                    )
+                                    if (coinStringSecond.isNotEmpty()) {
+                                        Text(
+                                            text = coinStringSecond,
+                                            fontStyle = FontStyle.Italic
                                         )
                                     }
-                                    Column(modifier = Modifier.weight(0.85f)) {
-                                        Text(
-                                            text = "$coinStringFirst - ${viewModel.getGradeStringById(it.gradeId)}",
-                                            fontSize = 20.sp,
-                                        )
-                                        if (coinStringSecond.isNotEmpty()) {
-                                            Text(
-                                                text = coinStringSecond,
-                                                fontStyle = FontStyle.Italic
-                                            )
-                                        }
 
-                                        if (index != viewModel.listOfFinds.size - 1) {
-                                            Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
-                                        }
+                                    if (index != viewModel.listOfFinds.size - 1) {
+                                        Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
                                     }
                                 }
                             }
