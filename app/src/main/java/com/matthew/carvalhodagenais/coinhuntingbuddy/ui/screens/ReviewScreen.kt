@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.util.Log
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -21,11 +22,12 @@ fun ReviewScreen(
         topBar = {
             TopAppBar(
                 backgroundColor = Color.White,
-                title = { Text(text = "Hello World!") },
+                title = { Text(text = "Your Finds") },
                 elevation = 0.dp
             )
         },
     ) {
         Text(text = viewModel.getRegion())
+        Log.d("FINDS", viewModel.listOfFinds.toString())
     }
 }

@@ -115,6 +115,7 @@ fun FindsPanel(
                                 it.error.isNullOrEmpty()
                             ) {
                                 coinStringFirst = "Unknown Coin"
+                                coinStringSecond = "No further details"
                             } else {
                                 val yearStr = if (it.year === null) "Illegible Year" else it.year.toString()
                                 val mintMarkStr = if (it.mintMark.isNullOrEmpty()) "" else it.mintMark
@@ -130,7 +131,7 @@ fun FindsPanel(
                                 }
 
                                 coinStringSecond = if (varietyStr!!.isEmpty() && errorStr!!.isEmpty()) {
-                                    ""
+                                    "No major varieties or errors"
                                 } else if (varietyStr.isEmpty()) {
                                     errorStr!!
                                 } else if (errorStr!!.isEmpty()) {
@@ -153,7 +154,7 @@ fun FindsPanel(
                                         tint = Color(0xFFE6382C)
                                     )
                                 }
-                                Column(modifier = Modifier.weight(0.85f)) {
+                                Column(modifier = Modifier.weight(1f)) {
                                     Text(
                                         text = "$coinStringFirst - ${viewModel.getGradeStringById(it.gradeId)}",
                                         fontSize = 20.sp,
@@ -166,7 +167,11 @@ fun FindsPanel(
                                     }
 
                                     if (index != viewModel.listOfFinds.size - 1) {
-                                        Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(top = 8.dp))
+                                        Divider(
+                                            color = Color.LightGray,
+                                            thickness = 1.dp,
+                                            modifier = Modifier.padding(top = 8.dp)
+                                        )
                                     }
                                 }
                             }
