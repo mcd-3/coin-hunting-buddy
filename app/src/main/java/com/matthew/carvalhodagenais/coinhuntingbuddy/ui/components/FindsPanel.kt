@@ -34,7 +34,7 @@ fun FindsPanel(
     // Filter out list of finds by coin type
     val filteredListOfFinds = viewModel.getListOfFindsByCoinType(currentCoinType)
 
-    // VERY hacky way to recompose the view!
+    // FIXME: VERY hacky way to recompose the view!
     val updateCounter = remember { mutableStateOf(0) }
 
     Column {
