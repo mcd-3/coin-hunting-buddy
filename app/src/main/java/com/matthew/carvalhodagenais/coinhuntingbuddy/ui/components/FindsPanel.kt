@@ -101,9 +101,12 @@ fun FindsPanel(
                     .verticalScroll(rememberScrollState())
                     .padding(bottom = 8.dp)
             ) {
+                var filteredIndex = 0
                 viewModel.listOfFinds.forEachIndexed { index, it ->
                     if (it.coinTypeId == currentCoinType) {
-                        val topPadding = if (index == 0) 2.dp else 8.dp
+                        val topPadding = if (filteredIndex == 0) 2.dp else 8.dp
+
+                        filteredIndex++
 
                         Row(
                             modifier = Modifier.padding(
@@ -174,7 +177,7 @@ fun FindsPanel(
                                         )
                                     }
 
-                                    if (index != viewModel.listOfFinds.size - 1) {
+                                    if (filteredIndex != filteredListOfFinds.size) {
                                         Divider(
                                             color = Color.LightGray,
                                             thickness = 1.dp,
