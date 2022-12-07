@@ -12,6 +12,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,9 @@ fun FindsPanel(
     // Filter out list of finds by coin type
     val filteredListOfFinds = viewModel.getListOfFindsByCoinType(currentCoinType)
 
+    // VERY hacky way to recompose the view!
+    val updateCounter = remember { mutableStateOf(0) }
+
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -45,7 +50,9 @@ fun FindsPanel(
                     .background(Color.Gray)
             )
 
-            Text(text = "Finds")
+            if (updateCounter.value > -1) {
+                Text(text = "Finds")
+            }
 
             Box(
                 modifier = Modifier
@@ -105,8 +112,8 @@ fun FindsPanel(
                                 top = topPadding
                             )
                         ) {
-                            var coinStringFirst = ""
-                            var coinStringSecond = ""
+                            val coinStringFirst: String
+                            val coinStringSecond: String
 
                             if (
                                 it.year === null &&
@@ -146,6 +153,7 @@ fun FindsPanel(
                                     modifier = Modifier.weight(0.15f),
                                     onClick = {
                                         viewModel.listOfFinds.removeAt(index)
+                                        updateCounter.value = updateCounter.value + 1
                                     }
                                 ) {
                                     Icon(
