@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,10 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Grade
-import com.matthew.carvalhodagenais.coinhuntingbuddy.dataobjects.Find
-import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 // Unfortunately, we need to opt in to experimental APIs for ExposedDropdownMenuBox
@@ -33,13 +28,11 @@ fun CoinTypeHuntPanel(
     coinKeyState: MutableState<String>,
     rollsLeftState: MutableState<Int>,
     unwrapRollOnClick: () -> Unit,
-    listOfFinds: MutableList<Find>,
-    viewModel: HuntActivityViewModel = viewModel()
+    viewModel: HuntActivityViewModel
 ) {
     val showAlertDialog = remember { mutableStateOf(false) }
-    val currentCoinType = MoneyStringToSymbolUtil.stringToCoinType(coinKeyState.value)
+    val currentCoinType = viewModel.getCoinTypeFromString(coinKeyState.value)
     val context = LocalContext.current
-    val gradesState: State<List<Grade>> = viewModel.getGrades().observeAsState(initial = listOf())
 
     Card(
         modifier = Modifier
@@ -135,7 +128,7 @@ fun CoinTypeHuntPanel(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            FindsPanel(findsList = listOfFinds, currentCoinType = currentCoinType)
+            FindsPanel(viewModel = viewModel, currentCoinType = currentCoinType)
 
             // Finds Form
             val yearStringState = remember { mutableStateOf("") }
@@ -155,7 +148,7 @@ fun CoinTypeHuntPanel(
                     },
                     confirmButton = {
                         TextButton(onClick = {
-                            val find = Find(
+                            viewModel.addFindToList(
                                 year = yearStringState.value,
                                 variety = varietyStringState.value,
                                 mintMark = mintMarkStringState.value,
@@ -163,7 +156,6 @@ fun CoinTypeHuntPanel(
                                 grade = gradeStringState.value,
                                 findType = currentCoinType
                             )
-                            listOfFinds.add(find)
                             yearStringState.value = ""
                             varietyStringState.value = ""
                             mintMarkStringState.value = ""
@@ -229,8 +221,8 @@ fun CoinTypeHuntPanel(
                                 )
 
                                 var expanded by remember { mutableStateOf(false) }
-                                var selectedOption by remember { mutableStateOf(gradesState.value[0]) }
-                                gradeStringState.value = selectedOption.code
+                                var selectedOption by remember { mutableStateOf(viewModel.getListOfGradeCodes()[0]) }
+                                gradeStringState.value = selectedOption
                                 ExposedDropdownMenuBox(
                                     expanded = expanded,
                                     onExpandedChange = {
@@ -243,7 +235,7 @@ fun CoinTypeHuntPanel(
                                 ) {
                                     TextField(
                                         readOnly = true,
-                                        value = TextFieldValue(selectedOption.code),
+                                        value = TextFieldValue(selectedOption),
                                         onValueChange = { },
                                         trailingIcon = {
                                             ExposedDropdownMenuDefaults.TrailingIcon(
@@ -259,15 +251,15 @@ fun CoinTypeHuntPanel(
                                             expanded = false
                                         }
                                     ) {
-                                        gradesState.value.forEach {
+                                        viewModel.getListOfGradeCodes().forEach {
                                             DropdownMenuItem(
                                                 onClick = {
                                                     selectedOption = it
                                                     expanded = false
-                                                    gradeStringState.value = selectedOption.code
+                                                    gradeStringState.value = selectedOption
                                                 }
                                             ) {
-                                                Text(text = it.code)
+                                                Text(text = it)
                                             }
                                         }
                                     }

@@ -1,15 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.utils
 
-enum class CoinTypes {
-    PENNY,
-    NICKEL,
-    DIME,
-    QUARTER,
-    LOONIE_OR_HALF_DOLLAR,
-    TOONIE_OR_US_DOLLAR,
-    UNDEFINED
-}
-
 class MoneyStringToSymbolUtil {
     companion object {
         /**
@@ -33,30 +23,6 @@ class MoneyStringToSymbolUtil {
                 "half-dollars" -> "50¢"
                 "dollars" -> "$1"
                 else -> "NA"
-            }
-        }
-
-        /**
-         * Converts a coin string to coin type
-         *
-         * @param str String - String to convert to CoinType enum
-         * @return CoinTypes
-         */
-        fun stringToCoinType(str: String): CoinTypes {
-            return when (str.lowercase()) {
-                "1 cents" -> CoinTypes.PENNY
-                "5 cents" -> CoinTypes.NICKEL
-                "10 cents" -> CoinTypes.DIME
-                "25 cents" -> CoinTypes.QUARTER
-                "loonies" -> CoinTypes.LOONIE_OR_HALF_DOLLAR
-                "toonies" -> CoinTypes.TOONIE_OR_US_DOLLAR
-                "pennies" -> CoinTypes.PENNY
-                "nickels" -> CoinTypes.NICKEL
-                "dimes" -> CoinTypes.DIME
-                "quarters" -> CoinTypes.QUARTER
-                "half-dollars" -> CoinTypes.LOONIE_OR_HALF_DOLLAR
-                "dollars" -> CoinTypes.TOONIE_OR_US_DOLLAR
-                else -> CoinTypes.UNDEFINED
             }
         }
     }

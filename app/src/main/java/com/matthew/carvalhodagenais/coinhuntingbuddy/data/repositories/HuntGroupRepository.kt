@@ -19,4 +19,8 @@ class HuntGroupRepository(application: Application) {
         allHuntGroups = huntGroupDAO.getHuntGroups()
     }
 
+    fun getHuntGroups(): LiveData<List<HuntGroup>> {
+        return allHuntGroups
+    }
+
 }

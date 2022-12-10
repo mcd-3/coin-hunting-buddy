@@ -8,11 +8,15 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NoItemsWarning
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 
 private const val HUNTS_INDEX = 0
 
 @Composable
-fun HuntsScreen(navController: NavController) {
+fun HuntsScreen(
+    viewModel: MainActivityViewModel,
+    navController: NavController
+) {
     val scaffoldState = rememberScaffoldState()
 
     Scaffold(
@@ -31,6 +35,7 @@ fun HuntsScreen(navController: NavController) {
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
+        viewModel.allHuntGroups
         NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
     }
 }

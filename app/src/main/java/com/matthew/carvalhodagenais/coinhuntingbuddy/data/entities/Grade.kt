@@ -12,4 +12,25 @@ data class Grade(
     @PrimaryKey(autoGenerate = false) var id: Int,
     @ColumnInfo(name = "code") var code: String,
     @ColumnInfo(name = "name") var name: String,
-)
+) {
+    // Cached IDs for quick access
+    companion object {
+        const val GRADE_PO_ID = 1
+        const val GRADE_FR_ID = 2
+        const val GRADE_AG_ID = 3
+        const val GRADE_G_ID = 4
+        const val GRADE_F_ID = 5
+        const val GRADE_VF_ID = 6
+        const val GRADE_AU_ID = 7
+        const val GRADE_MS_ID = 8
+
+        const val GRADE_PO_CODE = "PO"
+        const val GRADE_FR_CODE = "FR"
+        const val GRADE_AG_CODE = "AG"
+        const val GRADE_G_CODE = "G"
+        const val GRADE_F_CODE = "F"
+        const val GRADE_VF_CODE = "VF"
+        const val GRADE_AU_CODE = "AU"
+        const val GRADE_MS_CODE = "MS"
+    }
+}

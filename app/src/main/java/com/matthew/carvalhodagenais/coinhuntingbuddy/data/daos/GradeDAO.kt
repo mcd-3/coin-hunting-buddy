@@ -20,6 +20,9 @@ interface GradeDAO {
     suspend fun getGradeByCodeAsync(code: String): Grade
 
     @Query("SELECT * FROM grade_table WHERE id = :id")
+    fun getGradeCodeById(id: Int): Grade
+
+    @Query("SELECT * FROM grade_table WHERE id = :id")
     fun getGradeById(id: Int): LiveData<Grade>
 
     @Query("SELECT * FROM grade_table")

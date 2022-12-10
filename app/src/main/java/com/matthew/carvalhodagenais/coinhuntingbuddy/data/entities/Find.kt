@@ -27,11 +27,13 @@ import androidx.room.*
             childColumns = ["hunt_id"],
             onDelete = ForeignKey.NO_ACTION)])
 data class Find(
-    @ColumnInfo(name = "variety") var variety: String? = null,
     @ColumnInfo(name = "year") var year: Short? = null,
+    @ColumnInfo(name = "variety") var variety: String? = null,
+    @ColumnInfo(name = "error") var error: String? = null,
+    @ColumnInfo(name = "mint_mark") var mintMark: String? = null,
     @ColumnInfo(name = "coin_type_id") var coinTypeId: Int,
-    @ColumnInfo(name = "grade_id") var gradeId: Int? = null,
-    @ColumnInfo(name = "hunt_id") var huntId: Int
+    @ColumnInfo(name = "hunt_id") var huntId: Int,
+    @ColumnInfo(name = "grade_id") var gradeId: Int? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
