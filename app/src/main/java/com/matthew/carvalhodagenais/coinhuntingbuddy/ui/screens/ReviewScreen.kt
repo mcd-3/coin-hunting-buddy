@@ -1,6 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Scaffold
@@ -57,9 +56,6 @@ fun ReviewScreen(
                             Locale.ROOT
                         ) else it.toString()
                     }]
-                    Log.d("ROLLS_vm", viewModel.rollsPerCoin.toString())
-                    Log.d("ROLLS_vm", coinType.toString())
-                    Log.d("ROLLS_vm", rolls.toString())
                     Row() {
                         Text(text = "${coinType.name} - Rolls: $rolls")
                     }
@@ -69,7 +65,6 @@ fun ReviewScreen(
                         }
                     }
                 } else {
-                    Log.e("NAME", coinType.name)
                     val capitalized = MoneyStringToSymbolUtil.singleToPlural(coinType.name).replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(
                             Locale.ROOT
@@ -85,7 +80,6 @@ fun ReviewScreen(
                         }
                     }
                 }
-                Log.d("CT", it.toString())
             }
         }
     }
