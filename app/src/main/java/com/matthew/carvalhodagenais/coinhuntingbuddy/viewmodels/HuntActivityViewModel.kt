@@ -41,7 +41,7 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
      */
     fun getCoinTypeFromString(str: String): Int {
         return when (str.lowercase()) {
-            "1 cents" -> CoinType.CT_CANADA_PENNY
+            "1 cent" -> CoinType.CT_CANADA_PENNY
             "5 cents" -> CoinType.CT_CANADA_NICKEL
             "10 cents" -> CoinType.CT_CANADA_DIME
             "25 cents" -> CoinType.CT_CANADA_QUARTER

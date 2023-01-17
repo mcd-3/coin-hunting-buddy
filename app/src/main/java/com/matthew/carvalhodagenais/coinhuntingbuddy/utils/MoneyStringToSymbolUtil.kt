@@ -25,5 +25,20 @@ class MoneyStringToSymbolUtil {
                 else -> "NA"
             }
         }
+
+        fun singleToPlural(str: String): String {
+            return when (str.lowercase()) {
+                "1 cent" -> "1 Cents"
+                "1 dollar (\"loonie\")" -> "Loonies"
+                "2 dollars (\"toonie\")" -> "Toonies"
+                "penny" -> "Pennies"
+                "nickel" -> "Nickels"
+                "dime" -> "Dimes"
+                "quarter" -> "Quarters"
+                "half-dollar" -> "Half-Dollars"
+                "dollar" -> "Dollars"
+                else -> str
+            }
+        }
     }
 }
