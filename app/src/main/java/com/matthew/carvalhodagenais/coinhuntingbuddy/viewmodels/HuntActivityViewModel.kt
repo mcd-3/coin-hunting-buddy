@@ -6,12 +6,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.CoinTypeRepository
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.GradeRepository
 
 class HuntActivityViewModel(application: Application): AndroidViewModel(application) {
     private val gradeRepository = GradeRepository(application)
+    private val coinTypeRepository = CoinTypeRepository(application)
 
     val listOfFinds = mutableListOf<Find>()
+    var rollsPerCoin: MutableMap<String, Int> = mutableMapOf()
     private val huntRegionState = mutableStateOf("")
 
     fun getListOfGradeCodes(): List<String> {
@@ -83,5 +86,13 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
             }
         }
         return filteredList
+    }
+
+    fun getListSortedByCoinType(): List<Find> {
+        return listOfFinds
+    }
+
+    fun getAllCoinTypes(): LiveData<List<CoinType>> {
+        return coinTypeRepository.getCoinTypes()
     }
 }
