@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,16 +17,23 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FormLabel
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.ToggleButtonGroup
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SummaryFinds
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 import java.util.*
+
+fun capitalize(str: String): String {
+    return MoneyStringToSymbolUtil.singleToPlural(str).replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(
+            Locale.ROOT
+        ) else it.toString()
+    }
+}
 
 @Composable
 fun ReviewScreen(
@@ -84,9 +92,29 @@ fun ReviewScreen(
                 elevation = 10.dp
             ) {
                 Column {
-                    FormLabel(text = "My Finds", icon = Icons.Filled.Public)
                     // This could be another card
-                    coinTypes.value?.forEach { coinType ->
+                    FormLabel(text = "My Finds", icon = Icons.Filled.Public)
+
+                    viewModel.rollsPerCoin.forEach { it
+                        Log.e("ROLL", it.toString())
+                    }
+
+                    coinTypes.value?.forEach { it
+                        Log.e("CT", it.toString())
+                    }
+
+                    // TODO: This is not optimal. Fix this implementation
+                    val coinTypesFiltered = mutableListOf<CoinType>()
+                    coinTypes.value?.forEach { ct ->
+                        val capitalized = capitalize(ct.name)
+                        viewModel.rollsPerCoin.forEach {
+                            if (it.key == capitalized) {
+                                coinTypesFiltered.add(ct)
+                            }
+                        }
+                    }
+
+                    coinTypesFiltered.forEach { coinType ->
                         val listToDisplay = mutableListOf<Find>()
                         viewModel.listOfFinds.forEach { find ->
                             if (find.coinTypeId == coinType.id) {
@@ -94,37 +122,54 @@ fun ReviewScreen(
                             }
                         }
 
-                        if (listToDisplay.isNotEmpty()) {
-                            val rolls = viewModel.rollsPerCoin[coinType.name.replaceFirstChar {
-                                if (it.isLowerCase()) it.titlecase(
-                                    Locale.ROOT
-                                ) else it.toString()
-                            }]
-                            Row() {
-                                Text(text = "${coinType.name} - Rolls: $rolls")
-                            }
-                            listToDisplay.forEach {
-                                Row() {
-                                    Text(text = "${it.year}${it.mintMark}")
-                                }
-                            }
-                        } else {
-                            val capitalized = MoneyStringToSymbolUtil.singleToPlural(coinType.name).replaceFirstChar {
-                                if (it.isLowerCase()) it.titlecase(
-                                    Locale.ROOT
-                                ) else it.toString()
-                            }
-                            if (capitalized in viewModel.rollsPerCoin) {
-                                val rolls = viewModel.rollsPerCoin[capitalized]
-                                Row {
-                                    Text(text = "${coinType.name} - Rolls: $rolls")
-                                }
-                                Row {
-                                    Text(text = "No finds :(")
-                                }
-                            }
+                        val capitalized = capitalize(coinType.name)
+                        if (capitalized in viewModel.rollsPerCoin) {
+                            SummaryFinds(
+                                label = coinType.name,
+                                rolls = viewModel.rollsPerCoin[capitalized],
+                                listOfFinds = listToDisplay
+                            )
                         }
                     }
+
+//                    coinTypes.value?.forEach { coinType ->
+//
+//                        // For each rolls in rolls
+//                        //   Look if coin type exists
+//                        //   If so, add all the viewModel finds where id = id
+//                        //   If no, remove this coin type from list
+//
+////                        val listToDisplay = mutableListOf<Find>()
+////                        viewModel.listOfFinds.forEach { find ->
+////                            if (find.coinTypeId == coinType.id) {
+////                                listToDisplay.add(find)
+////                            }
+////                        }
+////
+////                        val capitalized = MoneyStringToSymbolUtil.singleToPlural(coinType.name).replaceFirstChar {
+////                            if (it.isLowerCase()) it.titlecase(
+////                                Locale.ROOT
+////                            ) else it.toString()
+////                        }
+//                        if (capitalized in viewModel.rollsPerCoin) {
+//                            val rolls = viewModel.rollsPerCoin[capitalized]
+//                            Row {
+//                                Text(text = "${coinType.name} - Rolls: $rolls")
+//                            }
+//
+//                            if (listToDisplay.isNotEmpty()) {
+//                                listToDisplay.forEach {
+//                                    Row() {
+//                                        Text(text = "${it.year}${it.mintMark}")
+//                                    }
+//                                }
+//                            } else {
+//                                Row {
+//                                    Text(text = "No finds :(")
+//                                }
+//                            }
+//                        }
+//                    }
                 }
             }
         }
