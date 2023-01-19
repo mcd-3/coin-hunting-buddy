@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 @Composable
@@ -115,41 +116,14 @@ fun FindsPanel(
                                 top = topPadding
                             )
                         ) {
-                            val coinStringFirst: String
-                            val coinStringSecond: String
-
-                            if (
-                                it.year === null &&
-                                it.mintMark.isNullOrEmpty() &&
-                                it.variety.isNullOrEmpty() &&
-                                it.error.isNullOrEmpty()
-                            ) {
-                                coinStringFirst = "Unknown Coin"
-                                coinStringSecond = "No further details"
-                            } else {
-                                val yearStr = if (it.year === null) "Illegible Year" else it.year.toString()
-                                val mintMarkStr = if (it.mintMark.isNullOrEmpty()) "" else it.mintMark
-                                val varietyStr = if (it.variety.isNullOrEmpty()) "" else it.variety
-                                val errorStr = if (it.error.isNullOrEmpty()) "" else it.error
-
-                                coinStringFirst = if (it.year === null && mintMarkStr!!.isEmpty()) {
-                                    yearStr
-                                } else if (it.year === null) {
-                                    "$yearStr - $mintMarkStr"
-                                } else {
-                                    "$yearStr$mintMarkStr"
-                                }
-
-                                coinStringSecond = if (varietyStr!!.isEmpty() && errorStr!!.isEmpty()) {
-                                    "No major varieties or errors"
-                                } else if (varietyStr.isEmpty()) {
-                                    errorStr!!
-                                } else if (errorStr!!.isEmpty()) {
-                                    varietyStr
-                                } else {
-                                    "$varietyStr - $errorStr"
-                                }
-                            }
+                            val coinStringArray = FindStringGenerator.generate(
+                                it.year,
+                                it.mintMark,
+                                it.variety,
+                                it.error
+                            )
+                            val coinStringFirst = coinStringArray[0]
+                            val coinStringSecond = coinStringArray[1]
 
                             Row() {
                                 IconButton(
