@@ -1,9 +1,15 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 
@@ -13,21 +19,52 @@ fun SummaryFinds(
     rolls: Int?,
     listOfFinds: MutableList<Find>
 ) {
-    Column {
+    Column(
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp)
+    ) {
         Row {
-            Text(text = label)
+            Text(
+                text = label,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
         }
-        Row {
-            // [Rolls: X    |    Finds: X]
-            Row {
-                Text(text = "Rolls: $rolls")
-            }
-            Row {
-                Text(text = "|")
-            }
-            Row {
-                Text(text = "Finds: ${listOfFinds.size}")
-            }
+        // [Rolls: X    |    Finds: X]
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 2.dp, bottom = 2.dp)
+        ) {
+            Text(
+                text = "Rolls: $rolls",
+                textAlign = TextAlign.Start,
+                fontStyle = FontStyle.Italic,
+                fontSize = 13.sp,
+                color = Color.Gray,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
+            Text(
+                text = "|",
+                textAlign = TextAlign.Center,
+                fontStyle = FontStyle.Italic,
+                fontSize = 13.sp,
+                color = Color.Gray,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
+            Text(
+                text = "Finds: ${listOfFinds.size}",
+                textAlign = TextAlign.End,
+                fontStyle = FontStyle.Italic,
+                fontSize = 13.sp,
+                color = Color.Gray,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
         }
 
         if (listOfFinds.isNotEmpty()) {
@@ -39,9 +76,12 @@ fun SummaryFinds(
                     it.error
                 )
                 // For each find, list each find via bullet point
-                Row {
+                Row(
+                    modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+                ) {
                     Column {
-                        // Bullet point
+                        val bullet = "\u2022"
+                        Text(text = bullet)
                     }
                     Column {
                         Text(text = findStringArray[0])
@@ -50,7 +90,17 @@ fun SummaryFinds(
                 }
             }
         } else {
-            Text(text = "No Finds :(")
+            Row(
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
+            ) {
+                Column {
+                    val bullet = "\u2022"
+                    Text(text = bullet)
+                }
+                Column {
+                    Text(text = "No finds :(")
+                }
+            }
         }
     }
 }
