@@ -191,14 +191,23 @@ fun HuntScreen(
                     val firstKey = keys[
                         ArrayTools.firstIndexWhereNot(rolls, -1)!!
                     ]
-                    val lastKey = keys[
-                        ArrayTools.lastIndexWhereNot(rolls, -1)!!
-                    ]
+
+                    var lastIndex = 0
+                    for (i in 5 downTo 0 step 1) {
+                        if (rolls[i] != -1) {
+                            lastIndex = i
+                            break
+                        }
+                    }
+
+                    val lastKey = keys[lastIndex]
 
                     if (selectedKey.value.isEmpty()) {
                         selectedKey.value = firstKey
                         currentRollAmount.value = tempCoinList[selectedKey.value]!!
                     }
+
+                    Log.e("KEYS", keys.toString())
 
                     keys.forEachIndexed { index, it ->
                         if (it != "") {
