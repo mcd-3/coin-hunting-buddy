@@ -37,12 +37,9 @@ fun ReviewScreen(
     viewModel: HuntActivityViewModel,
     navController: NavController,
 ) {
-
     val cardInnerPaddingStart = 10.dp
     val cardInnerPaddingEnd = 10.dp
 
-    // Get list of finds from ViewModel
-    // Get Region from ViewModel
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,7 +49,6 @@ fun ReviewScreen(
             )
         },
     ) {
-        // State
         val coinTypes = viewModel.getAllCoinTypes().observeAsState()
 
         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
