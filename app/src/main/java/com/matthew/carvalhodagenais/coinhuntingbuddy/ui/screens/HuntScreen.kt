@@ -207,8 +207,6 @@ fun HuntScreen(
                         currentRollAmount.value = tempCoinList[selectedKey.value]!!
                     }
 
-                    Log.e("KEYS", keys.toString())
-
                     keys.forEachIndexed { index, it ->
                         if (it != "") {
                             TabButton(
