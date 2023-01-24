@@ -51,4 +51,18 @@ class GradeRepository(application: Application) {
             else -> "NA"
         }
     }
+
+    fun getGradeIdByCodeCached(code: String?): Int {
+        return when(code) {
+            Grade.GRADE_PO_CODE -> Grade.GRADE_PO_ID
+            Grade.GRADE_FR_CODE -> Grade.GRADE_FR_ID
+            Grade.GRADE_AG_CODE ->Grade.GRADE_AG_ID
+            Grade.GRADE_G_CODE -> Grade.GRADE_G_ID
+            Grade.GRADE_F_CODE -> Grade.GRADE_F_ID
+            Grade.GRADE_VF_CODE -> Grade.GRADE_VF_ID
+            Grade.GRADE_AU_CODE -> Grade.GRADE_AU_ID
+            Grade.GRADE_MS_CODE -> Grade.GRADE_MS_ID
+            else -> -1
+        }
+    }
 }

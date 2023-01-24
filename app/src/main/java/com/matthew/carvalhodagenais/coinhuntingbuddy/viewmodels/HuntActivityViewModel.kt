@@ -71,7 +71,7 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
                 variety = if (variety.isNullOrEmpty()) null else variety,
                 error = if (error.isNullOrEmpty()) null else error,
                 mintMark = if (mintMark.isNullOrEmpty()) null else mintMark,
-                gradeId = if (grade.isNullOrEmpty()) null else findType,
+                gradeId = if (grade.isNullOrEmpty()) null else gradeRepository.getGradeIdByCodeCached(grade),
                 coinTypeId = findType,
                 huntId = -1
             )
