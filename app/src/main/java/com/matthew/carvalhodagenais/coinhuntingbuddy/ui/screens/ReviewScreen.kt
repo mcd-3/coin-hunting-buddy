@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FormLabel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SummaryFinds
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
@@ -69,13 +70,41 @@ fun ReviewScreen(
                     .border(1.dp, Color(0xFFCECECE)),
                 elevation = 10.dp
             ) {
-                Column {
+                Column(modifier = Modifier.padding(bottom = 12.dp)) {
                     val region = if (viewModel.getRegion() == "CA") "Canada" else "United States of America"
-                    FormLabel(text = "Hunt Details", icon = Icons.Filled.Notes)
-                    Text(text = "Date Hunted: X")
-                    Text(text = "Coin Region: $region")
-                    Text(text = "Total Rolls: X")
-                    Text(text = "Total Finds: X")
+                    FormLabel(text = "Hunt Overview", icon = Icons.Filled.Notes)
+
+                    val fontSize = 14
+                    val halfLabelModifier = Modifier.padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                        bottom = 4.dp
+                    )
+
+                    HalfBoldLabel(
+                        first = "Date Hunted: ",
+                        second = viewModel.dateAsString(),
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
+                    HalfBoldLabel(
+                        first = "Coin Region: ",
+                        second = region,
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
+                    HalfBoldLabel(
+                        first = "Total Rolls: ",
+                        second = viewModel.getRollCount().toString(),
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
+                    HalfBoldLabel(
+                        first = "Total Finds: ",
+                        second = viewModel.listOfFinds.size.toString(),
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
                 }
             }
 

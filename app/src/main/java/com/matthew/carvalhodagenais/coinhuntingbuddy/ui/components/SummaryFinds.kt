@@ -68,20 +68,35 @@ fun SummaryFinds(
         }
 
         if (listOfFinds.isNotEmpty()) {
-            listOfFinds.forEach {
+            listOfFinds.forEachIndexed { index, it ->
                 val findStringArray = FindStringGenerator.generate(
                     it.year,
                     it.mintMark,
                     it.variety,
                     it.error
                 )
+
+                val modifier: Modifier = if (index == listOfFinds.lastIndex) {
+                    Modifier.padding(
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 8.dp
+                    )
+                } else {
+                    Modifier.padding(
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 2.dp
+                    )
+                }
+
                 // For each find, list each find via bullet point
                 Row(
-                    modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+                    modifier = modifier
                 ) {
                     Column {
                         val bullet = "\u2022"
-                        Text(text = bullet)
+                        Text(text = bullet, textAlign = TextAlign.Center, fontSize = 20.sp)
                     }
                     Column {
                         Text(text = findStringArray[0])

@@ -1,6 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -8,6 +9,8 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.CoinTypeRepository
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.GradeRepository
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HuntActivityViewModel(application: Application): AndroidViewModel(application) {
     private val gradeRepository = GradeRepository(application)
@@ -94,5 +97,18 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getAllCoinTypes(): LiveData<List<CoinType>> {
         return coinTypeRepository.getCoinTypes()
+    }
+
+    fun getRollCount(): Int {
+        var rolls = 0
+        rollsPerCoin.forEach {
+            rolls += it.value
+        }
+        return rolls
+    }
+
+    fun dateAsString(): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return LocalDateTime.now().format(formatter).toString()
     }
 }
