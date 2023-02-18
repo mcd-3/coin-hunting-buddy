@@ -54,7 +54,7 @@ fun FormLabel(text: String, icon: ImageVector) {
         Divider(
             color = Color(0xFF353535),
             thickness = 2.dp,
-            modifier = Modifier.padding(top = 8.dp, end = 20.dp, bottom = 8.dp)
+            modifier = Modifier.padding(top = 8.dp, end = 20.dp, bottom = 2.dp)
         )
     }
 }

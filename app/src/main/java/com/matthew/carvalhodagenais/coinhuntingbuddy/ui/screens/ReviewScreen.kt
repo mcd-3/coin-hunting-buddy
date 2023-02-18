@@ -2,6 +2,7 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -55,89 +56,93 @@ fun ReviewScreen(
         val coinTypes = viewModel.getAllCoinTypes().observeAsState()
 
         Column(
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .verticalScroll(rememberScrollState())
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
         ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = cardInnerPaddingStart,
-                        end = cardInnerPaddingEnd,
-                        bottom = 10.dp
-                    )
-                    .border(1.dp, Color(0xFFCECECE)),
-                elevation = 10.dp
+            Column(modifier = Modifier
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState())
+                .weight(weight = 1f, fill = false)
             ) {
-                Column(modifier = Modifier.padding(bottom = 12.dp)) {
-                    val region = if (viewModel.getRegion() == "CA") "Canada" else "United States of America"
-                    FormLabel(text = "Hunt Overview", icon = Icons.Filled.Notes)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            start = cardInnerPaddingStart,
+                            end = cardInnerPaddingEnd,
+                            bottom = 10.dp
+                        )
+                        .border(1.dp, Color(0xFFCECECE)),
+                    elevation = 10.dp
+                ) {
+                    Column(modifier = Modifier.padding(bottom = 12.dp)) {
+                        val region = if (viewModel.getRegion() == "CA") "Canada" else "United States of America"
+                        FormLabel(text = "Hunt Overview", icon = Icons.Filled.Notes)
 
-                    val fontSize = 14
-                    val halfLabelModifier = Modifier.padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                        bottom = 4.dp
-                    )
+                        val fontSize = 14
+                        val halfLabelModifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 4.dp
+                        )
 
-                    HalfBoldLabel(
-                        first = "Date Hunted: ",
-                        second = viewModel.dateAsString(),
-                        fontSize = fontSize,
-                        modifier = halfLabelModifier
-                    )
-                    HalfBoldLabel(
-                        first = "Coin Region: ",
-                        second = region,
-                        fontSize = fontSize,
-                        modifier = halfLabelModifier
-                    )
-                    HalfBoldLabel(
-                        first = "Total Rolls: ",
-                        second = viewModel.getRollCount().toString(),
-                        fontSize = fontSize,
-                        modifier = halfLabelModifier
-                    )
-                    HalfBoldLabel(
-                        first = "Total Finds: ",
-                        second = viewModel.listOfFinds.size.toString(),
-                        fontSize = fontSize,
-                        modifier = halfLabelModifier
-                    )
+                        HalfBoldLabel(
+                            first = "Date Hunted: ",
+                            second = viewModel.dateAsString(),
+                            fontSize = fontSize,
+                            modifier = halfLabelModifier
+                        )
+                        HalfBoldLabel(
+                            first = "Coin Region: ",
+                            second = region,
+                            fontSize = fontSize,
+                            modifier = halfLabelModifier
+                        )
+                        HalfBoldLabel(
+                            first = "Total Rolls: ",
+                            second = viewModel.getRollCount().toString(),
+                            fontSize = fontSize,
+                            modifier = halfLabelModifier
+                        )
+                        HalfBoldLabel(
+                            first = "Total Finds: ",
+                            second = viewModel.listOfFinds.size.toString(),
+                            fontSize = fontSize,
+                            modifier = halfLabelModifier
+                        )
+                    }
                 }
-            }
 
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = cardInnerPaddingStart,
-                        end = cardInnerPaddingEnd,
-                        bottom = 10.dp
-                    )
-                    .border(1.dp, Color(0xFFCECECE)),
-                elevation = 10.dp
-            ) {
-                Column {
-                    // This could be another card
-                    FormLabel(text = "My Finds", icon = Icons.Filled.Public)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            start = cardInnerPaddingStart,
+                            end = cardInnerPaddingEnd,
+                            bottom = 10.dp
+                        )
+                        .border(1.dp, Color(0xFFCECECE)),
+                    elevation = 10.dp
+                ) {
+                    Column {
+                        // This could be another card
+                        FormLabel(text = "My Finds", icon = Icons.Filled.Public)
 
-                    coinTypes.value?.forEach { coinType ->
-                        val listToDisplay = mutableListOf<Find>()
-                        viewModel.listOfFinds.forEach { find ->
-                            if (find.coinTypeId == coinType.id) {
-                                listToDisplay.add(find)
+                        coinTypes.value?.forEach { coinType ->
+                            val listToDisplay = mutableListOf<Find>()
+                            viewModel.listOfFinds.forEach { find ->
+                                if (find.coinTypeId == coinType.id) {
+                                    listToDisplay.add(find)
+                                }
                             }
-                        }
 
-                        val capitalized = capitalize(coinType.name)
-                        if (capitalized in viewModel.rollsPerCoin) {
-                            SummaryFinds(
-                                label = coinType.name,
-                                rolls = viewModel.rollsPerCoin[capitalized],
-                                listOfFinds = listToDisplay
-                            )
+                            val capitalized = capitalize(coinType.name)
+                            if (capitalized in viewModel.rollsPerCoin) {
+                                SummaryFinds(
+                                    label = coinType.name,
+                                    rolls = viewModel.rollsPerCoin[capitalized],
+                                    listOfFinds = listToDisplay
+                                )
+                            }
                         }
                     }
                 }
