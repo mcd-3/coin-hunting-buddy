@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -7,19 +8,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Notes
 import androidx.compose.material.icons.filled.Public
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FormLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
@@ -43,15 +44,30 @@ fun ReviewScreen(
 ) {
     val cardInnerPaddingStart = 10.dp
     val cardInnerPaddingEnd = 10.dp
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
             TopAppBar(
                 backgroundColor = Color.White,
                 title = { Text(text = "Summary") },
-                elevation = 0.dp
+                elevation = 0.dp,
+                actions = {
+                    IconButton(
+                        onClick = {
+                            val intent = Intent(context, MainActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            context.startActivity(intent)
+                        }
+                    ) {
+                        Icon(
+                            Icons.Filled.Check,
+                            "Done",
+                        )
+                    }
+                }
             )
-        },
+        }
     ) {
         val coinTypes = viewModel.getAllCoinTypes().observeAsState()
 
