@@ -10,7 +10,9 @@ import java.util.*
 @Entity(tableName = "hunt_group_table")
 @TypeConverters(DateConverter::class)
 data class HuntGroup(
-    @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = "date_hunted") var dateHunted: Date,
     @ColumnInfo(name = "comments") var comments: String? = ""
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.AppDatabase
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.HuntGroupDAO
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
+import java.util.*
 
 class HuntGroupRepository(application: Application) {
 
@@ -21,6 +22,11 @@ class HuntGroupRepository(application: Application) {
 
     fun getHuntGroups(): LiveData<List<HuntGroup>> {
         return allHuntGroups
+    }
+
+    fun insert(): Long {
+        val hg = HuntGroup(dateHunted = Date())
+        return huntGroupDAO.insert(hg)
     }
 
 }

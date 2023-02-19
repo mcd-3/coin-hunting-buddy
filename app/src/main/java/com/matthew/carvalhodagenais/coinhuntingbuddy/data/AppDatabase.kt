@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.converters.DateConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
 import kotlinx.coroutines.GlobalScope
@@ -20,7 +22,7 @@ fun runOnDBThread(function: () -> Unit) {
 }
 
 // Database written using the Room library
-@Database(version = 2,
+@Database(version = 3,
     exportSchema = false,
     entities = [
         Region::class,
@@ -29,6 +31,7 @@ fun runOnDBThread(function: () -> Unit) {
         HuntGroup::class,
         Find::class,
         CoinType::class])
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun regionDao(): RegionDAO
@@ -36,6 +39,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun coinTypeDao(): CoinTypeDAO
     abstract fun huntGroupDao(): HuntGroupDAO
     abstract fun findDao(): FindDAO
+    abstract fun huntDao(): HuntDAO
 
     companion object {
 

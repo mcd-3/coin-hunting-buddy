@@ -26,4 +26,8 @@ class FindRepository(application: Application) {
     fun getFindsByHuntId(id: Int): LiveData<List<Find>> {
         return findDAO.getFindByHuntId(id)
     }
+
+    suspend fun insert(find: Find) {
+        findDAO.insert(find)
+    }
 }

@@ -7,7 +7,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
 @Dao
 interface HuntGroupDAO {
     @Insert
-    suspend fun insert(huntGroup: HuntGroup)
+    fun insert(huntGroup: HuntGroup): Long
 
     @Update
     suspend fun update(huntGroup: HuntGroup)
