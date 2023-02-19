@@ -18,6 +18,9 @@ interface RegionDAO {
     @Query("SELECT * FROM region_table WHERE code = :code")
     suspend fun getRegionByCodeAsync(code: String): Region
 
+    @Query("SELECT * FROM region_table WHERE code = :code")
+    fun getRegionByCode(code: String): Region
+
     @Query("SELECT * FROM region_table WHERE id = :id")
     fun getRegionById(id: Int): LiveData<Region>
 

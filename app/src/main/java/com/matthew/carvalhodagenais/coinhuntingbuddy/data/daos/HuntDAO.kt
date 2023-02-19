@@ -8,7 +8,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
 @Dao
 interface HuntDAO {
     @Insert
-    suspend fun insert(hunt: Hunt)
+    fun insert(hunt: Hunt): Long
 
     @Update
     suspend fun update(hunt: Hunt)
@@ -16,6 +16,6 @@ interface HuntDAO {
     @Delete
     suspend fun delete(hunt: Hunt)
 
-    @Query("SELECT * FROM hunt_table WHERE hunt_group_id IN (SELECT * FROM hunt_group_table WHERE id = :id)")
-    fun getHuntByHuntGroupId(id: Int): LiveData<HuntGroup>
+//    @Query("SELECT * FROM hunt_table WHERE hunt_group_id IN (SELECT * FROM hunt_group_table WHERE id = :id)")
+//    fun getHuntByHuntGroupId(id: Int): LiveData<HuntGroup>
 }

@@ -18,6 +18,8 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -254,6 +256,13 @@ fun HuntScreen(
                         showHuntCompleteDialog.value = false
                         navController.popBackStack()
                         navController.navigate(navString)
+
+                        // We need GlobalScope here since the activity can be changed
+                        // by the user before saving has completed
+                        GlobalScope.launch {
+                            viewModel.saveData()
+                            Log.e("NOT_WORKING?", "BRUH???")
+                        }
                     },
                     onCancel = { showHuntCompleteDialog.value = false }
                 )

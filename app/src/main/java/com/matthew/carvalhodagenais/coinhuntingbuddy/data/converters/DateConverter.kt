@@ -1,4 +1,4 @@
-package com.matthew.carvalhodagenais.coinhuntingbuddy.data
+package com.matthew.carvalhodagenais.coinhuntingbuddy.data.converters
 
 import androidx.room.TypeConverter
 import java.util.*

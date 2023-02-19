@@ -1,20 +1,22 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.CoinTypeRepository
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.GradeRepository
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Hunt
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class HuntActivityViewModel(application: Application): AndroidViewModel(application) {
     private val gradeRepository = GradeRepository(application)
+    private val huntGroupRepository = HuntGroupRepository(application)
     private val coinTypeRepository = CoinTypeRepository(application)
+    private val huntRepository = HuntRepository(application)
+    private val findRepository = FindRepository(application)
 
     val listOfFinds = mutableListOf<Find>()
     var rollsPerCoin: MutableMap<String, Int> = mutableMapOf()
@@ -91,8 +93,31 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
         return filteredList
     }
 
-    fun getListSortedByCoinType(): List<Find> {
-        return listOfFinds
+    private fun getListFilteredByCoinType(coinType: Int): List<Find> {
+        val filteredList = mutableListOf<Find>()
+        listOfFinds.forEach {
+            if (it.coinTypeId == coinType) {
+                filteredList.add(it)
+            }
+        }
+        return filteredList
+    }
+
+    private fun getCoinTypesFromFindsList(): List<Int> {
+        val listOfCoinTypes = mutableListOf<Int>()
+        listOfFinds.forEach {
+            listOfCoinTypes.add(it.coinTypeId)
+        }
+        return listOfCoinTypes.distinct().toList()
+    }
+
+    private fun getNumOfRollsPerCoinType(ct: Int): Int {
+        rollsPerCoin.forEach { entry ->
+            if (getCoinTypeFromString(entry.key) == ct) {
+                return entry.value
+            }
+        }
+        return -1
     }
 
     fun getAllCoinTypes(): LiveData<List<CoinType>> {
@@ -110,5 +135,34 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
     fun dateAsString(): String {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return LocalDateTime.now().format(formatter).toString()
+    }
+
+    private suspend fun insertFinds(list: List<Find>, huntId: Int) {
+        for (find in list) {
+            find.huntId = huntId
+            findRepository.insert(find)
+        }
+    }
+
+    /**
+     * Saves a new HuntGroup with Hunt and Find data into the database
+     */
+    suspend fun saveData() {
+        val hgId = huntGroupRepository.insert(getRegion())
+        val coinTypeList = getCoinTypesFromFindsList()
+
+        for (ct in coinTypeList) {
+            val numOfRolls = getNumOfRollsPerCoinType(ct)
+
+            val huntId = huntRepository.insert(
+                Hunt(
+                    coinTypeId = ct,
+                    huntGroupId = hgId.toInt(),
+                    numberOfRolls = numOfRolls
+                )
+            ).toInt()
+
+            insertFinds(getListFilteredByCoinType(ct), huntId)
+        }
     }
 }
