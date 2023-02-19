@@ -10,8 +10,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.converters.DateConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 /**

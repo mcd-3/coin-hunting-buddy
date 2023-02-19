@@ -1,7 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities
 
 import androidx.room.*
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.DateConverter
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.converters.DateConverter
 import java.util.*
 
 /**
