@@ -1,7 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -9,11 +9,13 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HuntGroupListItem
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NoItemsWarning
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
+import kotlinx.coroutines.coroutineScope
 
 private const val HUNTS_INDEX = 0
 
@@ -49,7 +51,14 @@ fun HuntsScreen(
         } else if (allHunts!!.isNotEmpty()) {
             Column {
                 allHunts!!.forEach {
-                    HuntGroupListItem(huntGroup = it)
+                    HuntGroupListItem(
+                        huntGroup = it,
+                        viewModel = viewModel,
+                        onClick = {
+                            // TODO: Go to a description page
+                            Log.e("CLICK", "Row clicked! ID: ${it.id}")
+                        }
+                    )
                 }
             }
         }

@@ -16,6 +16,6 @@ interface HuntDAO {
     @Delete
     suspend fun delete(hunt: Hunt)
 
-//    @Query("SELECT * FROM hunt_table WHERE hunt_group_id IN (SELECT * FROM hunt_group_table WHERE id = :id)")
-//    fun getHuntByHuntGroupId(id: Int): LiveData<HuntGroup>
+    @Query("SELECT * FROM hunt_table WHERE hunt_group_id = :id")
+    fun getHuntsByHuntGroupId(id: Int): List<Hunt>
 }

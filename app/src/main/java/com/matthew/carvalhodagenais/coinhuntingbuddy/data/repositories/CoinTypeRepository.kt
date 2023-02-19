@@ -26,7 +26,7 @@ class CoinTypeRepository(application: Application) {
         return allCoinTypes
     }
 
-    fun getCoinTypeById(id: Int): LiveData<CoinType> {
+    fun getCoinTypeById(id: Int): CoinType {
         return coinTypeDAO.getCoinTypeById(id)
     }
 }
