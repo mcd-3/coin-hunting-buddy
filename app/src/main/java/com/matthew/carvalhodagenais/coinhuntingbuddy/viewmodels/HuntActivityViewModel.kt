@@ -1,7 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -149,7 +148,7 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
      * Saves a new HuntGroup with Hunt and Find data into the database
      */
     suspend fun saveData() {
-        val hgId = huntGroupRepository.insert()
+        val hgId = huntGroupRepository.insert(getRegion())
         val coinTypeList = getCoinTypesFromFindsList()
 
         for (ct in coinTypeList) {

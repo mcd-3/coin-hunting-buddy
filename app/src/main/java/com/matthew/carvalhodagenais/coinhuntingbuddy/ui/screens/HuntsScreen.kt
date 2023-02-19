@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HuntGroupListItem
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NoItemsWarning
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 
@@ -48,9 +49,7 @@ fun HuntsScreen(
         } else if (allHunts!!.isNotEmpty()) {
             Column {
                 allHunts!!.forEach {
-                    Row {
-                        Text(text = it.dateHunted.toString())
-                    }
+                    HuntGroupListItem(huntGroup = it)
                 }
             }
         }

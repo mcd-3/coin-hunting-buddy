@@ -22,7 +22,7 @@ fun runOnDBThread(function: () -> Unit) {
 }
 
 // Database written using the Room library
-@Database(version = 3,
+@Database(version = 4,
     exportSchema = false,
     entities = [
         Region::class,
