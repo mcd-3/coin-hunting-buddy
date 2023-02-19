@@ -1,7 +1,11 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -35,7 +39,20 @@ fun HuntsScreen(
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        viewModel.allHuntGroups
-        NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
+        val allHunts by viewModel.allHuntGroups.observeAsState()
+
+        if (allHunts == null) {
+            // Loading...
+        } else if (allHunts!!.isEmpty()) {
+            NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
+        } else if (allHunts!!.isNotEmpty()) {
+            Column {
+                allHunts!!.forEach {
+                    Row {
+                        Text(text = it.dateHunted.toString())
+                    }
+                }
+            }
+        }
     }
 }
