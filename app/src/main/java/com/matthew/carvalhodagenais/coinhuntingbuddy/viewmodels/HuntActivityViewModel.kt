@@ -1,17 +1,23 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.CoinTypeRepository
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.GradeRepository
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HuntActivityViewModel(application: Application): AndroidViewModel(application) {
     private val gradeRepository = GradeRepository(application)
+    private val coinTypeRepository = CoinTypeRepository(application)
 
     val listOfFinds = mutableListOf<Find>()
+    var rollsPerCoin: MutableMap<String, Int> = mutableMapOf()
     private val huntRegionState = mutableStateOf("")
 
     fun getListOfGradeCodes(): List<String> {
@@ -68,7 +74,7 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
                 variety = if (variety.isNullOrEmpty()) null else variety,
                 error = if (error.isNullOrEmpty()) null else error,
                 mintMark = if (mintMark.isNullOrEmpty()) null else mintMark,
-                gradeId = if (grade.isNullOrEmpty()) null else findType,
+                gradeId = if (grade.isNullOrEmpty()) null else gradeRepository.getGradeIdByCodeCached(grade),
                 coinTypeId = findType,
                 huntId = -1
             )
@@ -83,5 +89,26 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
             }
         }
         return filteredList
+    }
+
+    fun getListSortedByCoinType(): List<Find> {
+        return listOfFinds
+    }
+
+    fun getAllCoinTypes(): LiveData<List<CoinType>> {
+        return coinTypeRepository.getCoinTypes()
+    }
+
+    fun getRollCount(): Int {
+        var rolls = 0
+        rollsPerCoin.forEach {
+            rolls += it.value
+        }
+        return rolls
+    }
+
+    fun dateAsString(): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return LocalDateTime.now().format(formatter).toString()
     }
 }

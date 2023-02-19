@@ -115,20 +115,6 @@ fun NewHuntScreen(navController: NavController) {
                     .verticalScroll(rememberScrollState())
                     .weight(0.9f)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "What are you hunting?",
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
-                    )
-                }
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(20.dp))
                 RegionCard(
                     selectedRegion = "Canada",
                     selectedRegionState = selectedRegionState

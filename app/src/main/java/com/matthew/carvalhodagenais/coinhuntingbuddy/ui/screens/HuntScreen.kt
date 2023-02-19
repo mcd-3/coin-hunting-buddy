@@ -1,6 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.content.Intent
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
@@ -120,10 +121,13 @@ fun HuntScreen(
 ) {
     // Use this list to remove rolls from
     val tempCoinList = coinList.toMutableMap()
+    viewModel.rollsPerCoin = tempCoinList
 
     // Flags
     val showHuntCompleteDialog = remember { mutableStateOf(false)}
     val completeHuntFlag = remember { mutableStateOf(tempCoinList.all { it.value == 0 }) }
+
+    Log.d("ROLLS", tempCoinList.toString())
 
     // Context is needed here to go back to MainActivity
     val context = LocalContext.current
@@ -171,7 +175,7 @@ fun HuntScreen(
                     mutableStateOf(0)
                 }
 
-                Row(
+                Row(     
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(32.dp)
@@ -185,11 +189,18 @@ fun HuntScreen(
                     arrangeCoinMap(coinList, region, keys, rolls)
 
                     val firstKey = keys[
-                            ArrayTools.firstIndexWhereNot(rolls, -1)!!
+                        ArrayTools.firstIndexWhereNot(rolls, -1)!!
                     ]
-                    val lastKey = keys[
-                            ArrayTools.lastIndexWhereNot(rolls, -1)!!
-                    ]
+
+                    var lastIndex = 0
+                    for (i in 5 downTo 0 step 1) {
+                        if (rolls[i] != -1) {
+                            lastIndex = i
+                            break
+                        }
+                    }
+
+                    val lastKey = keys[lastIndex]
 
                     if (selectedKey.value.isEmpty()) {
                         selectedKey.value = firstKey
