@@ -141,7 +141,6 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
     private suspend fun insertFinds(list: List<Find>, huntId: Int) {
         for (find in list) {
             find.huntId = huntId
-            Log.e("FIND", find.toString())
             findRepository.insert(find)
         }
     }
