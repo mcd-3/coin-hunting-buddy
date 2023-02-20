@@ -43,4 +43,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     fun getCurrentHuntGroup(): HuntGroup? {
         return currentHuntGroup
     }
+
+    suspend fun deleteHunt() {
+
+    }
 }
