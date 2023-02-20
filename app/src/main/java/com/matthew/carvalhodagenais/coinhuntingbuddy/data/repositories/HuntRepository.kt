@@ -20,4 +20,8 @@ class HuntRepository(application: Application) {
         return huntDAO.insert(hunt)
     }
 
+    fun getHuntsByHuntGroupId(hgId: Int): List<Hunt> {
+        return huntDAO.getHuntsByHuntGroupId(hgId)
+    }
+
 }

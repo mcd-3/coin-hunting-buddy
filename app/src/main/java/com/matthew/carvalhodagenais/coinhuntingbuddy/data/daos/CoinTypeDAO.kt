@@ -19,7 +19,7 @@ interface CoinTypeDAO {
     fun getCoinTypesByRegionCode(code: String): LiveData<List<CoinType>>
 
     @Query("SELECT * FROM coin_type_table WHERE id = :id")
-    fun getCoinTypeById(id: Int): LiveData<CoinType>
+    fun getCoinTypeById(id: Int): CoinType
 
     @Query("SELECT * FROM coin_type_table")
     fun getCoinTypes(): LiveData<List<CoinType>>
