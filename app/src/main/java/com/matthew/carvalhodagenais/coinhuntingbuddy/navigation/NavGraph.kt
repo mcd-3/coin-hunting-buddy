@@ -44,5 +44,13 @@ fun SetupNavGraph(navHostController: NavHostController) {
         ) {
             NewHuntScreen(navController = navHostController)   
         }
+        composable(
+            route = Screen.Details.route
+        ) {
+            DetailsScreen(
+                navController = navHostController,
+                viewModel = viewModel
+            )
+        }
     }
 }

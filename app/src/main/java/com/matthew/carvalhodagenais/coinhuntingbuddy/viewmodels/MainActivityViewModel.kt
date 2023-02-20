@@ -1,7 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
@@ -20,6 +19,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
+    private var currentHuntGroup: HuntGroup? = null
+
     val allHuntGroups = huntGroupRepository.getHuntGroups()
 
     fun getHuntType(huntGroup: HuntGroup): Deferred<MutableList<CoinType>> = coroutineScope.async(Dispatchers.IO) {
@@ -33,5 +34,13 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         }
 
         return@async coinTypeList
+    }
+
+    fun setCurrentHuntGroup(huntGroup: HuntGroup) {
+        currentHuntGroup = huntGroup
+    }
+
+    fun getCurrentHuntGroup(): HuntGroup? {
+        return currentHuntGroup
     }
 }

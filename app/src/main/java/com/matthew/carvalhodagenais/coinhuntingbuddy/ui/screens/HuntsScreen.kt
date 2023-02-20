@@ -56,7 +56,8 @@ fun HuntsScreen(
                         huntGroup = it,
                         viewModel = viewModel,
                         onClick = {
-                            // TODO: Go to a description page
+                            viewModel.setCurrentHuntGroup(it)
+                            navController.navigate(Screen.Details.route)
                         }
                     )
 
