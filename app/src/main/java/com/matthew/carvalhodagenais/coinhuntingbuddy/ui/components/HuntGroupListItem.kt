@@ -75,7 +75,12 @@ fun HuntGroupListItem(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.End
             ) {
-                Text(text = huntGroup.regionId.toString())
+                val regionStr = when (huntGroup.regionId) {
+                    1 -> "\uD83C\uDDE8\uD83C\uDDE6"
+                    2 -> "\uD83C\uDDFA\uD83C\uDDF8"
+                    else -> "❓"
+                }
+                Text(text = regionStr)
             }
         }
     }
