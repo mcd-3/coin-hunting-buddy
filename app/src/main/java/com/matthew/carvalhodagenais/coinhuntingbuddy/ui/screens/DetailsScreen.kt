@@ -2,10 +2,12 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,9 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.ConfirmCancelAlertDialog
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.launch
 
@@ -63,7 +64,47 @@ fun DetailsScreen(
         Box(modifier = Modifier
             .background(Color.White)
             .fillMaxSize()) {
-            Text(text = currentHuntGroup.toString())}
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 10.dp,
+                        end = 10.dp,
+                        bottom = 10.dp
+                    )
+                    .border(1.dp, Color(0xFFCECECE)),
+                elevation = 10.dp
+            ) {
+                Column {
+                    Row {
+                        FormLabel(text = "Overview", icon = Icons.Filled.Description)
+                    }
+                    Row {
+                        val fontSize = 14
+                        val halfLabelModifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 4.dp
+                        )
+
+                        Column {
+                            HalfBoldLabel(
+                                first = "Date Hunted: ",
+                                second = DateToStringConverter.getString(currentHuntGroup!!.dateHunted),
+                                fontSize = fontSize,
+                                modifier = halfLabelModifier
+                            )
+                            HalfBoldLabel(
+                                first = "Coin Region: ",
+                                second = if (currentHuntGroup.regionId == 1) "Canada" else "USA",
+                                fontSize = fontSize,
+                                modifier = halfLabelModifier
+                            )
+                        }
+                    }
+                }
+            }
+        }
 
         if (openDialog.value) {
             ConfirmCancelAlertDialog(
