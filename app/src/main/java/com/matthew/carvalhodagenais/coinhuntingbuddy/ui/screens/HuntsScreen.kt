@@ -1,24 +1,21 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HuntGroupListItem
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NoItemsWarning
+import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.launch
 
@@ -31,6 +28,19 @@ fun HuntsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+
+    // Values for the date filter
+    val currentDateFilter = remember { mutableStateOf(viewModel.dateFilter) }
+
+    // Filter component values
+    val openFilterDialog = remember { mutableStateOf(false) }
+    val filterActive = remember {
+        mutableStateOf(
+            currentDateFilter.value != DateFilter.UNSET
+        )
+    }
+
+    val allHunts by viewModel.getAllHuntGroups(currentDateFilter.value).observeAsState()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -58,30 +68,41 @@ fun HuntsScreen(
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        val allHunts by viewModel.allHuntGroups.observeAsState()
+        Column {
+            // This handles the filter composable and it's functionality
+            Filter(
+                filterActive = filterActive,
+                openFilterDialog = openFilterDialog,
+                currentDateFilter = currentDateFilter,
+                coroutineScope = coroutineScope,
+                viewModel = viewModel
+            )
 
-        if (allHunts == null) {
-            // Loading...
-        } else if (allHunts!!.isEmpty()) {
-            NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
-        } else if (allHunts!!.isNotEmpty()) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                allHunts!!.forEachIndexed { index, it ->
-                    HuntGroupListItem(
-                        huntGroup = it,
-                        viewModel = viewModel,
-                        onClick = {
-                            viewModel.setCurrentHuntGroup(it)
-                            navController.navigate(Screen.Details.route)
+            Row {
+                if (allHunts == null) {
+                    // Loading...
+                } else if (allHunts!!.isEmpty()) {
+                    NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
+                } else if (allHunts!!.isNotEmpty()) {
+                    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                        allHunts!!.forEachIndexed { index, it ->
+                            HuntGroupListItem(
+                                huntGroup = it,
+                                viewModel = viewModel,
+                                onClick = {
+                                    viewModel.setCurrentHuntGroup(it)
+                                    navController.navigate(Screen.Details.route)
+                                }
+                            )
+
+                            if (index != allHunts!!.lastIndex) {
+                                Divider(
+                                    color = Color.LightGray,
+                                    thickness = 1.dp,
+                                    modifier = Modifier.padding(bottom = 2.dp, top = 2.dp, start = 2.dp, end = 2.dp)
+                                )
+                            }
                         }
-                    )
-
-                    if (index != allHunts!!.lastIndex) {
-                        Divider(
-                            color = Color.LightGray,
-                            thickness = 1.dp,
-                            modifier = Modifier.padding(bottom = 2.dp, top = 2.dp, start = 2.dp, end = 2.dp)
-                        )
                     }
                 }
             }
