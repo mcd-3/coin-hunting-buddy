@@ -65,4 +65,8 @@ class GradeRepository(application: Application) {
             else -> -1
         }
     }
+
+    fun getGradeById(id: Int): LiveData<Grade> {
+        return gradeDAO.getGradeById(id)
+    }
 }

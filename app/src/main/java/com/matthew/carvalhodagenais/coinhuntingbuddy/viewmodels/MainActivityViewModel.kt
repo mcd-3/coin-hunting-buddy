@@ -2,11 +2,9 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.CoinTypeRepository
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.HuntGroupRepository
-import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.HuntRepository
+import androidx.lifecycle.LiveData
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +14,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private val huntGroupRepository = HuntGroupRepository(application)
     private val huntRepository = HuntRepository(application)
     private val coinTypeRepository = CoinTypeRepository(application)
+    private val findRepository = FindRepository(application)
+    private val gradeRepository = GradeRepository(application)
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
@@ -42,6 +42,22 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getCurrentHuntGroup(): HuntGroup? {
         return currentHuntGroup
+    }
+
+    fun getHuntsByHuntGroup(huntGroup: HuntGroup): LiveData<List<Hunt>> {
+        return huntRepository.getLiveHuntsByHuntGroupId(huntGroup.id)
+    }
+
+    fun getCoinTypeNameById(id: Int): LiveData<String> {
+        return coinTypeRepository.getCoinTypeNameById(id)
+    }
+
+    fun getFindsByHunt(hunt: Hunt): LiveData<List<Find>> {
+        return findRepository.getFindsByHuntId(hunt.id)
+    }
+
+    fun getGradeById(id: Int): LiveData<Grade> {
+        return gradeRepository.getGradeById(id)
     }
 
     suspend fun deleteHunt() {

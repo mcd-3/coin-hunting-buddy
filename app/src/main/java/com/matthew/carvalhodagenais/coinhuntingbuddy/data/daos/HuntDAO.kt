@@ -18,4 +18,7 @@ interface HuntDAO {
 
     @Query("SELECT * FROM hunt_table WHERE hunt_group_id = :id")
     fun getHuntsByHuntGroupId(id: Int): List<Hunt>
+
+    @Query("SELECT * FROM hunt_table WHERE hunt_group_id = :id")
+    fun getLiveHuntsByHuntGroupId(id: Int): LiveData<List<Hunt>>
 }
