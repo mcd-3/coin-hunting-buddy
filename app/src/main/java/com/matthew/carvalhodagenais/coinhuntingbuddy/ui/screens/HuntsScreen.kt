@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -62,6 +63,7 @@ fun HuntsScreen(
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
         val allHunts by viewModel.allHuntGroups.observeAsState()
+        val openFilterDialog = remember { mutableStateOf(false) }
         val filterActive = remember { mutableStateOf(false) }
 
         Column {
@@ -91,7 +93,7 @@ fun HuntsScreen(
                     IconButton(
                         onClick = {
                             coroutineScope.launch {
-                                filterActive.value = !filterActive.value
+                                openFilterDialog.value = true
                             }
                         }
                     ) {
@@ -131,6 +133,32 @@ fun HuntsScreen(
                     }
                 }
             }
+        }
+
+        if (openFilterDialog.value) {
+            AlertDialog(
+                title = { Text(text = "Add/Remove Filter\n") },
+                onDismissRequest = {
+                    openFilterDialog.value = false
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        openFilterDialog.value = false
+                    }){
+                        Text(text = "Save")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        openFilterDialog.value = false
+                    }) {
+                        Text(text = "Cancel")
+                    }
+                },
+                text = {
+
+                },
+            )
         }
     }
 }
