@@ -21,10 +21,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HuntGroupListItem
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NoItemsWarning
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.launch
 
@@ -41,7 +38,7 @@ fun HuntsScreen(
 
     // Values for the date filter
     val currentDateFilter = remember { mutableStateOf(DateFilter.UNSET) }
-    var selectedDateFilterOption by remember { mutableStateOf(currentDateFilter.value) }
+    val selectedDateFilterOption by remember { mutableStateOf(currentDateFilter) }
 
     // Filter component values
     val openFilterDialog = remember { mutableStateOf(false) }
@@ -80,44 +77,15 @@ fun HuntsScreen(
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
         Column {
-            // TODO: Turn this into a composable fun
-            Row(modifier = Modifier.padding(bottom = 6.dp)) {
-                Column(modifier = Modifier.weight(1f)) {
-                    if (filterActive.value) {
-                        Text(
-                            text = "Filter active",
-                            modifier = Modifier.padding(start = 20.dp, top = 12.dp),
-                            fontWeight = FontWeight.Bold
-                        )
-                    } else {
-                        Text(
-                            text = "No filter active",
-                            modifier = Modifier.padding(start = 20.dp, top = 12.dp),
-                            fontStyle = FontStyle.Italic
-                        )
-                    }
-                }
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 4.dp),
-                    horizontalAlignment = Alignment.End
-                ) {
-                    IconButton(
-                        onClick = {
-                            coroutineScope.launch {
-                                openFilterDialog.value = true
-                            }
-                        }
-                    ) {
-                        if (filterActive.value) {
-                            Icon(Icons.Filled.FilterAlt, contentDescription = "Filter Active")
-                        } else {
-                            Icon(Icons.Outlined.FilterAlt, contentDescription = "Filter")
-                        }
-                    }
-                }
-            }
+            // This handles the filter composable and it's functionality
+            Filter(
+                filterActive = filterActive,
+                openFilterDialog = openFilterDialog,
+                currentDateFilter = currentDateFilter,
+                selectedDateFilterOption = selectedDateFilterOption,
+                coroutineScope = coroutineScope
+            )
+
             Row {
                 if (allHunts == null) {
                     // Loading...
@@ -146,78 +114,6 @@ fun HuntsScreen(
                     }
                 }
             }
-        }
-
-        if (openFilterDialog.value) {
-            AlertDialog(
-                title = { Text(text = "Add/Remove Filter\n") },
-                onDismissRequest = {
-                    openFilterDialog.value = false
-                    selectedDateFilterOption = currentDateFilter.value
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        openFilterDialog.value = false
-                        currentDateFilter.value = selectedDateFilterOption
-                        filterActive.value = currentDateFilter.value != DateFilter.UNSET
-                    }){
-                        Text(text = "Save")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = {
-                        openFilterDialog.value = false
-                        selectedDateFilterOption = currentDateFilter.value
-                    }) {
-                        Text(text = "Cancel")
-                    }
-                },
-                text = {
-                    Row {
-                        var expanded by remember { mutableStateOf(false) }
-                        ExposedDropdownMenuBox(
-                            expanded = expanded,
-                            onExpandedChange = {
-                                expanded = !expanded
-                            },
-                            modifier = Modifier
-                                .weight(0.5f)
-                                .padding(start = 4.dp)
-                                .align(Alignment.Bottom),
-                        ) {
-                            TextField(
-                                readOnly = true,
-                                value = TextFieldValue(selectedDateFilterOption.dateFilter),
-                                onValueChange = { },
-                                trailingIcon = {
-                                    ExposedDropdownMenuDefaults.TrailingIcon(
-                                        expanded = expanded
-                                    )
-                                },
-                                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                label = { Text(text = "Date From") },
-                            )
-                            ExposedDropdownMenu(
-                                expanded = expanded,
-                                onDismissRequest = {
-                                    expanded = false
-                                }
-                            ) {
-                                DateFilter.values().forEach {
-                                    DropdownMenuItem(
-                                        onClick = {
-                                            selectedDateFilterOption = it
-                                            expanded = false
-                                        }
-                                    ) {
-                                        Text(text = it.dateFilter)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-            )
         }
     }
 }
