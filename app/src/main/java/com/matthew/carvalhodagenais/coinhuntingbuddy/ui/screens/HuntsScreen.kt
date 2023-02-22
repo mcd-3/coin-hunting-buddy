@@ -17,8 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HuntGroupListItem
@@ -28,6 +30,7 @@ import kotlinx.coroutines.launch
 
 private const val HUNTS_INDEX = 0
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HuntsScreen(
     viewModel: MainActivityViewModel,
@@ -35,6 +38,19 @@ fun HuntsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    val allHunts by viewModel.allHuntGroups.observeAsState()
+
+    // Values for the date filter
+    val currentDateFilter = remember { mutableStateOf(DateFilter.UNSET) }
+    var selectedDateFilterOption by remember { mutableStateOf(currentDateFilter.value) }
+
+    // Filter component values
+    val openFilterDialog = remember { mutableStateOf(false) }
+    val filterActive = remember {
+        mutableStateOf(
+            currentDateFilter.value != DateFilter.UNSET
+        )
+    }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -62,10 +78,6 @@ fun HuntsScreen(
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        val allHunts by viewModel.allHuntGroups.observeAsState()
-        val openFilterDialog = remember { mutableStateOf(false) }
-        val filterActive = remember { mutableStateOf(false) }
-
         Column {
             // TODO: Turn this into a composable fun
             Row(modifier = Modifier.padding(bottom = 6.dp)) {
@@ -140,10 +152,13 @@ fun HuntsScreen(
                 title = { Text(text = "Add/Remove Filter\n") },
                 onDismissRequest = {
                     openFilterDialog.value = false
+                    selectedDateFilterOption = currentDateFilter.value
                 },
                 confirmButton = {
                     TextButton(onClick = {
                         openFilterDialog.value = false
+                        currentDateFilter.value = selectedDateFilterOption
+                        filterActive.value = currentDateFilter.value != DateFilter.UNSET
                     }){
                         Text(text = "Save")
                     }
@@ -151,12 +166,55 @@ fun HuntsScreen(
                 dismissButton = {
                     TextButton(onClick = {
                         openFilterDialog.value = false
+                        selectedDateFilterOption = currentDateFilter.value
                     }) {
                         Text(text = "Cancel")
                     }
                 },
                 text = {
-
+                    Row {
+                        var expanded by remember { mutableStateOf(false) }
+                        ExposedDropdownMenuBox(
+                            expanded = expanded,
+                            onExpandedChange = {
+                                expanded = !expanded
+                            },
+                            modifier = Modifier
+                                .weight(0.5f)
+                                .padding(start = 4.dp)
+                                .align(Alignment.Bottom),
+                        ) {
+                            TextField(
+                                readOnly = true,
+                                value = TextFieldValue(selectedDateFilterOption.dateFilter),
+                                onValueChange = { },
+                                trailingIcon = {
+                                    ExposedDropdownMenuDefaults.TrailingIcon(
+                                        expanded = expanded
+                                    )
+                                },
+                                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                                label = { Text(text = "Date From") },
+                            )
+                            ExposedDropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = {
+                                    expanded = false
+                                }
+                            ) {
+                                DateFilter.values().forEach {
+                                    DropdownMenuItem(
+                                        onClick = {
+                                            selectedDateFilterOption = it
+                                            expanded = false
+                                        }
+                                    ) {
+                                        Text(text = it.dateFilter)
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
             )
         }
