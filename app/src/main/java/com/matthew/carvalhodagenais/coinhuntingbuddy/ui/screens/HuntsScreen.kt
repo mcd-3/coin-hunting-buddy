@@ -30,7 +30,7 @@ fun HuntsScreen(
     val coroutineScope = rememberCoroutineScope()
 
     // Values for the date filter
-    val currentDateFilter = remember { mutableStateOf(DateFilter.UNSET) }
+    val currentDateFilter = remember { mutableStateOf(viewModel.dateFilter) }
 
     // Filter component values
     val openFilterDialog = remember { mutableStateOf(false) }
@@ -74,7 +74,8 @@ fun HuntsScreen(
                 filterActive = filterActive,
                 openFilterDialog = openFilterDialog,
                 currentDateFilter = currentDateFilter,
-                coroutineScope = coroutineScope
+                coroutineScope = coroutineScope,
+                viewModel = viewModel
             )
 
             Row {

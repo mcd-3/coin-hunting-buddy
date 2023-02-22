@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,7 @@ fun Filter(
     openFilterDialog: MutableState<Boolean>,
     currentDateFilter: MutableState<DateFilter>,
     coroutineScope: CoroutineScope,
+    viewModel: MainActivityViewModel
 ) {
     var selectedDateFilterOption by remember { mutableStateOf(currentDateFilter.value) }
 
@@ -77,6 +79,7 @@ fun Filter(
                 TextButton(onClick = {
                     openFilterDialog.value = false
                     currentDateFilter.value = selectedDateFilterOption
+                    viewModel.dateFilter = currentDateFilter.value
                     filterActive.value = currentDateFilter.value != DateFilter.UNSET
                 }){
                     Text(text = "Save")

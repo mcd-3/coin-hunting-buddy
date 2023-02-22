@@ -22,6 +22,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     private var currentHuntGroup: HuntGroup? = null
 
+    var dateFilter = DateFilter.UNSET
+
     val allHuntGroups = huntGroupRepository.getHuntGroups()
 
     fun getHuntType(huntGroup: HuntGroup): Deferred<MutableList<CoinType>> = coroutineScope.async(Dispatchers.IO) {
