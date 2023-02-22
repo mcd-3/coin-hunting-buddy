@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -18,7 +20,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
@@ -43,7 +47,7 @@ fun DetailsScreen(
     val halfLabelModifier = Modifier.padding(
         start = 20.dp,
         end = 20.dp,
-        bottom = 4.dp
+        bottom = 8.dp
     )
 
     Scaffold(
@@ -76,7 +80,7 @@ fun DetailsScreen(
             .background(Color.White)
             .fillMaxSize()) {
 
-            Column {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Column {
                     Card(
                         modifier = Modifier
@@ -151,23 +155,57 @@ fun DetailsScreen(
                                         modifier = halfLabelModifier
                                     )
                                 }
-                                Row {
-                                    finds.value?.forEach { find ->
-                                        val grade = viewModel
-                                            .getGradeById(find.gradeId!!)
-                                            .observeAsState()
 
-                                        if (grade.value != null) {
+                                finds.value?.forEachIndexed { index, find ->
+                                    val grade = viewModel
+                                        .getGradeById(find.gradeId!!)
+                                        .observeAsState()
 
-                                            val strArr = FindStringGenerator.generate(
-                                                year = find.year,
-                                                mintMark = find.mintMark,
-                                                error = find.error,
-                                                variety = find.variety
-                                            )
+                                    if (grade.value != null) {
+                                        val strArr = FindStringGenerator.generate(
+                                            year = find.year,
+                                            mintMark = find.mintMark,
+                                            error = find.error,
+                                            variety = find.variety
+                                        )
 
-                                            Column {
-                                                Text(text = grade.value!!.code)
+                                        Row {
+                                            Column(modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(start = 18.dp, end = 18.dp, bottom = 12.dp)
+                                            ) {
+                                                Text(text = "${strArr[0]} : ${grade.value!!.code}")
+
+                                                if (strArr[1] == "No major varieties or errors") {
+                                                    Text(
+                                                        text = strArr[1],
+                                                        fontSize = 13.sp,
+                                                        fontStyle = FontStyle.Italic,
+                                                        color = Color.Gray,
+                                                    )
+                                                } else {
+                                                    Text(
+                                                        text = strArr[1],
+                                                        fontSize = 13.sp,
+                                                        color = Color.Gray,
+                                                    )
+                                                }
+                                            }
+                                        }
+
+                                        if (index != finds.value!!.size - 1) {
+                                            Row {
+                                                Divider(
+                                                    color = Color(0xFFB6B3B3),
+                                                    thickness = 2.dp,
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .padding(
+                                                            start = 20.dp,
+                                                            end = 20.dp,
+                                                            bottom = 8.dp
+                                                        )
+                                                )
                                             }
                                         }
                                     }
