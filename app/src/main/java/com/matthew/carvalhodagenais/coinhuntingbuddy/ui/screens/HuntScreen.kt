@@ -261,7 +261,6 @@ fun HuntScreen(
                         // by the user before saving has completed
                         GlobalScope.launch {
                             viewModel.saveData()
-                            Log.e("NOT_WORKING?", "BRUH???")
                         }
                     },
                     onCancel = { showHuntCompleteDialog.value = false }

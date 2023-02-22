@@ -29,4 +29,8 @@ class CoinTypeRepository(application: Application) {
     fun getCoinTypeById(id: Int): CoinType {
         return coinTypeDAO.getCoinTypeById(id)
     }
+
+    fun getCoinTypeNameById(id: Int): LiveData<String> {
+        return coinTypeDAO.getCoinTypeNameById(id)
+    }
 }

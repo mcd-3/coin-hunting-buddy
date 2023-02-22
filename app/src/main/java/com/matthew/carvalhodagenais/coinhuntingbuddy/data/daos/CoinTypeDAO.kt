@@ -23,4 +23,7 @@ interface CoinTypeDAO {
 
     @Query("SELECT * FROM coin_type_table")
     fun getCoinTypes(): LiveData<List<CoinType>>
+
+    @Query("SELECT name FROM coin_type_table WHERE id = :id")
+    fun getCoinTypeNameById(id: Int): LiveData<String>
 }

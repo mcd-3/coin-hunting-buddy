@@ -1,6 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.AppDatabase
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.HuntDAO
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Hunt
@@ -22,6 +23,10 @@ class HuntRepository(application: Application) {
 
     fun getHuntsByHuntGroupId(hgId: Int): List<Hunt> {
         return huntDAO.getHuntsByHuntGroupId(hgId)
+    }
+
+    fun getLiveHuntsByHuntGroupId(hgId: Int): LiveData<List<Hunt>> {
+        return huntDAO.getLiveHuntsByHuntGroupId(hgId)
     }
 
 }

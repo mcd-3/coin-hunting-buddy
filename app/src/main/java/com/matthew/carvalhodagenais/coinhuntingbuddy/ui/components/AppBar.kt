@@ -1,15 +1,14 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.Screen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -18,7 +17,7 @@ fun AppBar(
     scaffoldState: ScaffoldState,
     navController: NavController? = null,
     isPopable: Boolean = false,
-    hasAddButton: Boolean = false
+    actions: @Composable (RowScope.() -> Unit) = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -49,19 +48,7 @@ fun AppBar(
                     }
                 }
             },
-            actions = {
-                if (navController != null && hasAddButton) {
-                    IconButton(
-                        onClick = {
-                            coroutineScope.launch {
-                                navController.navigate(Screen.NewHunt.route)
-                            }
-                        }
-                    ) {
-                        Icon(Icons.Filled.Add, contentDescription = "Add hunt")
-                    }
-                }
-            }
+            actions = actions
         )
     }
 }
