@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.*
+import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +59,13 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getGradeById(id: Int): LiveData<Grade> {
         return gradeRepository.getGradeById(id)
+    }
+
+    fun getAllHuntGroups(dateFilter: DateFilter): LiveData<List<HuntGroup>> {
+        return when(dateFilter) {
+            DateFilter.OLDEST -> huntGroupRepository.getHuntGroupsByOlder()
+            else -> huntGroupRepository.getHuntGroupsByRecent()
+        }
     }
 
     suspend fun deleteHunt() {

@@ -38,7 +38,6 @@ fun HuntsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val allHunts by viewModel.allHuntGroups.observeAsState()
 
     // Values for the date filter
     val currentDateFilter = remember { mutableStateOf(DateFilter.UNSET) }
@@ -51,6 +50,8 @@ fun HuntsScreen(
             currentDateFilter.value != DateFilter.UNSET
         )
     }
+
+    val allHunts by viewModel.getAllHuntGroups(currentDateFilter.value).observeAsState()
 
     Scaffold(
         scaffoldState = scaffoldState,

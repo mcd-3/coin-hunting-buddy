@@ -28,6 +28,14 @@ class HuntGroupRepository(application: Application) {
         return allHuntGroups
     }
 
+    fun getHuntGroupsByRecent(): LiveData<List<HuntGroup>> {
+        return huntGroupDAO.getHuntGroupsOrderedRecent()
+    }
+
+    fun getHuntGroupsByOlder(): LiveData<List<HuntGroup>> {
+        return huntGroupDAO.getHuntGroupsOrderedOlder()
+    }
+
     fun insert(regionCode: String): Long {
         val region = regionDAO.getRegionByCode(regionCode.lowercase())
         val hg = HuntGroup(dateHunted = Date(), regionId = region.id)
