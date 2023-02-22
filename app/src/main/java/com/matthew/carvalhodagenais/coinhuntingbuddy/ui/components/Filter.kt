@@ -24,9 +24,10 @@ fun Filter(
     filterActive: MutableState<Boolean>,
     openFilterDialog: MutableState<Boolean>,
     currentDateFilter: MutableState<DateFilter>,
-    selectedDateFilterOption: MutableState<DateFilter>,
     coroutineScope: CoroutineScope,
 ) {
+    var selectedDateFilterOption by remember { mutableStateOf(currentDateFilter.value) }
+
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
         Column(modifier = Modifier.weight(1f)) {
             if (filterActive.value) {
@@ -70,12 +71,12 @@ fun Filter(
             title = { Text(text = "Add/Remove Filter\n") },
             onDismissRequest = {
                 openFilterDialog.value = false
-                selectedDateFilterOption.value = currentDateFilter.value
+                selectedDateFilterOption = currentDateFilter.value
             },
             confirmButton = {
                 TextButton(onClick = {
                     openFilterDialog.value = false
-                    currentDateFilter.value = selectedDateFilterOption.value
+                    currentDateFilter.value = selectedDateFilterOption
                     filterActive.value = currentDateFilter.value != DateFilter.UNSET
                 }){
                     Text(text = "Save")
@@ -84,7 +85,7 @@ fun Filter(
             dismissButton = {
                 TextButton(onClick = {
                     openFilterDialog.value = false
-                    selectedDateFilterOption.value = currentDateFilter.value
+                    selectedDateFilterOption = currentDateFilter.value
                 }) {
                     Text(text = "Cancel")
                 }
@@ -104,7 +105,7 @@ fun Filter(
                     ) {
                         TextField(
                             readOnly = true,
-                            value = TextFieldValue(selectedDateFilterOption.value.dateFilter),
+                            value = TextFieldValue(selectedDateFilterOption.dateFilter),
                             onValueChange = { },
                             trailingIcon = {
                                 ExposedDropdownMenuDefaults.TrailingIcon(
@@ -123,7 +124,7 @@ fun Filter(
                             DateFilter.values().forEach {
                                 DropdownMenuItem(
                                     onClick = {
-                                        selectedDateFilterOption.value = it
+                                        selectedDateFilterOption = it
                                         expanded = false
                                     }
                                 ) {

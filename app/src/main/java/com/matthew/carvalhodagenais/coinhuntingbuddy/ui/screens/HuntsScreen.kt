@@ -1,6 +1,5 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -9,15 +8,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
@@ -27,7 +21,6 @@ import kotlinx.coroutines.launch
 
 private const val HUNTS_INDEX = 0
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HuntsScreen(
     viewModel: MainActivityViewModel,
@@ -38,7 +31,6 @@ fun HuntsScreen(
 
     // Values for the date filter
     val currentDateFilter = remember { mutableStateOf(DateFilter.UNSET) }
-    val selectedDateFilterOption by remember { mutableStateOf(currentDateFilter) }
 
     // Filter component values
     val openFilterDialog = remember { mutableStateOf(false) }
@@ -82,7 +74,6 @@ fun HuntsScreen(
                 filterActive = filterActive,
                 openFilterDialog = openFilterDialog,
                 currentDateFilter = currentDateFilter,
-                selectedDateFilterOption = selectedDateFilterOption,
                 coroutineScope = coroutineScope
             )
 
