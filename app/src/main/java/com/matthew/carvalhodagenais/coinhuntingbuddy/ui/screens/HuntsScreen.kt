@@ -1,18 +1,21 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.FilterAlt
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
@@ -59,29 +62,72 @@ fun HuntsScreen(
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
         val allHunts by viewModel.allHuntGroups.observeAsState()
+        val filterActive = remember { mutableStateOf(false) }
 
-        if (allHunts == null) {
-            // Loading...
-        } else if (allHunts!!.isEmpty()) {
-            NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
-        } else if (allHunts!!.isNotEmpty()) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                allHunts!!.forEachIndexed { index, it ->
-                    HuntGroupListItem(
-                        huntGroup = it,
-                        viewModel = viewModel,
-                        onClick = {
-                            viewModel.setCurrentHuntGroup(it)
-                            navController.navigate(Screen.Details.route)
-                        }
-                    )
-
-                    if (index != allHunts!!.lastIndex) {
-                        Divider(
-                            color = Color.LightGray,
-                            thickness = 1.dp,
-                            modifier = Modifier.padding(bottom = 2.dp, top = 2.dp, start = 2.dp, end = 2.dp)
+        Column {
+            // TODO: Turn this into a composable fun
+            Row(modifier = Modifier.padding(bottom = 6.dp)) {
+                Column(modifier = Modifier.weight(1f)) {
+                    if (filterActive.value) {
+                        Text(
+                            text = "Filter active",
+                            modifier = Modifier.padding(start = 20.dp, top = 12.dp),
+                            fontWeight = FontWeight.Bold
                         )
+                    } else {
+                        Text(
+                            text = "No filter active",
+                            modifier = Modifier.padding(start = 20.dp, top = 12.dp),
+                            fontStyle = FontStyle.Italic
+                        )
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 4.dp),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    IconButton(
+                        onClick = {
+                            coroutineScope.launch {
+                                filterActive.value = !filterActive.value
+                            }
+                        }
+                    ) {
+                        if (filterActive.value) {
+                            Icon(Icons.Filled.FilterAlt, contentDescription = "Filter Active")
+                        } else {
+                            Icon(Icons.Outlined.FilterAlt, contentDescription = "Filter")
+                        }
+                    }
+                }
+            }
+            Row {
+                if (allHunts == null) {
+                    // Loading...
+                } else if (allHunts!!.isEmpty()) {
+                    NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
+                } else if (allHunts!!.isNotEmpty()) {
+                    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                        allHunts!!.forEachIndexed { index, it ->
+                            HuntGroupListItem(
+                                huntGroup = it,
+                                viewModel = viewModel,
+                                onClick = {
+                                    viewModel.setCurrentHuntGroup(it)
+                                    navController.navigate(Screen.Details.route)
+                                }
+                            )
+
+                            if (index != allHunts!!.lastIndex) {
+                                Divider(
+                                    color = Color.LightGray,
+                                    thickness = 1.dp,
+                                    modifier = Modifier.padding(bottom = 2.dp, top = 2.dp, start = 2.dp, end = 2.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
