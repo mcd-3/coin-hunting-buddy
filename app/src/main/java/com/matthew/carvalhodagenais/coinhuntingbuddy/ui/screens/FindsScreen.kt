@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -31,14 +32,17 @@ fun FindsScreen(
     val coroutineScope = rememberCoroutineScope()
     val allFinds by viewModel.getAllFinds().observeAsState()
 
-    // Values for the date filter
+    // Values for the filter
     val currentDateFilter = remember { mutableStateOf(viewModel.dateFilter) }
+    val currentCoinTypeFilter = remember { mutableStateOf(viewModel.coinTypeFilter) }
+
+    Log.e("CT", currentCoinTypeFilter.value.toString())
 
     // Filter component values
     val openFilterDialog = remember { mutableStateOf(false) }
     val filterActive = remember {
         mutableStateOf(
-            currentDateFilter.value != DateFilter.UNSET
+            !(currentDateFilter.value == DateFilter.UNSET && currentCoinTypeFilter.value == null)
         )
     }
 
@@ -65,6 +69,7 @@ fun FindsScreen(
                     filterActive = filterActive,
                     openFilterDialog = openFilterDialog,
                     currentDateFilter = currentDateFilter,
+                    currentCoinTypeFilter = currentCoinTypeFilter,
                     coroutineScope = coroutineScope,
                     viewModel = viewModel
                 )

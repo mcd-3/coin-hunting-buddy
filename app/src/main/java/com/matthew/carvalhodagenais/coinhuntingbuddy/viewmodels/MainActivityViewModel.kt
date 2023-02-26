@@ -24,6 +24,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private var currentHuntGroup: HuntGroup? = null
 
     var dateFilter = DateFilter.UNSET
+    var coinTypeFilter: CoinType? = null
 
     val allHuntGroups = huntGroupRepository.getHuntGroups()
 
@@ -77,6 +78,10 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getDateHuntedForFind(huntId: Int): LiveData<Date> {
         return huntGroupRepository.getDateHuntedByHuntId(huntId)
+    }
+
+    fun getAllCoinTypes(): LiveData<List<CoinType>> {
+        return coinTypeRepository.getCoinTypes()
     }
 
     suspend fun deleteHunt() {
