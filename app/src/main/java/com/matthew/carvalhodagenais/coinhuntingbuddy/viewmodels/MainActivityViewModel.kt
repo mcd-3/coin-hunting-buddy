@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import java.util.*
 
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
     private val huntGroupRepository = HuntGroupRepository(application)
@@ -23,6 +24,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private var currentHuntGroup: HuntGroup? = null
 
     var dateFilter = DateFilter.UNSET
+    var findsDateFilter = DateFilter.UNSET
+    var coinTypeFilter: CoinType? = null
 
     val allHuntGroups = huntGroupRepository.getHuntGroups()
 
@@ -68,6 +71,38 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
             DateFilter.OLDEST -> huntGroupRepository.getHuntGroupsByOlder()
             else -> huntGroupRepository.getHuntGroupsByRecent()
         }
+    }
+
+    fun getAllFindsFiltered(dateFilter: DateFilter, coinTypeFilter: CoinType?): LiveData<List<Find>> {
+        return if (dateFilter != DateFilter.UNSET && coinTypeFilter != null) {
+            if (dateFilter == DateFilter.OLDEST) {
+                findRepository.getFindsByCoinType(coinTypeFilter)
+            } else {
+                findRepository.getFindsByCoinTypeNewest(coinTypeFilter)
+            }
+        } else if (dateFilter != DateFilter.UNSET) {
+            if (dateFilter == DateFilter.OLDEST) {
+               findRepository.getFindsOlder()
+            } else {
+                findRepository.getFinds()
+            }
+        } else if (coinTypeFilter != null) {
+            findRepository.getFindsByCoinTypeNewest(coinTypeFilter)
+        } else {
+            findRepository.getFinds()
+        }
+    }
+
+    fun getDateHuntedForFind(huntId: Int): LiveData<Date> {
+        return huntGroupRepository.getDateHuntedByHuntId(huntId)
+    }
+
+    fun getAllCoinTypes(): LiveData<List<CoinType>> {
+        return coinTypeRepository.getCoinTypes()
+    }
+
+    fun isSupportedCoinType(ct: CoinType): Boolean {
+        return ct.id != CoinType.CT_CANADA_DOLLAR_LARGE && ct.id != CoinType.CT_CANADA_HD
     }
 
     suspend fun deleteHunt() {

@@ -15,12 +15,21 @@ interface FindDAO {
     @Delete
     suspend fun delete(find: Find)
 
-    @Query("SELECT * FROM finds_table")
+    @Query("SELECT * FROM finds_table ORDER BY hunt_id DESC")
     fun getAllFinds(): LiveData<List<Find>>
+
+    @Query("SELECT * FROM finds_table ORDER BY hunt_id ASC")
+    fun getAllFindsOlder(): LiveData<List<Find>>
 
     @Query("SELECT * FROM finds_table WHERE id = :id")
     fun getFindById(id: Int): LiveData<Find>
 
     @Query("SELECT * FROM finds_table WHERE hunt_id IN (SELECT id FROM hunt_table WHERE id = :id)")
     fun getFindByHuntId(id: Int): LiveData<List<Find>>
+
+    @Query("SELECT * FROM finds_table WHERE coin_type_id = :ctId ORDER BY id ASC")
+    fun getFindsByCoinTypeId(ctId: Int): LiveData<List<Find>>
+
+    @Query("SELECT * FROM finds_table WHERE coin_type_id = :ctId ORDER BY id DESC")
+    fun getFindsByCoinTypeIdNewest(ctId: Int): LiveData<List<Find>>
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.AppDatabase
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.FindDAO
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.CoinType
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 
 class FindRepository(application: Application) {
@@ -23,8 +24,20 @@ class FindRepository(application: Application) {
         return allFinds
     }
 
+    fun getFindsOlder(): LiveData<List<Find>> {
+        return findDAO.getAllFindsOlder()
+    }
+
     fun getFindsByHuntId(id: Int): LiveData<List<Find>> {
         return findDAO.getFindByHuntId(id)
+    }
+
+    fun getFindsByCoinType(coinType: CoinType): LiveData<List<Find>> {
+        return findDAO.getFindsByCoinTypeId(coinType.id)
+    }
+
+    fun getFindsByCoinTypeNewest(coinType: CoinType): LiveData<List<Find>> {
+        return findDAO.getFindsByCoinTypeIdNewest(coinType.id)
     }
 
     suspend fun insert(find: Find) {
