@@ -70,6 +70,10 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
+    fun getAllFinds(): LiveData<List<Find>> {
+        return findRepository.getFinds()
+    }
+
     suspend fun deleteHunt() {
 
     }
