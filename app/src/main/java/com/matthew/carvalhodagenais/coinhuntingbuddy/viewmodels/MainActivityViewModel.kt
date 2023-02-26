@@ -73,12 +73,12 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
-    fun getAllFindsFiltered(dateFilter: DateFilter): LiveData<List<Find>> {
+    fun getAllFindsFiltered(dateFilter: DateFilter, coinTypeFilter: CoinType?): LiveData<List<Find>> {
         return if (dateFilter != DateFilter.UNSET && coinTypeFilter != null) {
             if (dateFilter == DateFilter.OLDEST) {
-                findRepository.getFindsByCoinType(coinTypeFilter!!)
+                findRepository.getFindsByCoinType(coinTypeFilter)
             } else {
-                findRepository.getFindsByCoinTypeNewest(coinTypeFilter!!)
+                findRepository.getFindsByCoinTypeNewest(coinTypeFilter)
             }
         } else if (dateFilter != DateFilter.UNSET) {
             if (dateFilter == DateFilter.OLDEST) {
@@ -87,7 +87,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
                 findRepository.getFinds()
             }
         } else if (coinTypeFilter != null) {
-            findRepository.getFindsByCoinTypeNewest(coinTypeFilter!!)
+            findRepository.getFindsByCoinTypeNewest(coinTypeFilter)
         } else {
             findRepository.getFinds()
         }
@@ -99,6 +99,10 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getAllCoinTypes(): LiveData<List<CoinType>> {
         return coinTypeRepository.getCoinTypes()
+    }
+
+    fun isSupportedCoinType(ct: CoinType): Boolean {
+        return ct.id != CoinType.CT_CANADA_DOLLAR_LARGE && ct.id != CoinType.CT_CANADA_HD
     }
 
     suspend fun deleteHunt() {

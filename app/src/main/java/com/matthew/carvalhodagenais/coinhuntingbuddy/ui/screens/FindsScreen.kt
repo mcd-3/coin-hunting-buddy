@@ -34,7 +34,7 @@ fun FindsScreen(
     val currentDateFilter = remember { mutableStateOf(viewModel.findsDateFilter) }
     val currentCoinTypeFilter = remember { mutableStateOf(viewModel.coinTypeFilter) }
 
-    val allFinds by viewModel.getAllFindsFiltered(currentDateFilter.value).observeAsState()
+    val allFinds by viewModel.getAllFindsFiltered(currentDateFilter.value, currentCoinTypeFilter.value).observeAsState()
 
     // Filter component values
     val openFilterDialog = remember { mutableStateOf(false) }

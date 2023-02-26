@@ -1,8 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterAlt
@@ -115,92 +113,100 @@ fun Filter(
                 }
             },
             text = {
-                Row {
+                Column {
                     var dateExpanded by remember { mutableStateOf(false) }
                     var coinTypeExpanded by remember { mutableStateOf(false) }
 
-                    ExposedDropdownMenuBox(
-                        expanded = dateExpanded,
-                        onExpandedChange = {
-                            dateExpanded = !dateExpanded
-                        },
-                        modifier = Modifier
-                            .weight(0.5f)
-                            .padding(start = 4.dp)
-                            .align(Alignment.Bottom),
-                    ) {
-                        TextField(
-                            readOnly = true,
-                            value = TextFieldValue(selectedDateFilterOption.dateFilter),
-                            onValueChange = { },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(
-                                    expanded = dateExpanded
-                                )
-                            },
-                            colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                            label = { Text(text = "Date From") },
-                        )
-                        ExposedDropdownMenu(
+                    Row {
+                        ExposedDropdownMenuBox(
                             expanded = dateExpanded,
-                            onDismissRequest = {
-                                dateExpanded = false
-                            }
+                            onExpandedChange = {
+                                dateExpanded = !dateExpanded
+                            },
+                            modifier = Modifier
+                                .weight(0.5f)
+                                .padding(start = 4.dp)
                         ) {
-                            DateFilter.values().forEach {
-                                DropdownMenuItem(
-                                    onClick = {
-                                        selectedDateFilterOption = it
-                                        dateExpanded = false
+                            TextField(
+                                readOnly = true,
+                                value = TextFieldValue(selectedDateFilterOption.dateFilter),
+                                onValueChange = { },
+                                trailingIcon = {
+                                    ExposedDropdownMenuDefaults.TrailingIcon(
+                                        expanded = dateExpanded
+                                    )
+                                },
+                                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                                label = { Text(text = "Date From") },
+                            )
+                            ExposedDropdownMenu(
+                                expanded = dateExpanded,
+                                onDismissRequest = {
+                                    dateExpanded = false
+                                }
+                            ) {
+                                DateFilter.values().forEach {
+                                    DropdownMenuItem(
+                                        onClick = {
+                                            selectedDateFilterOption = it
+                                            dateExpanded = false
+                                        }
+                                    ) {
+                                        Text(text = it.dateFilter)
                                     }
-                                ) {
-                                    Text(text = it.dateFilter)
                                 }
                             }
                         }
                     }
 
                     if (currentCoinTypeFilter != null) {
-                        ExposedDropdownMenuBox(
-                            expanded = coinTypeExpanded,
-                            onExpandedChange = {
-                                coinTypeExpanded = !coinTypeExpanded
-                            },
-                            modifier = Modifier
-                                .weight(0.5f)
-                                .padding(start = 4.dp)
-                                .align(Alignment.Bottom),
-                        ) {
-                            TextField(
-                                readOnly = true,
-                                value = TextFieldValue(
-                                    if (selectedCoinTypeFilterOption == null) ""
-                                    else selectedCoinTypeFilterOption!!.name
-                                ),
-                                onValueChange = { },
-                                trailingIcon = {
-                                    ExposedDropdownMenuDefaults.TrailingIcon(
-                                        expanded = coinTypeExpanded
-                                    )
-                                },
-                                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                label = { Text(text = "Coin Type") },
-                            )
-                            ExposedDropdownMenu(
+                        Row {
+                            Spacer(modifier = Modifier.height(12.dp))
+                        }
+
+                        Row {
+                            ExposedDropdownMenuBox(
                                 expanded = coinTypeExpanded,
-                                onDismissRequest = {
-                                    coinTypeExpanded = false
-                                }
+                                onExpandedChange = {
+                                    coinTypeExpanded = !coinTypeExpanded
+                                },
+                                modifier = Modifier
+                                    .weight(0.5f)
+                                    .padding(start = 4.dp)
                             ) {
-                                allCoinTypes?.forEach {
-                                    DropdownMenuItem(
-                                        onClick = {
-                                            selectedCoinTypeFilterOption = it
-                                            coinTypeExpanded = false
+                                TextField(
+                                    readOnly = true,
+                                    value = TextFieldValue(
+                                        if (selectedCoinTypeFilterOption == null) ""
+                                        else selectedCoinTypeFilterOption!!.name
+                                    ),
+                                    onValueChange = { },
+                                    trailingIcon = {
+                                        ExposedDropdownMenuDefaults.TrailingIcon(
+                                            expanded = coinTypeExpanded
+                                        )
+                                    },
+                                    colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                                    label = { Text(text = "Coin Type") },
+                                )
+                                ExposedDropdownMenu(
+                                    expanded = coinTypeExpanded,
+                                    onDismissRequest = {
+                                        coinTypeExpanded = false
+                                    }
+                                ) {
+                                    allCoinTypes?.forEach {
+                                        if (viewModel.isSupportedCoinType(it)) {
+                                            DropdownMenuItem(
+                                                onClick = {
+                                                    selectedCoinTypeFilterOption = it
+                                                    coinTypeExpanded = false
+                                                }
+                                            ) {
+                                                val region = if (it.regionId == 1) "\uD83C\uDDE8\uD83C\uDDE6" else "\uD83C\uDDFA\uD83C\uDDF8"
+                                                Text(text = "$region ${it.name}")
+                                            }
                                         }
-                                    ) {
-                                        val region = if (it.regionId == 1) "\uD83C\uDDE8\uD83C\uDDE6" else "\uD83C\uDDFA\uD83C\uDDF8"
-                                        Text(text = "$region ${it.name}")
                                     }
                                 }
                             }
