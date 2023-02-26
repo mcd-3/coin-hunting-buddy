@@ -1,21 +1,25 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NoItemsWarning
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 
@@ -55,12 +59,58 @@ fun FindsScreen(
                         variety = find.variety,
                     )
 
-                    Column {
-                        Row {
-                            Text(text = strArray[0])
+                    Column(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)) {
+                        val rowPadding = 16.dp
+                        Row(modifier = Modifier.padding(start = rowPadding)) {
+                            val grade = viewModel
+                                .getGradeById(find.gradeId!!)
+                                .observeAsState()
+
+                            Text(text = "${strArray[0]} - ${grade.value?.code}")
                         }
-                        Row {
-                            Text(text = strArray[1])
+                        Row(modifier = Modifier.padding(start = rowPadding, bottom = 8.dp)) {
+                            if (strArray[1] == "No major varieties or errors") {
+                                Text(
+                                    text = strArray[1],
+                                    fontStyle = FontStyle.Italic,
+                                    fontSize = 14.sp
+                                )
+                            } else {
+                                Text(text = strArray[1], fontSize = 14.sp)
+                            }
+                        }
+                        Row(modifier = Modifier.padding(start = rowPadding, end = rowPadding)) {
+                            val dateHunted = viewModel
+                                .getDateHuntedForFind(find.huntId)
+                                .observeAsState()
+                            val coinTypeName = viewModel
+                                .getCoinTypeNameById(find.coinTypeId)
+                                .observeAsState()
+
+                            Column(modifier = Modifier.weight(1f)) {
+                                HalfBoldLabel(
+                                    first = "Date Hunted: ",
+                                    second =
+                                        if (dateHunted.value == null) ""
+                                        else DateToStringConverter.getString(dateHunted.value!!),
+                                    fontSize = 16,
+                                    modifier = Modifier
+                                )
+                            }
+                            Column(
+                                modifier = Modifier.weight(1f),
+                                horizontalAlignment = Alignment.End
+                            ) {
+                                Text(
+                                    text =
+                                        if (coinTypeName.value == null) ""
+                                        else coinTypeName.value!!,
+                                    textAlign = TextAlign.End,
+                                    fontSize = 12.sp,
+                                    color = Color.Gray,
+                                    modifier = Modifier.padding(top = 4.dp)
+                                )
+                            }
                         }
                     }
 
@@ -68,7 +118,13 @@ fun FindsScreen(
                         Divider(
                             color = Color.LightGray,
                             thickness = 1.dp,
-                            modifier = Modifier.padding(bottom = 2.dp, top = 2.dp, start = 2.dp, end = 2.dp)
+                            modifier = Modifier
+                                .padding(
+                                    bottom = 2.dp,
+                                    top = 2.dp,
+                                    start = 2.dp,
+                                    end = 2.dp
+                                )
                         )
                     }
                 }

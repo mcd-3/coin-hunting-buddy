@@ -42,4 +42,8 @@ class HuntGroupRepository(application: Application) {
         return huntGroupDAO.insert(hg)
     }
 
+    fun getDateHuntedByHuntId(huntId: Int): LiveData<Date> {
+        return huntGroupDAO.getDateHuntedByHuntId(huntId)
+    }
+
 }

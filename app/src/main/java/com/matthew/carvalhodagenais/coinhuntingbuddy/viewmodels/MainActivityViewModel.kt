@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import java.util.*
 
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
     private val huntGroupRepository = HuntGroupRepository(application)
@@ -72,6 +73,10 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getAllFinds(): LiveData<List<Find>> {
         return findRepository.getFinds()
+    }
+
+    fun getDateHuntedForFind(huntId: Int): LiveData<Date> {
+        return huntGroupRepository.getDateHuntedByHuntId(huntId)
     }
 
     suspend fun deleteHunt() {
