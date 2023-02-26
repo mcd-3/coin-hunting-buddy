@@ -177,7 +177,7 @@ fun Filter(
                                 TextField(
                                     readOnly = true,
                                     value = TextFieldValue(
-                                        if (selectedCoinTypeFilterOption == null) ""
+                                        if (selectedCoinTypeFilterOption == null) "Not Set"
                                         else selectedCoinTypeFilterOption!!.name
                                     ),
                                     onValueChange = { },
@@ -195,6 +195,14 @@ fun Filter(
                                         coinTypeExpanded = false
                                     }
                                 ) {
+                                    DropdownMenuItem(
+                                        onClick = {
+                                            selectedCoinTypeFilterOption = null
+                                            coinTypeExpanded = false
+                                        }
+                                    ) {
+                                        Text(text = "Not Set")
+                                    }
                                     allCoinTypes?.forEach {
                                         if (viewModel.isSupportedCoinType(it)) {
                                             DropdownMenuItem(
