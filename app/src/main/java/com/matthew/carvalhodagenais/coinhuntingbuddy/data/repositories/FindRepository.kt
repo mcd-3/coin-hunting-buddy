@@ -24,12 +24,20 @@ class FindRepository(application: Application) {
         return allFinds
     }
 
+    fun getFindsOlder(): LiveData<List<Find>> {
+        return findDAO.getAllFindsOlder()
+    }
+
     fun getFindsByHuntId(id: Int): LiveData<List<Find>> {
         return findDAO.getFindByHuntId(id)
     }
 
     fun getFindsByCoinType(coinType: CoinType): LiveData<List<Find>> {
         return findDAO.getFindsByCoinTypeId(coinType.id)
+    }
+
+    fun getFindsByCoinTypeNewest(coinType: CoinType): LiveData<List<Find>> {
+        return findDAO.getFindsByCoinTypeIdNewest(coinType.id)
     }
 
     suspend fun insert(find: Find) {

@@ -72,19 +72,24 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
-    fun getAllFinds(): LiveData<List<Find>> {
-        return findRepository.getFinds()
-    }
-
-    fun getAllFindsFiltered(): LiveData<List<Find>> {
-        if (dateFilter == DateFilter.UNSET && coinTypeFilter == null) {
-            return findRepository.getFinds()
+    fun getAllFindsFiltered(dateFilter: DateFilter): LiveData<List<Find>> {
+        return if (dateFilter != DateFilter.UNSET && coinTypeFilter != null) {
+            if (dateFilter == DateFilter.OLDEST) {
+                findRepository.getFindsByCoinType(coinTypeFilter!!)
+            } else {
+                findRepository.getFindsByCoinTypeNewest(coinTypeFilter!!)
+            }
         } else if (dateFilter != DateFilter.UNSET) {
-            return findRepository.getFinds()
+            if (dateFilter == DateFilter.OLDEST) {
+               findRepository.getFindsOlder()
+            } else {
+                findRepository.getFinds()
+            }
         } else if (coinTypeFilter != null) {
-            return findRepository.getFindsByCoinType(coinTypeFilter!!)
+            findRepository.getFindsByCoinTypeNewest(coinTypeFilter!!)
+        } else {
+            findRepository.getFinds()
         }
-        return findRepository.getFinds()
     }
 
     fun getDateHuntedForFind(huntId: Int): LiveData<Date> {

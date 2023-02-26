@@ -30,11 +30,12 @@ fun FindsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val allFinds by viewModel.getAllFindsFiltered().observeAsState()
 
     // Values for the filter
     val currentDateFilter = remember { mutableStateOf(viewModel.dateFilter) }
     val currentCoinTypeFilter = remember { mutableStateOf(viewModel.coinTypeFilter) }
+
+    val allFinds by viewModel.getAllFindsFiltered(currentDateFilter.value).observeAsState()
 
     Log.e("CT", currentCoinTypeFilter.value.toString())
 
@@ -76,6 +77,7 @@ fun FindsScreen(
                 } else if (allFinds!!.isNotEmpty()) {
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                         allFinds!!.forEachIndexed { index, find ->
+                            Log.e("FIND", find.toString())
                             val strArray = FindStringGenerator.generate(
                                 year = find.year,
                                 mintMark = find.mintMark,
