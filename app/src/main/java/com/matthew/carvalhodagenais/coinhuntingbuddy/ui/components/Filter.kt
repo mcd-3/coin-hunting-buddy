@@ -29,6 +29,7 @@ fun Filter(
     currentDateFilter: MutableState<DateFilter>,
     currentCoinTypeFilter: MutableState<CoinType?>? = null,
     coroutineScope: CoroutineScope,
+    isFindsPage: Boolean = false,
     viewModel: MainActivityViewModel
 ) {
     var selectedDateFilterOption by remember { mutableStateOf(currentDateFilter.value) }
@@ -85,7 +86,12 @@ fun Filter(
                 TextButton(onClick = {
                     openFilterDialog.value = false
                     currentDateFilter.value = selectedDateFilterOption
-                    viewModel.dateFilter = currentDateFilter.value
+
+                    if (isFindsPage) {
+                        viewModel.findsDateFilter = currentDateFilter.value
+                    } else {
+                        viewModel.dateFilter = currentDateFilter.value
+                    }
 
                     if (currentCoinTypeFilter != null) {
                         currentCoinTypeFilter.value = selectedCoinTypeFilterOption

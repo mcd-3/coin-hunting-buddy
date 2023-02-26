@@ -24,6 +24,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private var currentHuntGroup: HuntGroup? = null
 
     var dateFilter = DateFilter.UNSET
+    var findsDateFilter = DateFilter.UNSET
     var coinTypeFilter: CoinType? = null
 
     val allHuntGroups = huntGroupRepository.getHuntGroups()
