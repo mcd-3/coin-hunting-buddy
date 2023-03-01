@@ -4,10 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Search
@@ -21,6 +18,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.deleteIcon
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
@@ -136,7 +134,7 @@ fun FindsPanel(
                                     Icon(
                                         imageVector = Icons.Filled.Cancel,
                                         contentDescription = "Cancel",
-                                        tint = Color(0xFFE6382C)
+                                        tint = MaterialTheme.colors.deleteIcon
                                     )
                                 }
                                 Column(modifier = Modifier.weight(1f)) {

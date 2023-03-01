@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 // Unfortunately, we need to opt in to experimental APIs for ExposedDropdownMenuBox
@@ -44,7 +45,8 @@ fun CoinTypeHuntPanel(
                 bottom = 10.dp
             )
             .border(1.dp, Color(0xFFCECECE)),
-        elevation = 10.dp
+        elevation = 10.dp,
+        backgroundColor = MaterialTheme.colors.cardBackground
     ) {
         Column {
             Text(

@@ -25,6 +25,8 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FormLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SummaryFinds
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 import java.util.*
@@ -49,7 +51,7 @@ fun ReviewScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color.White,
+                backgroundColor = MaterialTheme.colors.topAppBar,
                 title = { Text(text = "Summary") },
                 elevation = 0.dp,
                 actions = {
@@ -88,7 +90,8 @@ fun ReviewScreen(
                             bottom = 10.dp
                         )
                         .border(1.dp, Color(0xFFCECECE)),
-                    elevation = 10.dp
+                    elevation = 10.dp,
+                    backgroundColor = MaterialTheme.colors.cardBackground
                 ) {
                     Column(modifier = Modifier.padding(bottom = 12.dp)) {
                         val region = if (viewModel.getRegion() == "CA") "Canada" else "United States of America"
@@ -137,7 +140,8 @@ fun ReviewScreen(
                             bottom = 10.dp
                         )
                         .border(1.dp, Color(0xFFCECECE)),
-                    elevation = 10.dp
+                    elevation = 10.dp,
+                    backgroundColor = MaterialTheme.colors.cardBackground
                 ) {
                     Column {
                         // This could be another card

@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.deleteIcon
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
@@ -63,7 +65,11 @@ fun DetailsScreen(
                         openDialog.value = true
                     }
                 ) {
-                    Icon(Icons.Filled.Delete, contentDescription = "Delete hunt", tint = Color.Red)
+                    Icon(
+                        Icons.Filled.Delete,
+                        contentDescription = "Delete hunt",
+                        tint = MaterialTheme.colors.deleteIcon
+                    )
                 }
             }
         ) },
@@ -75,10 +81,7 @@ fun DetailsScreen(
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        Box(modifier = Modifier
-            .background(Color.White)
-            .fillMaxSize()) {
-
+        Box(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Column {
                     Card(
@@ -90,7 +93,8 @@ fun DetailsScreen(
                                 bottom = 10.dp
                             )
                             .border(1.dp, Color(0xFFCECECE)),
-                        elevation = 10.dp
+                        elevation = 10.dp,
+                        backgroundColor = MaterialTheme.colors.cardBackground
                     ) {
                         Column {
                             Row {
@@ -140,7 +144,8 @@ fun DetailsScreen(
                                     bottom = 10.dp
                                 )
                                 .border(1.dp, Color(0xFFCECECE)),
-                            elevation = 10.dp
+                            elevation = 10.dp,
+                            backgroundColor = MaterialTheme.colors.cardBackground
                         ) {
                             Column {
                                 Row {
