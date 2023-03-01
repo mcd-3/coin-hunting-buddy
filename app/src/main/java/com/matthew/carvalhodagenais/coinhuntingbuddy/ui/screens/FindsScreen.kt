@@ -125,7 +125,7 @@ fun FindsScreen(
                                         )
                                     }
                                     Column(
-                                        modifier = Modifier.weight(1f),
+                                        modifier = Modifier.weight(0.5f),
                                         horizontalAlignment = Alignment.End
                                     ) {
                                         Text(
