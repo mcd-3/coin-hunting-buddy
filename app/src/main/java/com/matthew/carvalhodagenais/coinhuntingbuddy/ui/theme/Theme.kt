@@ -46,6 +46,9 @@ val Colors.deleteIcon: Color
 val Colors.labelColor: Color
     get() = if (isLight) Color.Black else Color.White
 
+val Colors.addMinus: Color
+    get() = if (isLight) Color(0xFF6F6F6F) else Color.White
+
 
 @Composable
 fun CoinHuntingBuddyTheme(
