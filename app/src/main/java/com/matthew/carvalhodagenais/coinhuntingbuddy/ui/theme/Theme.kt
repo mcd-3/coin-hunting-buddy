@@ -49,6 +49,9 @@ val Colors.labelColor: Color
 val Colors.addMinus: Color
     get() = if (isLight) Color(0xFF6F6F6F) else Color.White
 
+val Colors.unselected: Color
+    get() = if (isLight) Silver900 else Gray100
+
 
 @Composable
 fun CoinHuntingBuddyTheme(
