@@ -52,6 +52,9 @@ val Colors.addMinus: Color
 val Colors.unselected: Color
     get() = if (isLight) Silver900 else Gray100
 
+val Colors.secondaryText: Color
+    get() = if (isLight) Gray500 else Silver900
+
 
 @Composable
 fun CoinHuntingBuddyTheme(
