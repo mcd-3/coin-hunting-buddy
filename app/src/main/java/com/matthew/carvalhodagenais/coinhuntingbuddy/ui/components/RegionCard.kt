@@ -3,6 +3,7 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 
 @Composable
 fun RegionCard(
@@ -25,7 +27,8 @@ fun RegionCard(
                 bottom = 10.dp
             )
             .border(1.dp, Color(0xFFCECECE)),
-        elevation = 10.dp
+        elevation = 10.dp,
+        backgroundColor = MaterialTheme.colors.cardBackground
     ) {
         Column {
             FormLabel(text = "Region", icon = Icons.Filled.Public)

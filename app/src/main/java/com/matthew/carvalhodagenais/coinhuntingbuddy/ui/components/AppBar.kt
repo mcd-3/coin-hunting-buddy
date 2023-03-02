@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
 import kotlinx.coroutines.launch
 
 @Composable
@@ -23,7 +24,7 @@ fun AppBar(
 
     Surface {
         TopAppBar(
-            backgroundColor = Color.White,
+            backgroundColor = MaterialTheme.colors.topAppBar,
             title = { Text(text = title) },
             navigationIcon = {
                 if (!isPopable) {

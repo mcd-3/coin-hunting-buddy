@@ -1,7 +1,10 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
@@ -9,8 +12,11 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens.Screen
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 
 private const val HUNTS_INDEX = 0
 private const val FINDS_INDEX = 1
@@ -23,7 +29,11 @@ fun NavDrawer(
     navController: NavController,
     selectedIndex: Int
 ) {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .background(color = MaterialTheme.colors.cardBackground)
+    ) {
         // TODO: Add image here
         NavOption(
             title = "Hunts",
@@ -60,5 +70,6 @@ fun NavDrawer(
             navRoute = Screen.Settings.route,
             isSelected = (selectedIndex != SETTINGS_INDEX)
         )
+        Divider()
     }
 }

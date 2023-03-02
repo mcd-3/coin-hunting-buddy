@@ -3,6 +3,7 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.ArrayTools
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
@@ -136,7 +138,7 @@ fun HuntScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color.White,
+                backgroundColor = MaterialTheme.colors.topAppBar,
                 title = { Text(text = if (region == "US") "American Coin Hunt" else "Canadian Coin Hunt") },
                 elevation = 0.dp
             )

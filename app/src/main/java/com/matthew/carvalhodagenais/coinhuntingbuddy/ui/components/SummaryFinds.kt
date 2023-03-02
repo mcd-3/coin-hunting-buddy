@@ -1,20 +1,18 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.ParagraphStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextIndent
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.secondaryText
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 
 @Composable
@@ -37,37 +35,16 @@ fun SummaryFinds(
                 fontSize = 18.sp
             )
         }
-        // [Rolls: X    |    Finds: X]
         Row(modifier = Modifier.padding(bottom = 2.dp)) {
-            Row(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = "Rolls: $rolls",
-                    textAlign = TextAlign.Start,
-                    fontSize = 13.sp,
-                    color = Color(0xFF333333),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
-                Text(
-                    text = "|",
-                    textAlign = TextAlign.Center,
-                    fontSize = 13.sp,
-                    color = Color(0xFF333333),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
-                Text(
-                    text = "Finds: ${listOfFinds.size}",
-                    textAlign = TextAlign.End,
-                    fontSize = 13.sp,
-                    color = Color(0xFF333333),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
-            }
+            Text(
+                text = "Rolls: $rolls",
+                textAlign = TextAlign.Start,
+                fontSize = 13.sp,
+                color = MaterialTheme.colors.secondaryText,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
             Row(modifier = Modifier
                 .weight(1f)
             ) { }

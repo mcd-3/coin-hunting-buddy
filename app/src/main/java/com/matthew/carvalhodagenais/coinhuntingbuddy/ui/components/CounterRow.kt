@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.labelColor
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.TextNumberConverter
 
 @Composable
@@ -77,6 +79,7 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
+                    color = MaterialTheme.colors.labelColor
                 ),
                 onValueChange = {
                     if (it.text.length <= maxCharLength) {
