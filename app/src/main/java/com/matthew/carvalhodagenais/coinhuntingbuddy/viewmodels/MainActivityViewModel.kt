@@ -3,13 +3,13 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
@@ -22,6 +22,16 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private var currentHuntGroup: HuntGroup? = null
+
+    private val isLoadingFlow = MutableStateFlow(true)
+    val isLoading = isLoadingFlow.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            delay(3000)
+            isLoadingFlow.value = false
+        }
+    }
 
     var dateFilter = DateFilter.UNSET
     var findsDateFilter = DateFilter.UNSET
