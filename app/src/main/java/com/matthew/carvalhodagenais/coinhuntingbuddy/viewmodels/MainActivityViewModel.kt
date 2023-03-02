@@ -28,7 +28,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     init {
         viewModelScope.launch {
-            delay(3000)
+            delay(2000)
             isLoadingFlow.value = false
         }
     }
