@@ -66,6 +66,8 @@ private fun SelectionItem(
     selected: Boolean,
     onClick: (option: String) -> Unit = {}
 ) {
+    val selectedColor = MaterialTheme.colors.primary
+
     Button(
         onClick = { onClick(option) },
         colors = ButtonDefaults.buttonColors(
@@ -83,7 +85,7 @@ private fun SelectionItem(
         ) {
             Text(
                 text = option,
-                color = if (selected) Color.Blue else Color.LightGray,
+                color = if (selected) selectedColor else Color.LightGray,
                 modifier = Modifier.padding(0.dp)
             )
         }
