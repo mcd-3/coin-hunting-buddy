@@ -56,7 +56,11 @@ fun HuntsScreen(
                         }
                     }
                 ) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add hunt")
+                    Icon(
+                        Icons.Filled.Add,
+                        contentDescription = "Add hunt",
+                        tint = MaterialTheme.colors.primary
+                    )
                 }
             }
         )},
