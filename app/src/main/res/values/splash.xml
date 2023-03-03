@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.App.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#FFFAFAFA</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_baseline_monetization_on_24</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo_default_24</item>
         <item name="postSplashScreenTheme">@style/Theme.CoinHuntingBuddy</item>
     </style>
 </resources>
