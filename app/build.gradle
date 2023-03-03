@@ -38,7 +38,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion "1.4.1"
     }
     packagingOptions {
         resources {
@@ -87,4 +87,7 @@ dependencies {
 
     // Accompanist
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.23.1"
+
+    // Splash Screen
+    implementation "androidx.core:core-splashscreen:1.1.0-alpha01"
 }
