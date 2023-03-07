@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.labelColor
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 // Unfortunately, we need to opt in to experimental APIs for ExposedDropdownMenuBox
@@ -58,7 +59,7 @@ fun CoinTypeHuntPanel(
                 fontWeight = FontWeight.Bold,
                 style = TextStyle(
                     fontSize = 18.sp,
-                    color = Color(0xFF353535)
+                    color = MaterialTheme.colors.labelColor
                 ),
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp)
@@ -81,7 +82,7 @@ fun CoinTypeHuntPanel(
                         fontWeight = FontWeight.Bold,
                         style = TextStyle(
                             fontSize = 42.sp,
-                            color = Color(0xFF353535)
+                            color = MaterialTheme.colors.labelColor
                         ),
                         modifier = Modifier
                             .padding(start = 8.dp, top = 4.dp)
