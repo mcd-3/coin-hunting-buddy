@@ -65,6 +65,7 @@ fun ReviewScreen(
                         Icon(
                             Icons.Filled.Check,
                             "Done",
+                            tint = MaterialTheme.colors.primary
                         )
                     }
                 }
