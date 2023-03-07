@@ -1,12 +1,14 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.content.Intent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,6 +28,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FormLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SummaryFinds
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
@@ -89,9 +92,10 @@ fun ReviewScreen(
                             start = cardInnerPaddingStart,
                             end = cardInnerPaddingEnd,
                             bottom = 10.dp
-                        )
-                        .border(1.dp, Color(0xFFCECECE)),
-                    elevation = 10.dp,
+                        ),
+                    shape = RoundedCornerShape(8.dp),
+                    border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+                    elevation = 4.dp,
                     backgroundColor = MaterialTheme.colors.cardBackground
                 ) {
                     Column(modifier = Modifier.padding(bottom = 12.dp)) {
@@ -139,9 +143,10 @@ fun ReviewScreen(
                             start = cardInnerPaddingStart,
                             end = cardInnerPaddingEnd,
                             bottom = 10.dp
-                        )
-                        .border(1.dp, Color(0xFFCECECE)),
-                    elevation = 10.dp,
+                        ),
+                    shape = RoundedCornerShape(8.dp),
+                    border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+                    elevation = 4.dp,
                     backgroundColor = MaterialTheme.colors.cardBackground
                 ) {
                     Column {
