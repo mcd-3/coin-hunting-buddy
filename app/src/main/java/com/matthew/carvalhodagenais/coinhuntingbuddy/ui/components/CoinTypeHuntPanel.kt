@@ -103,7 +103,7 @@ fun CoinTypeHuntPanel(
                 Column(
                     modifier = Modifier
                         .weight(0.5f)
-                        .height(32.dp),
+                        .height(40.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
@@ -119,7 +119,7 @@ fun CoinTypeHuntPanel(
                 Column(
                     modifier = Modifier
                         .weight(0.5f)
-                        .height(32.dp),
+                        .height(40.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
