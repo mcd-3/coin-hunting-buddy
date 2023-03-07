@@ -37,7 +37,9 @@ fun RollsCard(stateMap: Map<String, MutableState<TextFieldValue>>) {
                 CounterRow(label = item.key, mutVal = item.value)
 
                 if (item.key != "Toonies" && item.key != "Dollars") {
-                    Divider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
+                    Divider(
+                        modifier = Modifier
+                            .padding(top = 12.dp, bottom = 12.dp, start = 14.dp, end = 14.dp))
                 } else {
                     Divider(
                         modifier = Modifier.padding(top = 12.dp),
