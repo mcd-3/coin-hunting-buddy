@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 
 @Composable
 fun RollsCard(stateMap: Map<String, MutableState<TextFieldValue>>) {
@@ -27,7 +28,7 @@ fun RollsCard(stateMap: Map<String, MutableState<TextFieldValue>>) {
                 end = 10.dp,
                 bottom = 10.dp
             )
-            .border(1.dp, Color(0xFFCECECE)),
+            .border(1.dp, MaterialTheme.colors.cardBorder),
         elevation = 10.dp,
         backgroundColor = MaterialTheme.colors.cardBackground
     ) {

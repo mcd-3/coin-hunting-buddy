@@ -43,7 +43,7 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                     modifier = Modifier.weight(0.4f).padding(top = 6.dp),
                 )
             }
-            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.weight(2f).padding(end = 8.dp), horizontalAlignment = Alignment.End) {
                 Row (
                     modifier = Modifier
                         .fillMaxHeight()
