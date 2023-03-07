@@ -113,7 +113,7 @@ fun CoinTypeHuntPanel(
                             .fillMaxWidth()
                             .padding(start = 32.dp, end = 18.dp),
                     ) {
-                        Text(text = "Unwrap Roll", textAlign = TextAlign.Center)
+                        Text(text = "Unwrap", textAlign = TextAlign.Center)
                     }
                 }
                 Column(
