@@ -1,9 +1,11 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -27,9 +29,10 @@ fun RollsCard(stateMap: Map<String, MutableState<TextFieldValue>>) {
                 start = 10.dp,
                 end = 10.dp,
                 bottom = 10.dp
-            )
-            .border(1.dp, MaterialTheme.colors.cardBorder),
-        elevation = 10.dp,
+            ),
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+        elevation = 4.dp,
         backgroundColor = MaterialTheme.colors.cardBackground
     ) {
         Column {
