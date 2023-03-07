@@ -116,7 +116,6 @@ fun NewHuntScreen(navController: NavController) {
                     .weight(0.9f)
             ) {
                 RegionCard(
-                    selectedRegion = "Canada",
                     selectedRegionState = selectedRegionState
                 )
                 Spacer(modifier = Modifier
