@@ -127,7 +127,7 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                 modifier = Modifier
                     .heightIn(10.dp, Dp.Infinity)
                     .widthIn(10.dp, 80.dp)
-                    .padding(start = 10.dp, end = 10.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 4.dp)
             )
             RoundCoinCounterButton(
                 onClick = {
