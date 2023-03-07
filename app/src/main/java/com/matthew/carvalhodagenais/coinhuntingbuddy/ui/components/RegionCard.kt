@@ -25,8 +25,8 @@ fun RegionCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                start = 10.dp,
-                end = 10.dp,
+                start = 12.dp,
+                end = 12.dp,
                 bottom = 10.dp
             ),
         shape = RoundedCornerShape(8.dp),

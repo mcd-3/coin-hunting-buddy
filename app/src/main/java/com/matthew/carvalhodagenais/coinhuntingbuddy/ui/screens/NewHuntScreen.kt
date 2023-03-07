@@ -121,7 +121,7 @@ fun NewHuntScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier
                     .fillMaxWidth()
-                    .height(10.dp))
+                    .height(5.dp))
                 RollsCard(
                     stateMap = getCorrectRegionState(
                         selectedRegionState,
