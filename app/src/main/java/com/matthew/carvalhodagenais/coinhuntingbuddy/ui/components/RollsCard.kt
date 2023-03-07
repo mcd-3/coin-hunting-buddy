@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Calculate
@@ -34,6 +35,15 @@ fun RollsCard(stateMap: Map<String, MutableState<TextFieldValue>>) {
             FormLabel(text = "No. Of Rolls", icon = Icons.Filled.Calculate)
             stateMap.forEach{ item ->
                 CounterRow(label = item.key, mutVal = item.value)
+
+                if (item.key != "Toonies" && item.key != "Dollars") {
+                    Divider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
+                } else {
+                    Divider(
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = MaterialTheme.colors.cardBackground
+                    )
+                }
             }
         }
     }
