@@ -58,6 +58,12 @@ val Colors.secondaryText: Color
 val Colors.cardBorder: Color
     get() = if (isLight) Silver1000 else Gray150
 
+val Colors.tabButtonTextSelected: Color
+    get() = if (isLight) Color.White else Color.Black
+
+val Colors.tabButtonTextUnselected: Color
+    get() = if (isLight) Color.Black else Color.White
+
 
 @Composable
 fun CoinHuntingBuddyTheme(
