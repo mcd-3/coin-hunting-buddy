@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -68,12 +69,12 @@ fun CoinTypeHuntPanel(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(52.dp)
+                    .height(54.dp)
             ) {
                 Column(
                     modifier = Modifier
-                        .weight(0.55f)
-                        .height(52.dp),
+                        .weight(1.1f)
+                        .fillMaxHeight(),
                     horizontalAlignment = Alignment.End,
                     verticalArrangement = Arrangement.Bottom
                 ) {
@@ -85,18 +86,22 @@ fun CoinTypeHuntPanel(
                             color = MaterialTheme.colors.labelColor
                         ),
                         modifier = Modifier
-                            .padding(start = 8.dp, top = 4.dp)
+                            .padding(start = 2.dp, top = 4.dp)
                             .weight(0.7f)
                     )
                 }
                 Column(
                     modifier = Modifier
-                        .weight(0.45f)
-                        .height(52.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    horizontalAlignment = Alignment.End,
                     verticalArrangement = Arrangement.Bottom
                 ) {
-                    Text(text = " rolls left")
+                    Text(
+                        text = " roll(s) left",
+                        fontStyle = FontStyle.Italic,
+                        modifier = Modifier.padding(end = 32.dp)
+                    )
                 }
             }
             Row(modifier = Modifier.padding(top = 32.dp)) {
