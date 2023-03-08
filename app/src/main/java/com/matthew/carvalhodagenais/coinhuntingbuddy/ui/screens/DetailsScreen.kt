@@ -177,7 +177,7 @@ fun DetailsScreen(
                                         Row {
                                             Column(modifier = Modifier
                                                 .fillMaxWidth()
-                                                .padding(start = 18.dp, end = 18.dp, bottom = 12.dp)
+                                                .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
                                             ) {
                                                 Text(text = "${strArr[0]} : ${grade.value!!.code}")
 
