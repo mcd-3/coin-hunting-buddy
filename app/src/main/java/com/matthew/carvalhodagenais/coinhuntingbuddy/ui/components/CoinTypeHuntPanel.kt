@@ -55,56 +55,33 @@ fun CoinTypeHuntPanel(
         backgroundColor = MaterialTheme.colors.cardBackground
     ) {
         Column {
-            Text(
-                text = coinKeyState.value,
-                fontWeight = FontWeight.Bold,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    color = MaterialTheme.colors.labelColor
-                ),
-                textDecoration = TextDecoration.Underline,
-                modifier = Modifier.padding(start = 16.dp, top = 8.dp)
-            )
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(54.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1.1f)
-                        .fillMaxHeight(),
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.Bottom
-                ) {
+            Row {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = rollsLeftState.value.toString(),
+                        text = coinKeyState.value,
                         fontWeight = FontWeight.Bold,
                         style = TextStyle(
-                            fontSize = 42.sp,
+                            fontSize = 18.sp,
                             color = MaterialTheme.colors.labelColor
                         ),
-                        modifier = Modifier
-                            .padding(start = 2.dp, top = 4.dp)
-                            .weight(0.7f)
+                        textDecoration = TextDecoration.Underline,
+                        modifier = Modifier.padding(start = 16.dp, top = 8.dp).align(Alignment.Start)
                     )
                 }
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.Bottom
-                ) {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = " roll(s) left",
+                        text = "${rollsLeftState.value} roll(s) left",
                         fontStyle = FontStyle.Italic,
-                        modifier = Modifier.padding(end = 32.dp)
+                        fontWeight = FontWeight.Bold,
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            color = MaterialTheme.colors.labelColor
+                        ),
+                        modifier = Modifier.padding(end = 16.dp, top = 8.dp).align(Alignment.End)
                     )
                 }
             }
-            Row(modifier = Modifier.padding(top = 32.dp)) {
+            Row(modifier = Modifier.padding(top = 32.dp, bottom = 16.dp)) {
                 Column(
                     modifier = Modifier
                         .weight(0.5f)
