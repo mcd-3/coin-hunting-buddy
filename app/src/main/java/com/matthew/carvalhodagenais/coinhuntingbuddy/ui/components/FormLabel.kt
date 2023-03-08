@@ -18,7 +18,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.labelColor
 
 @Composable
 fun FormLabel(text: String, icon: ImageVector) {
-    val fontSize = 22.sp
+    val fontSize = 18.sp
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,7 +39,7 @@ fun FormLabel(text: String, icon: ImageVector) {
                     imageVector = icon,
                     contentDescription = "",
                     tint = MaterialTheme.colors.labelColor,
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(18.dp)
                 )
             }
             Column {

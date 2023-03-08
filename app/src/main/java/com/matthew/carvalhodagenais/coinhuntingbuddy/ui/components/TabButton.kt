@@ -10,8 +10,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.tabButtonTextSelected
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.tabButtonTextUnselected
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.unselected
 
 @Composable
@@ -30,6 +31,9 @@ fun TabButton(
     val selectedColor = MaterialTheme.colors.primary
     val unselectedColor = MaterialTheme.colors.unselected
 
+    val textSelectedColor = MaterialTheme.colors.tabButtonTextSelected
+    val textUnselectedColor = MaterialTheme.colors.tabButtonTextUnselected
+
     val btnColour = remember { mutableStateOf(
         if (selectedKey.value == key) selectedColor else unselectedColor
     ) }
@@ -45,8 +49,17 @@ fun TabButton(
             topEnd = rightRoundDP
         ),
         modifier = modifier,
-        colors = ButtonDefaults.buttonColors(backgroundColor = if (selectedKey.value == key) selectedColor else unselectedColor),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor =
+                if (selectedKey.value == key) selectedColor
+                else unselectedColor
+        ),
     ) {
-        Text(text = text, color = if (selectedKey.value == key) Color.White else Color.Black)
+        Text(
+            text = text,
+            color =
+                if (selectedKey.value == key) textSelectedColor
+                else textUnselectedColor
+        )
     }
 }

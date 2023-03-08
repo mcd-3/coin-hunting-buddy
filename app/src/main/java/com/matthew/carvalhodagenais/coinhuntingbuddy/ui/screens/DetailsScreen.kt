@@ -1,11 +1,9 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -25,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.deleteIcon
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
@@ -91,9 +90,10 @@ fun DetailsScreen(
                                 start = 10.dp,
                                 end = 10.dp,
                                 bottom = 10.dp
-                            )
-                            .border(1.dp, Color(0xFFCECECE)),
-                        elevation = 10.dp,
+                            ),
+                        shape = RoundedCornerShape(8.dp),
+                        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+                        elevation = 4.dp,
                         backgroundColor = MaterialTheme.colors.cardBackground
                     ) {
                         Column {
@@ -142,9 +142,10 @@ fun DetailsScreen(
                                     start = 10.dp,
                                     end = 10.dp,
                                     bottom = 10.dp
-                                )
-                                .border(1.dp, Color(0xFFCECECE)),
-                            elevation = 10.dp,
+                                ),
+                            shape = RoundedCornerShape(8.dp),
+                            border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+                            elevation = 4.dp,
                             backgroundColor = MaterialTheme.colors.cardBackground
                         ) {
                             Column {
@@ -176,7 +177,7 @@ fun DetailsScreen(
                                         Row {
                                             Column(modifier = Modifier
                                                 .fillMaxWidth()
-                                                .padding(start = 18.dp, end = 18.dp, bottom = 12.dp)
+                                                .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
                                             ) {
                                                 Text(text = "${strArr[0]} : ${grade.value!!.code}")
 

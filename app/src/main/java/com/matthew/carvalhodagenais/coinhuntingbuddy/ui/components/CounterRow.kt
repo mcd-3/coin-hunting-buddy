@@ -30,131 +30,137 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
     val context = LocalContext.current
     Row (modifier = Modifier
         .fillMaxWidth()
-        .height(60.dp)
-        .padding(start = 24.dp, end = 24.dp, bottom = 20.dp),
+        .height(40.dp)
+        .padding(start = 24.dp, end = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
-        Text(
-            text = label,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.weight(0.4f),
-        )
-        Row (
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(0.6f),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            RoundCoinCounterButton(
-                onClick = {
-                    var number = TextNumberConverter.textFieldStringToInt(mutVal.value)
-                    if (number != null && number > 0) {
-                        number -= 1
-                        mutVal.value = TextFieldValue(text = number.toString())
-                    } else {
-                        if (number == null) {
-                            val toast = Toast.makeText(
-                                context,
-                                "Not a number.",
-                                Toast.LENGTH_SHORT
-                            )
-                            toast.show()
-                        } else {
-                            val toast = Toast.makeText(
-                                context,
-                                "Number of rolls cannot be lower than 0.",
-                                Toast.LENGTH_SHORT
-                            )
-                            toast.show()
-                        }
-                    }
-                },
-                isIncrement = false
-            )
-            BasicTextField(
-                value = mutVal.value,
-                singleLine = true,
-                textStyle = TextStyle(
-                    fontFamily = FontFamily.SansSerif,
-                    fontSize = 24.sp,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colors.labelColor
-                ),
-                onValueChange = {
-                    if (it.text.length <= maxCharLength) {
-                        if (it.text.contains("-", true)) {
-                            val toast = Toast.makeText(
-                                context,
-                                "Negative rolls are not allowed.",
-                                Toast.LENGTH_SHORT
-                            )
-                            mutVal.value = TextFieldValue(
-                                text = "0",
-                                selection = TextRange(1)
-                            )
-                            toast.show()
-                        } else {
-                            if (it.text.length > 1 && it.text[0] == '0') {
-                                val newStr = it.text.drop(1)
-                                mutVal.value = TextFieldValue(
-                                    text = newStr,
-                                    selection = TextRange(newStr.length)
-                                )
+        Row {
+            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.Start) {
+                Text(
+                    text = label,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(0.4f).padding(top = 6.dp),
+                )
+            }
+            Column(modifier = Modifier.weight(2f).padding(end = 8.dp), horizontalAlignment = Alignment.End) {
+                Row (
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(0.6f),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    RoundCoinCounterButton(
+                        onClick = {
+                            var number = TextNumberConverter.textFieldStringToInt(mutVal.value)
+                            if (number != null && number > 0) {
+                                number -= 1
+                                mutVal.value = TextFieldValue(text = number.toString())
                             } else {
-                                if (it.text.contains(" ")) {
-                                    mutVal.value = TextFieldValue(
-                                        text = it.text.replace(" ", ""),
-                                        selection = TextRange(it.text.length)
+                                if (number == null) {
+                                    val toast = Toast.makeText(
+                                        context,
+                                        "Not a number.",
+                                        Toast.LENGTH_SHORT
                                     )
+                                    toast.show()
                                 } else {
-                                    mutVal.value = it
+                                    val toast = Toast.makeText(
+                                        context,
+                                        "Number of rolls cannot be lower than 0.",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    toast.show()
                                 }
                             }
-                        }
-                    }
+                        },
+                        isIncrement = false
+                    )
+                    BasicTextField(
+                        value = mutVal.value,
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 24.sp,
+                            textAlign = TextAlign.Center,
+                            color = MaterialTheme.colors.labelColor
+                        ),
+                        onValueChange = {
+                            if (it.text.length <= maxCharLength) {
+                                if (it.text.contains("-", true)) {
+                                    val toast = Toast.makeText(
+                                        context,
+                                        "Negative rolls are not allowed.",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    mutVal.value = TextFieldValue(
+                                        text = "0",
+                                        selection = TextRange(1)
+                                    )
+                                    toast.show()
+                                } else {
+                                    if (it.text.length > 1 && it.text[0] == '0') {
+                                        val newStr = it.text.drop(1)
+                                        mutVal.value = TextFieldValue(
+                                            text = newStr,
+                                            selection = TextRange(newStr.length)
+                                        )
+                                    } else {
+                                        if (it.text.contains(" ")) {
+                                            mutVal.value = TextFieldValue(
+                                                text = it.text.replace(" ", ""),
+                                                selection = TextRange(it.text.length)
+                                            )
+                                        } else {
+                                            mutVal.value = it
+                                        }
+                                    }
+                                }
+                            }
 
-                    if (mutVal.value.text.isBlank()) {
-                        mutVal.value = TextFieldValue(
-                            text = "0",
-                            selection = TextRange(1)
-                        )
-                    }
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
-                modifier = Modifier
-                    .heightIn(10.dp, Dp.Infinity)
-                    .widthIn(10.dp, 80.dp)
-                    .padding(start = 10.dp, end = 10.dp)
-            )
-            RoundCoinCounterButton(
-                onClick = {
-                    var number = TextNumberConverter.textFieldStringToInt(mutVal.value)
-                    if (number != null && number < 999) {
-                        number += 1
-                        mutVal.value = TextFieldValue(text = number.toString())
-                    } else {
-                        if (number == null) {
-                            val toast = Toast.makeText(
-                                context,
-                                "Not a number.",
-                                Toast.LENGTH_SHORT
-                            )
-                            toast.show()
-                        } else {
-                            val toast = Toast.makeText(
-                                context,
-                                "Number of rolls cannot be higher than 999.",
-                                Toast.LENGTH_SHORT
-                            )
-                            toast.show()
-                        }
-                    }
-                },
-                isIncrement = true
-            )
+                            if (mutVal.value.text.isBlank()) {
+                                mutVal.value = TextFieldValue(
+                                    text = "0",
+                                    selection = TextRange(1)
+                                )
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number
+                        ),
+                        modifier = Modifier
+                            .heightIn(10.dp, Dp.Infinity)
+                            .widthIn(10.dp, 80.dp)
+                            .padding(start = 10.dp, end = 10.dp, top = 4.dp)
+                    )
+                    RoundCoinCounterButton(
+                        onClick = {
+                            var number = TextNumberConverter.textFieldStringToInt(mutVal.value)
+                            if (number != null && number < 999) {
+                                number += 1
+                                mutVal.value = TextFieldValue(text = number.toString())
+                            } else {
+                                if (number == null) {
+                                    val toast = Toast.makeText(
+                                        context,
+                                        "Not a number.",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    toast.show()
+                                } else {
+                                    val toast = Toast.makeText(
+                                        context,
+                                        "Number of rolls cannot be higher than 999.",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    toast.show()
+                                }
+                            }
+                        },
+                        isIncrement = true
+                    )
+                }
+            }
         }
     }
 }

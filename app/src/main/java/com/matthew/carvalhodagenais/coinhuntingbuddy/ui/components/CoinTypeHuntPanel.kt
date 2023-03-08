@@ -1,8 +1,10 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -11,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -19,6 +22,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.labelColor
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
 // Unfortunately, we need to opt in to experimental APIs for ExposedDropdownMenuBox
@@ -40,65 +45,47 @@ fun CoinTypeHuntPanel(
             .fillMaxWidth()
             .fillMaxHeight()
             .padding(
-                start = 10.dp,
-                end = 10.dp,
+                start = 12.dp,
+                end = 12.dp,
                 bottom = 10.dp
-            )
-            .border(1.dp, Color(0xFFCECECE)),
-        elevation = 10.dp,
+            ),
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+        elevation = 4.dp,
         backgroundColor = MaterialTheme.colors.cardBackground
     ) {
         Column {
-            Text(
-                text = coinKeyState.value,
-                fontWeight = FontWeight.Bold,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    color = Color(0xFF353535)
-                ),
-                textDecoration = TextDecoration.Underline,
-                modifier = Modifier.padding(start = 16.dp, top = 8.dp)
-            )
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(0.55f)
-                        .height(52.dp),
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.Bottom
-                ) {
+            Row {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = rollsLeftState.value.toString(),
+                        text = coinKeyState.value,
                         fontWeight = FontWeight.Bold,
                         style = TextStyle(
-                            fontSize = 42.sp,
-                            color = Color(0xFF353535)
+                            fontSize = 18.sp,
+                            color = MaterialTheme.colors.labelColor
                         ),
-                        modifier = Modifier
-                            .padding(start = 8.dp, top = 4.dp)
-                            .weight(0.7f)
+                        textDecoration = TextDecoration.Underline,
+                        modifier = Modifier.padding(start = 16.dp, top = 8.dp).align(Alignment.Start)
                     )
                 }
-                Column(
-                    modifier = Modifier
-                        .weight(0.45f)
-                        .height(52.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom
-                ) {
-                    Text(text = " rolls left")
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "${rollsLeftState.value} roll(s) left",
+                        fontStyle = FontStyle.Italic,
+                        fontWeight = FontWeight.Bold,
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            color = MaterialTheme.colors.labelColor
+                        ),
+                        modifier = Modifier.padding(end = 16.dp, top = 8.dp).align(Alignment.End)
+                    )
                 }
             }
-            Row(modifier = Modifier.padding(top = 32.dp)) {
+            Row(modifier = Modifier.padding(top = 32.dp, bottom = 16.dp)) {
                 Column(
                     modifier = Modifier
                         .weight(0.5f)
-                        .height(32.dp),
+                        .height(40.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
@@ -108,13 +95,13 @@ fun CoinTypeHuntPanel(
                             .fillMaxWidth()
                             .padding(start = 32.dp, end = 18.dp),
                     ) {
-                        Text(text = "Unwrap Roll", textAlign = TextAlign.Center)
+                        Text(text = "Unwrap", textAlign = TextAlign.Center)
                     }
                 }
                 Column(
                     modifier = Modifier
                         .weight(0.5f)
-                        .height(32.dp),
+                        .height(40.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
