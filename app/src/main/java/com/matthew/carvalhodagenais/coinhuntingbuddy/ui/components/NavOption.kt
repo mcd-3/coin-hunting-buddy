@@ -27,7 +27,7 @@ fun NavOption(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val fontSize = 18.sp
-    val paddingTopBottom = 16.dp
+    val paddingTopBottom = 24.dp
     val paddingStart = 24.dp
     val iconColumnWeight = 0.25f
     val textColumnWeight = 0.75f
