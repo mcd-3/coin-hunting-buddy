@@ -142,9 +142,10 @@ fun DetailsScreen(
                                     start = 10.dp,
                                     end = 10.dp,
                                     bottom = 10.dp
-                                )
-                                .border(1.dp, Color(0xFFCECECE)),
-                            elevation = 10.dp,
+                                ),
+                            shape = RoundedCornerShape(8.dp),
+                            border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
+                            elevation = 4.dp,
                             backgroundColor = MaterialTheme.colors.cardBackground
                         ) {
                             Column {
