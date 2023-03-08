@@ -15,7 +15,7 @@ class DateToStringConverter {
             val cal = Calendar.getInstance(TimeZone.getTimeZone("America/New_York"))
             cal.time = date
             val year = cal[Calendar.YEAR]
-            val month = cal[Calendar.MONTH]
+            val month = cal[Calendar.MONTH] + 1
             val day = cal[Calendar.DAY_OF_MONTH]
             return "$year/${pad(month)}/${pad(day)}"
         }
