@@ -7,10 +7,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,7 +34,7 @@ fun NavDrawer(
         // TODO: Add image here
         NavOption(
             title = "Hunts",
-            icon = Icons.Filled.Face,
+            icon = Icons.Filled.AccountBalance,
             scaffoldState = scaffoldState,
             navController = navController,
             navRoute = Screen.Hunts.route,
@@ -46,7 +43,7 @@ fun NavDrawer(
         Divider()
         NavOption(
             title = "Finds",
-            icon = Icons.Filled.Build,
+            icon = Icons.Filled.Toll,
             scaffoldState = scaffoldState,
             navController = navController,
             navRoute = Screen.Finds.route,
