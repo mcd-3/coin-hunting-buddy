@@ -38,7 +38,7 @@ val Colors.topAppBar: Color
     get() = if(isLight) Silver200 else Gray700
 
 val Colors.cardBackground: Color
-    get() = if(isLight) Silver300 else Gray500
+    get() = if(isLight) Silver300 else Gray600
 
 val Colors.deleteIcon: Color
     get() = Red
@@ -56,7 +56,7 @@ val Colors.secondaryText: Color
     get() = if (isLight) Gray500 else Silver900
 
 val Colors.cardBorder: Color
-    get() = if (isLight) Silver1000 else Gray150
+    get() = if (isLight) Silver1000 else Gray200
 
 val Colors.tabButtonTextSelected: Color
     get() = if (isLight) Color.White else Color.Black
