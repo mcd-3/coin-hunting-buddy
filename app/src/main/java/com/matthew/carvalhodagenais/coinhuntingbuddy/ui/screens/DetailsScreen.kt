@@ -231,9 +231,10 @@ fun DetailsScreen(
                 toggledState = openDialog,
                 onConfirm = {
                     coroutineScope.launch {
-                        viewModel.deleteHunt()
+                        viewModel.deleteHunt(currentHuntGroup)
                     }
                     openDialog.value = false
+                    navController.popBackStack()
                     Toast.makeText(context, "Hunt Deleted", Toast.LENGTH_LONG).show()
                 },
                 onCancel = { openDialog.value = false }

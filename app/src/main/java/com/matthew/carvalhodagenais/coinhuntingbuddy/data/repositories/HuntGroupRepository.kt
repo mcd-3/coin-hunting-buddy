@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.AppDatabase
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.HuntGroupDAO
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.daos.RegionDAO
+import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Hunt
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
 import java.util.*
 
@@ -42,8 +43,11 @@ class HuntGroupRepository(application: Application) {
         return huntGroupDAO.insert(hg)
     }
 
+    suspend fun delete(hg: HuntGroup) {
+        huntGroupDAO.delete(hg)
+    }
+
     fun getDateHuntedByHuntId(huntId: Int): LiveData<Date> {
         return huntGroupDAO.getDateHuntedByHuntId(huntId)
     }
-
 }

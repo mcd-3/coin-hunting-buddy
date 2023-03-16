@@ -32,6 +32,10 @@ class FindRepository(application: Application) {
         return findDAO.getFindByHuntId(id)
     }
 
+    fun getFindsByHuntIdSync(id: Int): List<Find> {
+        return findDAO.getFindByHuntIdSync(id)
+    }
+
     fun getFindsByCoinType(coinType: CoinType): LiveData<List<Find>> {
         return findDAO.getFindsByCoinTypeId(coinType.id)
     }
@@ -42,5 +46,9 @@ class FindRepository(application: Application) {
 
     suspend fun insert(find: Find) {
         findDAO.insert(find)
+    }
+
+    suspend fun delete(find: Find) {
+        findDAO.delete(find)
     }
 }

@@ -29,4 +29,8 @@ class HuntRepository(application: Application) {
         return huntDAO.getLiveHuntsByHuntGroupId(hgId)
     }
 
+    suspend fun delete(hunt: Hunt) {
+        huntDAO.delete(hunt)
+    }
+
 }
