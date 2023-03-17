@@ -19,6 +19,28 @@
     <string name="number_of_rolls_params_label">Rolls: %1$d</string>
     <string name="no_varieties_or_errors_label">No major varieties or errors</string>
     <string name="no_finds_label">No finds</string>
+    <string name="no_hunts_label">No hunts</string>
+    <string name="overview_label">Overview</string>
+    <string name="start_hunt_add_find_label">Start a hunt to add some!</string>
+    <string name="click_plus_start_hunt_label">Click "+" to start one!</string>
+    <string name="ca_coin_hunt_label">Canadian Coin Hunt</string>
+    <string name="us_coin_hunt_label">American Coin Hunt</string>
+    <string name="hunt_overview_label">Hunt Overview</string>
+    <string name="my_finds_label">My Finds</string>
+    <string name="date_hunted_half_label">Date Hunted: </string>
+    <string name="coin_region_half_label">Coin Region: </string>
+    <string name="rolls_searched_half_label">Rolls Searched: </string>
+    <string name="total_rolls_half_label">Total Rolls: </string>
+    <string name="total_finds_half_label">Total Finds: </string>
+
+    <!-- Screen Names -->
+    <string name="details_screen">Details</string>
+    <string name="finds_screen">Finds</string>
+    <string name="hunts_screen">Hunts</string>
+    <string name="new_hunt_screen">New Hunt</string>
+    <string name="review_screen">Summary</string>
+    <string name="about_screen">About</string>
+    <string name="settings_screen">Settings</string>
 
     <!-- Navigation Option Labels -->
     <string name="hunts_nav_option">Hunts</string>
@@ -26,9 +48,14 @@
     <string name="about_nav_option">About</string>
     <string name="settings_nav_option">Settings</string>
 
+    <!-- Navigation Routes -->
+    <string name="review_route">review_screen</string>
+
     <!-- Button Text -->
     <string name="unwrap_btn">Unwrap</string>
     <string name="new_find_btn">New Find</string>
+    <string name="complete_btn">Complete Hunt</string>
+    <string name="begin_hunt_btn">Begin Hunt</string>
 
     <!-- Text Input Labels -->
     <string name="year_ti_label">Year</string>
@@ -52,11 +79,21 @@
     <!-- Alert Dialog Text Buttons -->
     <string name="done_prompt">Done</string>
     <string name="save_prompt">Save</string>
+    <string name="delete_prompt">Delete</string>
     <string name="cancel_prompt">Cancel</string>
+    <string name="complete_prompt">Complete Hunt</string>
+    <string name="yes_prompt">Yes</string>
+    <string name="no_prompt">No</string>
 
     <!-- Alert Dialog Labels -->
     <string name="new_find_prompt_title">New Find\n</string>
     <string name="filter_prompt_title">Add/Remove Filter\n</string>
+    <string name="delete_hunt_confirm_label">Are you sure you want to delete this hunt?</string>
+    <string name="delete_hunt_warning_label">This action cannot be undone</string>
+    <string name="complete_hunt_confirm_label">Complete Hunt?</string>
+    <string name="complete_hunt_warning_label">Make sure to double check your finds before wrapping up!</string>
+    <string name="stop_hunt_confirm_label">Are you sure you want to stop this hunt?</string>
+    <string name="stop_hunt_warning_label">"This hunt and all finds will not be saved."</string>
 
     <!-- Toast Text -->
     <string name="add_find_toast">Added a new find!</string>
@@ -64,6 +101,7 @@
     <string name="no_negative_toast">Number of rolls cannot be negative</string>
     <string name="lower_than_0_toast">Number of rolls cannot be lower than 0</string>
     <string name="higher_than_999_toast">Number of rolls cannot be higher than 999</string>
+    <string name="hunt_deleted_toast">Hunt Deleted</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>
@@ -74,14 +112,33 @@
     <string name="logo_icon_cd">Logo</string>
     <string name="add_cd">Add</string>
     <string name="subtract_cd">Subtract</string>
+    <string name="delete_hunt_cd">Delete Hunt</string>
+    <string name="add_hunt_cd">Add hunt</string>
+    <string name="check_icon_cd">Done</string>
 
     <!-- Regions -->
     <string name="ca_region">Canada</string>
     <string name="us_region">U.S.A</string>
+    <string name="ca_region_code">ca</string>
+    <string name="us_region_code">us</string>
 
     <!-- Keys -->
     <string name="toonie_key">Toonies</string>
     <string name="dollar_key">Dollars</string>
+
+    <!-- Coins -->
+    <string name="ca_1c_plural">1 Cents</string>
+    <string name="ca_5c_plural">5 Cents</string>
+    <string name="ca_10c_plural">10 Cents</string>
+    <string name="ca_25c_plural">25 Cents</string>
+    <string name="ca_loonie_plural">Loonies</string>
+    <string name="ca_toonie_plural">Toonies</string>
+    <string name="us_penny_plural">Pennies</string>
+    <string name="us_nickel_plural">Nickels</string>
+    <string name="us_dime_plural">Dimes</string>
+    <string name="us_quarter_plural">Quarters</string>
+    <string name="us_hd_plural">Half-Dollars</string>
+    <string name="us_dollar_plural">Dollars</string>
 
     <!-- Bullets -->
     <string name="small_bullet">•</string>

@@ -12,8 +12,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
@@ -44,31 +46,35 @@ fun HuntsScreen(
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { AppBar(
-            title = "Hunts",
-            scaffoldState = scaffoldState,
-            navController = navController,
-            actions = {
-                IconButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            navController.navigate(Screen.NewHunt.route)
+        topBar = {
+            AppBar(
+                title = stringResource(id = R.string.hunts_screen),
+                scaffoldState = scaffoldState,
+                navController = navController,
+                actions = {
+                    IconButton(
+                        onClick = {
+                            coroutineScope.launch {
+                                navController.navigate(Screen.NewHunt.route)
+                            }
                         }
+                    ) {
+                        Icon(
+                            Icons.Filled.Add,
+                            contentDescription = stringResource(id = R.string.add_hunt_cd),
+                            tint = MaterialTheme.colors.primary
+                        )
                     }
-                ) {
-                    Icon(
-                        Icons.Filled.Add,
-                        contentDescription = "Add hunt",
-                        tint = MaterialTheme.colors.primary
-                    )
                 }
-            }
-        )},
-        drawerContent = { NavDrawer(
-            scaffoldState = scaffoldState,
-            navController = navController,
-            selectedIndex = HUNTS_INDEX
-        )},
+            )
+        },
+        drawerContent = {
+            NavDrawer(
+                scaffoldState = scaffoldState,
+                navController = navController,
+                selectedIndex = HUNTS_INDEX
+            )
+        },
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
@@ -86,7 +92,10 @@ fun HuntsScreen(
                 if (allHunts == null) {
                     // Loading...
                 } else if (allHunts!!.isEmpty()) {
-                    NoItemsWarning(topText = "No hunts", bottomText = "Click \"+\" to start one!")
+                    NoItemsWarning(
+                        topText = stringResource(id = R.string.no_hunts_label),
+                        bottomText = stringResource(id = R.string.click_plus_start_hunt_label)
+                    )
                 } else if (allHunts!!.isNotEmpty()) {
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                         allHunts!!.forEachIndexed { index, it ->

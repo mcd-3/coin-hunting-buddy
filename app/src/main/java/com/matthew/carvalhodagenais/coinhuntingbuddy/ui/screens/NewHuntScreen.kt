@@ -13,12 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.HuntActivity
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.TextNumberConverter
 import java.io.Serializable
@@ -34,11 +36,12 @@ private fun isRolls(stateMap: Map<String, MutableState<TextFieldValue>>): Boolea
 private fun getCorrectRegionState(
     selectedRegionState: MutableState<String>,
     canState: Map<String, MutableState<TextFieldValue>>,
-    usaState: Map<String, MutableState<TextFieldValue>>
+    usaState: Map<String, MutableState<TextFieldValue>>,
+    context: Context
 ): Map<String, MutableState<TextFieldValue>> {
     return when (selectedRegionState.value) {
-        "Canada" -> canState
-        "U.S.A" -> usaState
+        context.getString(R.string.ca_region) -> canState
+        context.getString(R.string.us_region) -> usaState
         else -> canState
     }
 }
@@ -67,38 +70,42 @@ private fun startNewHuntActivity(
 fun NewHuntScreen(navController: NavController) {
     val context = LocalContext.current
     val scaffoldState = rememberScaffoldState()
-    val selectedRegionState = remember { mutableStateOf("Canada") }
+    val selectedRegionState = remember { mutableStateOf(context.getString(R.string.ca_region)) }
     val canadaStateMap = mapOf(
-        "1 Cents" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "5 Cents" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "10 Cents" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "25 Cents" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Loonies" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Toonies" to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.ca_1c_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.ca_5c_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.ca_10c_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.ca_25c_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.ca_loonie_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.ca_toonie_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
     )
     val usaStateMap = mapOf(
-        "Pennies" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Nickels" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Dimes" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Quarters" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Half-Dollars" to remember { mutableStateOf(TextFieldValue(text = "0")) },
-        "Dollars" to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.us_penny_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.us_nickel_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.us_dime_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.us_quarter_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.us_hd_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
+        stringResource(id = R.string.us_dollar_plural) to remember { mutableStateOf(TextFieldValue(text = "0")) },
     )
     var buttonIsEnabled: Boolean = false
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { AppBar(
-            title = "New Hunt",
-            scaffoldState = scaffoldState,
-            navController = navController,
-            isPopable = true
-        ) },
-        drawerContent = { NavDrawer(
-            scaffoldState = scaffoldState,
-            navController = navController,
-            selectedIndex = HUNTS_INDEX
-        )},
+        topBar = {
+            AppBar(
+                title = stringResource(id = R.string.new_hunt_screen),
+                scaffoldState = scaffoldState,
+                navController = navController,
+                isPopable = true
+            )
+        },
+        drawerContent = {
+            NavDrawer(
+                scaffoldState = scaffoldState,
+                navController = navController,
+                selectedIndex = HUNTS_INDEX
+            )
+        },
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
@@ -107,7 +114,8 @@ fun NewHuntScreen(navController: NavController) {
                 getCorrectRegionState(
                     selectedRegionState,
                     canadaStateMap,
-                    usaStateMap
+                    usaStateMap,
+                    context
                 )
             )
             Column(
@@ -125,7 +133,8 @@ fun NewHuntScreen(navController: NavController) {
                     stateMap = getCorrectRegionState(
                         selectedRegionState,
                         canadaStateMap,
-                        usaStateMap
+                        usaStateMap,
+                        context
                     )
                 )
             }
@@ -137,12 +146,20 @@ fun NewHuntScreen(navController: NavController) {
                     onClick = {
                         startNewHuntActivity(
                             context,
-                            // TODO: Replace this string comparison with something more optimized
-                            if (selectedRegionState.value === "U.S.A") usaStateMap else canadaStateMap,
-                            if (selectedRegionState.value === "U.S.A") "US" else "CA"
+                            // TODO: Replace these string comparisons with something more optimized
+                            if (selectedRegionState.value === context.getString(R.string.us_region)) {
+                                usaStateMap
+                            } else {
+                                canadaStateMap
+                            },
+                            if (selectedRegionState.value === context.getString(R.string.us_region)) {
+                                context.getString(R.string.us_region_code)
+                            } else {
+                                context.getString(R.string.ca_region_code)
+                            }
                         )
                     },
-                    text = "Begin Hunt",
+                    text = stringResource(id = R.string.begin_hunt_btn),
                     enabled = buttonIsEnabled
                 )
             }

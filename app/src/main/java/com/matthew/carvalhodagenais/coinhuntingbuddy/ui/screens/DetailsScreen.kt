@@ -17,10 +17,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
@@ -52,31 +54,35 @@ fun DetailsScreen(
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { AppBar(
-            title = "Details",
-            scaffoldState = scaffoldState,
-            navController = navController,
-            isPopable = true,
-            actions = {
-                IconButton(
-                    onClick = {
-                        // Open the warning dialog
-                        openDialog.value = true
+        topBar = {
+            AppBar(
+                title = stringResource(id = R.string.details_screen),
+                scaffoldState = scaffoldState,
+                navController = navController,
+                isPopable = true,
+                actions = {
+                    IconButton(
+                        onClick = {
+                            // Open the warning dialog
+                            openDialog.value = true
+                        }
+                    ) {
+                        Icon(
+                            Icons.Filled.Delete,
+                            contentDescription = stringResource(id = R.string.delete_hunt_cd),
+                            tint = MaterialTheme.colors.deleteIcon
+                        )
                     }
-                ) {
-                    Icon(
-                        Icons.Filled.Delete,
-                        contentDescription = "Delete hunt",
-                        tint = MaterialTheme.colors.deleteIcon
-                    )
                 }
-            }
-        ) },
-        drawerContent = { NavDrawer(
-            scaffoldState = scaffoldState,
-            navController = navController,
-            selectedIndex = HUNTS_INDEX
-        )},
+            )
+        },
+        drawerContent = {
+            NavDrawer(
+                scaffoldState = scaffoldState,
+                navController = navController,
+                selectedIndex = HUNTS_INDEX
+            )
+        },
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
@@ -98,19 +104,26 @@ fun DetailsScreen(
                     ) {
                         Column {
                             Row {
-                                FormLabel(text = "Overview", icon = Icons.Filled.Description)
+                                FormLabel(
+                                    text = stringResource(id = R.string.overview_label),
+                                    icon = Icons.Filled.Description
+                                )
                             }
                             Row {
                                 Column {
                                     HalfBoldLabel(
-                                        first = "Date Hunted: ",
+                                        first = stringResource(id = R.string.date_hunted_half_label),
                                         second = DateToStringConverter.getString(currentHuntGroup!!.dateHunted),
                                         fontSize = fontSize,
                                         modifier = halfLabelModifier
                                     )
                                     HalfBoldLabel(
-                                        first = "Coin Region: ",
-                                        second = if (currentHuntGroup.regionId == 1) "Canada" else "USA",
+                                        first = stringResource(id = R.string.coin_region_half_label),
+                                        second = if (currentHuntGroup.regionId == 1) {
+                                            stringResource(id = R.string.ca_region)
+                                        } else {
+                                            stringResource(id = R.string.us_region)
+                                        },
                                         fontSize = fontSize,
                                         modifier = halfLabelModifier
                                     )
@@ -154,7 +167,7 @@ fun DetailsScreen(
                                 }
                                 Row {
                                     HalfBoldLabel(
-                                        first = "Rolls Searched: ",
+                                        first = stringResource(id = R.string.rolls_searched_half_label),
                                         second = hunt.numberOfRolls.toString(),
                                         fontSize = fontSize,
                                         modifier = halfLabelModifier
@@ -181,7 +194,7 @@ fun DetailsScreen(
                                             ) {
                                                 Text(text = "${strArr[0]} : ${grade.value!!.code}")
 
-                                                if (strArr[1] == "No major varieties or errors") {
+                                                if (strArr[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
                                                     Text(
                                                         text = strArr[1],
                                                         fontSize = 13.sp,
@@ -224,10 +237,10 @@ fun DetailsScreen(
 
         if (openDialog.value) {
             ConfirmCancelAlertDialog(
-                title = "Are you sure you want to delete this hunt?",
-                body = "This action cannot be undone",
-                confirmLabel = "Delete",
-                cancelLabel = "Cancel",
+                title = stringResource(id = R.string.delete_hunt_confirm_label),
+                body = stringResource(id = R.string.delete_hunt_warning_label),
+                confirmLabel = stringResource(id = R.string.delete_prompt),
+                cancelLabel = stringResource(id = R.string.cancel_prompt),
                 toggledState = openDialog,
                 onConfirm = {
                     coroutineScope.launch {
@@ -235,7 +248,11 @@ fun DetailsScreen(
                     }
                     openDialog.value = false
                     navController.popBackStack()
-                    Toast.makeText(context, "Hunt Deleted", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.hunt_deleted_toast),
+                        Toast.LENGTH_LONG
+                    ).show()
                 },
                 onCancel = { openDialog.value = false }
             )
