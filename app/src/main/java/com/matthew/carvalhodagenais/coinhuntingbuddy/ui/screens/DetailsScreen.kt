@@ -174,59 +174,79 @@ fun DetailsScreen(
                                     )
                                 }
 
-                                finds.value?.forEachIndexed { index, find ->
-                                    val grade = viewModel
-                                        .getGradeById(find.gradeId!!)
-                                        .observeAsState()
+                                if (finds.value != null && finds.value!!.isNotEmpty()) {
+                                    finds.value?.forEachIndexed { index, find ->
+                                        val grade = viewModel
+                                            .getGradeById(find.gradeId!!)
+                                            .observeAsState()
 
-                                    if (grade.value != null) {
-                                        val strArr = FindStringGenerator.generate(
-                                            context = context,
-                                            year = find.year,
-                                            mintMark = find.mintMark,
-                                            error = find.error,
-                                            variety = find.variety
-                                        )
+                                        if (grade.value != null) {
+                                            val strArr = FindStringGenerator.generate(
+                                                context = context,
+                                                year = find.year,
+                                                mintMark = find.mintMark,
+                                                error = find.error,
+                                                variety = find.variety
+                                            )
 
-                                        Row {
-                                            Column(modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
-                                            ) {
-                                                Text(text = "${strArr[0]} : ${grade.value!!.code}")
-
-                                                if (strArr[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
-                                                    Text(
-                                                        text = strArr[1],
-                                                        fontSize = 13.sp,
-                                                        fontStyle = FontStyle.Italic,
-                                                        color = Color.Gray,
+                                            Row {
+                                                Column(modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(
+                                                        start = 20.dp,
+                                                        end = 20.dp,
+                                                        bottom = 12.dp
                                                     )
-                                                } else {
-                                                    Text(
-                                                        text = strArr[1],
-                                                        fontSize = 13.sp,
-                                                        color = Color.Gray,
+                                                ) {
+                                                    Text(text = "${strArr[0]} : ${grade.value!!.code}")
+
+                                                    if (strArr[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
+                                                        Text(
+                                                            text = strArr[1],
+                                                            fontSize = 13.sp,
+                                                            fontStyle = FontStyle.Italic,
+                                                            color = Color.Gray,
+                                                        )
+                                                    } else {
+                                                        Text(
+                                                            text = strArr[1],
+                                                            fontSize = 13.sp,
+                                                            color = Color.Gray,
+                                                        )
+                                                    }
+                                                }
+                                            }
+
+                                            if (index != finds.value!!.size - 1) {
+                                                Row {
+                                                    Divider(
+                                                        color = Color(0xFFB6B3B3),
+                                                        thickness = 2.dp,
+                                                        modifier = Modifier
+                                                            .fillMaxWidth()
+                                                            .padding(
+                                                                start = 20.dp,
+                                                                end = 20.dp,
+                                                                bottom = 8.dp
+                                                            )
                                                     )
                                                 }
                                             }
                                         }
-
-                                        if (index != finds.value!!.size - 1) {
-                                            Row {
-                                                Divider(
-                                                    color = Color(0xFFB6B3B3),
-                                                    thickness = 2.dp,
-                                                    modifier = Modifier
-                                                        .fillMaxWidth()
-                                                        .padding(
-                                                            start = 20.dp,
-                                                            end = 20.dp,
-                                                            bottom = 8.dp
-                                                        )
-                                                )
-                                            }
-                                        }
+                                    }
+                                } else {
+                                    Row {
+                                       Column(
+                                           modifier = Modifier
+                                               .fillMaxWidth()
+                                               .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
+                                       ) {
+                                           Text(
+                                               text = "No finds",
+                                               fontStyle = FontStyle.Italic,
+                                               color = Color.Gray,
+                                           )
+                                       }
                                     }
                                 }
                             }
