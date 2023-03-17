@@ -16,7 +16,7 @@
     <string name="buddy_label">Buddy</string>
     <string name="region_label">Region</string>
     <string name="number_of_rolls_label">No. of Rolls</string>
-    <string name="number_of_rolls_params_label">Rolls: %1$d</string>
+    <string name="number_of_rolls_params_label">Rolls: %1$s</string>
     <string name="no_varieties_or_errors_label">No major varieties or errors</string>
     <string name="no_finds_label">No finds</string>
     <string name="no_hunts_label">No hunts</string>
@@ -27,11 +27,11 @@
     <string name="us_coin_hunt_label">American Coin Hunt</string>
     <string name="hunt_overview_label">Hunt Overview</string>
     <string name="my_finds_label">My Finds</string>
-    <string name="date_hunted_half_label">Date Hunted: </string>
-    <string name="coin_region_half_label">Coin Region: </string>
-    <string name="rolls_searched_half_label">Rolls Searched: </string>
-    <string name="total_rolls_half_label">Total Rolls: </string>
-    <string name="total_finds_half_label">Total Finds: </string>
+    <string name="date_hunted_half_label">Date Hunted:\u0020</string>
+    <string name="coin_region_half_label">Coin Region:\u0020</string>
+    <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
+    <string name="total_rolls_half_label">Total Rolls:\u0020</string>
+    <string name="total_finds_half_label">Total Finds:\u0020</string>
 
     <!-- Screen Names -->
     <string name="details_screen">Details</string>
