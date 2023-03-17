@@ -1,7 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -123,11 +122,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
                 hunts.forEach { hunt ->
                     findRepository.getFindsByHuntIdSync(hunt.id).forEach { find ->
-                        Log.e("FIND_TO_DELETE", find.toString())
                         findRepository.delete(find)
                     }
-
-                    Log.e("HUNT_TO_DELETE", hunt.toString())
                     huntRepository.delete(hunt)
                 }
 
