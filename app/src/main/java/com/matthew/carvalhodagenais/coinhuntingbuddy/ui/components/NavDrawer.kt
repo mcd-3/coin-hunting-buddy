@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -45,7 +46,7 @@ fun NavDrawer(
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_coin_200),
-                        contentDescription = "Logo",
+                        contentDescription = stringResource(id = R.string.logo_icon_cd),
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 }
@@ -56,14 +57,14 @@ fun NavDrawer(
                 ) {
                     Row(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Coin Roll Hunter",
+                            text = stringResource(id = R.string.crh_label),
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.align(Alignment.Bottom)
                         )
                     }
                     Row(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Buddy",
+                            text = stringResource(id = R.string.buddy_label),
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.align(Alignment.Top)
                         )
@@ -73,10 +74,13 @@ fun NavDrawer(
         }
 
         // Nav Options
-        Column(modifier = Modifier.weight(12f), verticalArrangement = Arrangement.Center) {
+        Column(
+            modifier = Modifier.weight(12f),
+            verticalArrangement = Arrangement.Center
+        ) {
             Divider()
             NavOption(
-                title = "Hunts",
+                title = stringResource(id = R.string.hunts_nav_option),
                 icon = Icons.Filled.AccountBalance,
                 scaffoldState = scaffoldState,
                 navController = navController,
@@ -85,7 +89,7 @@ fun NavDrawer(
             )
             Divider()
             NavOption(
-                title = "Finds",
+                title = stringResource(id = R.string.finds_nav_option),
                 icon = Icons.Filled.Toll,
                 scaffoldState = scaffoldState,
                 navController = navController,
@@ -94,7 +98,7 @@ fun NavDrawer(
             )
             Divider()
             NavOption(
-                title = "About",
+                title = stringResource(id = R.string.about_nav_option),
                 icon = Icons.Filled.Info,
                 scaffoldState = scaffoldState,
                 navController = navController,
@@ -103,7 +107,7 @@ fun NavDrawer(
             )
             Divider()
             NavOption(
-                title = "Settings",
+                title = stringResource(id = R.string.settings_nav_option),
                 icon = Icons.Filled.Settings,
                 scaffoldState = scaffoldState,
                 navController = navController,
@@ -119,7 +123,10 @@ fun NavDrawer(
             .fillMaxSize()) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(
-                    text = "Version: 1.0",
+                    text = stringResource(
+                        id = R.string.version_label,
+                        stringResource(id = R.string.version)
+                    ),
                     fontStyle = FontStyle.Italic,
                     color = MaterialTheme.colors.secondaryText,
                     modifier = Modifier

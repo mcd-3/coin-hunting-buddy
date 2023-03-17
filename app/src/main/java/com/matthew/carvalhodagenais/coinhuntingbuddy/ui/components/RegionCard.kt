@@ -1,18 +1,18 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 
@@ -21,6 +21,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 fun RegionCard(
     selectedRegionState: MutableState<String>
 ) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,11 +35,22 @@ fun RegionCard(
         elevation = 4.dp,
         backgroundColor = MaterialTheme.colors.cardBackground
     ) {
-        val caText = "\uD83C\uDDE8\uD83C\uDDE6 Canada"
-        val usText = "\uD83C\uDDFA\uD83C\uDDF8 U.S.A"
+        val caText = stringResource(
+            id = R.string.region_with_flag,
+            stringResource(id = R.string.flag_ca),
+            stringResource(id = R.string.ca_region)
+        )
+        val usText = stringResource(
+            id = R.string.region_with_flag,
+            stringResource(id = R.string.flag_us),
+            stringResource(id = R.string.us_region)
+        )
 
         Column {
-            FormLabel(text = "Region", icon = Icons.Filled.Public)
+            FormLabel(
+                text = stringResource(id = R.string.region_label),
+                icon = Icons.Filled.Public
+            )
 
             Row(
                 modifier = Modifier
@@ -56,7 +68,7 @@ fun RegionCard(
                     TextField(
                         readOnly = true,
                         value = TextFieldValue(
-                            if (selectedRegionState.value == "Canada") caText
+                            if (selectedRegionState.value == stringResource(id = R.string.ca_region)) caText
                             else usText
                         ),
                         onValueChange = { },
@@ -66,7 +78,9 @@ fun RegionCard(
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                        label = { Text(text = "Region") },
+                        label = {
+                            Text(text = stringResource(id = R.string.region_label))
+                        },
                     )
                     ExposedDropdownMenu(
                         expanded = expanded,
@@ -77,7 +91,7 @@ fun RegionCard(
                         DropdownMenuItem(
                             onClick = {
                                 expanded = false
-                                selectedRegionState.value = "Canada"
+                                selectedRegionState.value = context.getString(R.string.ca_region)
                             }
                         ) {
                             Text(text = caText)
@@ -85,7 +99,7 @@ fun RegionCard(
                         DropdownMenuItem(
                             onClick = {
                                 expanded = false
-                                selectedRegionState.value = "U.S.A"
+                                selectedRegionState.value = context.getString(R.string.us_region)
                             }
                         ) {
                             Text(text = usText)

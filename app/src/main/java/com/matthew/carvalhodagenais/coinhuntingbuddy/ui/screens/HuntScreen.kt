@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
@@ -9,10 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
@@ -43,42 +45,46 @@ fun getButtonWeight(sizeOfMap: Int): Float {
 /**
  * Maps a map of coins' Key and Value to arrays
  *
+ * PS: This function sucks
+ *
  * @param map Map<String, Int> - Base map to use
  * @param region String - Region of the coins
  * @param keysArray Array<String> - Array of keys. Max size is 6
- * * @param rollsArray<Int> - Array of rolls. Max size is 6
+ * @param rollsArray<Int> - Array of rolls. Max size is 6
+ * @param context Context - Application context used to get strings
  */
 fun arrangeCoinMap(
     map: Map<String, Int>,
     region: String,
     keysArray: Array<String>,
-    rollsArray: Array<Int>
+    rollsArray: Array<Int>,
+    context: Context
 ) {
-    if (region == "US") {
+    if (region == context.getString(R.string.us_region_code)) {
         map.forEach {
             when (it.key) {
-                "Pennies" -> {
-                    keysArray[0] = "Pennies"
+                context.getString(R.string.us_penny_plural) -> {
+                    keysArray[0] = context.getString(R.string.us_penny_plural)
                     rollsArray[0] = map[it.key]!!
                 }
-                "Nickels" -> {
-                    keysArray[1] = "Nickels"
+                context.getString(R.string.us_nickel_plural) -> {
+                    keysArray[1] = context.getString(R.string.us_nickel_plural)
                     rollsArray[1] = map[it.key]!!
                 }
-                "Dimes" -> {
-                    keysArray[2] = "Dimes"
+                context.getString(R.string.us_dime_plural) -> {
+                    keysArray[2] = context.getString(R.string.us_dime_plural)
                     rollsArray[2] = map[it.key]!!
                 }
-                "Quarters" -> {
-                    keysArray[3] = "Quarters"
+                context.getString(R.string.us_quarter_plural) -> {
+                    keysArray[3] = context.getString(R.string.us_quarter_plural)
                     rollsArray[3] = map[it.key]!!
                 }
-                "Half-Dollars" -> {
-                    keysArray[4] = "Half-Dollars"
+                context.getString(R.string.us_hd_plural) -> {
+                    keysArray[4] = context.getString(R.string.us_hd_plural)
                     rollsArray[4] = map[it.key]!!
                 }
-                "Dollars" -> {
-                    keysArray[5] = "Dollars"
+                context.getString(R.string.us_dollar_plural) -> {
+                    keysArray[5] = context.getString(R.string.us_dollar_plural)
                     rollsArray[5] = map[it.key]!!
                 }
             }
@@ -86,28 +92,28 @@ fun arrangeCoinMap(
     } else { // Canada
         map.forEach {
             when (it.key) {
-                "1 Cents" -> {
-                    keysArray[0] = "1 Cents"
+                context.getString(R.string.ca_1c_plural) -> {
+                    keysArray[0] = context.getString(R.string.ca_1c_plural)
                     rollsArray[0] = map[it.key]!!
                 }
-                "5 Cents" -> {
-                    keysArray[1] = "5 Cents"
+                context.getString(R.string.ca_5c_plural) -> {
+                    keysArray[1] = context.getString(R.string.ca_5c_plural)
                     rollsArray[1] = map[it.key]!!
                 }
-                "10 Cents" -> {
-                    keysArray[2] = "10 Cents"
+                context.getString(R.string.ca_10c_plural) -> {
+                    keysArray[2] = context.getString(R.string.ca_10c_plural)
                     rollsArray[2] = map[it.key]!!
                 }
-                "25 Cents" -> {
-                    keysArray[3] = "25 Cents"
+                context.getString(R.string.ca_25c_plural) -> {
+                    keysArray[3] = context.getString(R.string.ca_25c_plural)
                     rollsArray[3] = map[it.key]!!
                 }
-                "Loonies" -> {
-                    keysArray[4] = "Loonies"
+                context.getString(R.string.ca_loonie_plural) -> {
+                    keysArray[4] = context.getString(R.string.ca_loonie_plural)
                     rollsArray[4] = map[it.key]!!
                 }
-                "Toonies" -> {
-                    keysArray[5] = "Toonies"
+                context.getString(R.string.ca_toonie_plural) -> {
+                    keysArray[5] = context.getString(R.string.ca_toonie_plural)
                     rollsArray[5] = map[it.key]!!
                 }
             }
@@ -133,13 +139,21 @@ fun HuntScreen(
     // Context is needed here to go back to MainActivity
     val context = LocalContext.current
 
-    val navString = "review_screen"
+    val navString = stringResource(id = R.string.review_route)
 
     Scaffold(
         topBar = {
             TopAppBar(
                 backgroundColor = MaterialTheme.colors.topAppBar,
-                title = { Text(text = if (region == "US") "American Coin Hunt" else "Canadian Coin Hunt") },
+                title = {
+                    Text(
+                        text = if (region == stringResource(id = R.string.us_region_code)) {
+                            stringResource(id = R.string.us_coin_hunt_label)
+                        } else {
+                            stringResource(id = R.string.ca_coin_hunt_label)
+                        }
+                    )
+                },
                 elevation = 0.dp
             )
         },
@@ -150,10 +164,10 @@ fun HuntScreen(
         }
         if(showAlertDialog.value){
             ConfirmCancelAlertDialog(
-                title = "Are you sure you want to stop this hunt?",
-                body = "This hunt and any finds will not be saved.",
-                confirmLabel = "Yes",
-                cancelLabel = "No",
+                title = stringResource(id = R.string.stop_hunt_confirm_label),
+                body = stringResource(id = R.string.stop_hunt_warning_label),
+                confirmLabel = stringResource(id = R.string.yes_prompt),
+                cancelLabel = stringResource(id = R.string.no_prompt),
                 toggledState = showAlertDialog,
                 onConfirm = {
                     val intent = Intent(context, MainActivity::class.java)
@@ -187,7 +201,7 @@ fun HuntScreen(
                     val keys = arrayOf("", "", "", "", "", "")
                     val rolls = arrayOf(-1, -1, -1, -1, -1, -1)
 
-                    arrangeCoinMap(coinList, region, keys, rolls)
+                    arrangeCoinMap(coinList, region, keys, rolls, context)
 
                     val firstKey = keys[
                         ArrayTools.firstIndexWhereNot(rolls, -1)!!
@@ -215,7 +229,7 @@ fun HuntScreen(
                                     selectedKey.value = keys[index]
                                     currentRollAmount.value = tempCoinList[selectedKey.value]!!
                                 },
-                                text = MoneyStringToSymbolUtil.convert(keys[index]),
+                                text = MoneyStringToSymbolUtil.convert(keys[index], context),
                                 leftIsRounded = firstKey == keys[index],
                                 rightIsRounded = lastKey == keys[index],
                                 key = keys[index],
@@ -245,10 +259,10 @@ fun HuntScreen(
 
             if(showHuntCompleteDialog.value){
                 ConfirmCancelAlertDialog(
-                    title = "Complete Hunt?",
-                    body = "Make sure to double check your finds before wrapping up!",
-                    confirmLabel = "Complete Hunt",
-                    cancelLabel = "Cancel",
+                    title = stringResource(id = R.string.complete_hunt_confirm_label),
+                    body = stringResource(id = R.string.complete_hunt_warning_label),
+                    confirmLabel = stringResource(id = R.string.complete_prompt),
+                    cancelLabel = stringResource(id = R.string.cancel_prompt),
                     toggledState = showHuntCompleteDialog,
                     onConfirm = {
                         viewModel.setRegion(region)
@@ -270,7 +284,7 @@ fun HuntScreen(
                     onClick = {
                         showHuntCompleteDialog.value = true
                     },
-                    text = "Complete Hunt",
+                    text = stringResource(id = R.string.complete_btn),
                     enabled = completeHuntFlag.value
                 )
             }

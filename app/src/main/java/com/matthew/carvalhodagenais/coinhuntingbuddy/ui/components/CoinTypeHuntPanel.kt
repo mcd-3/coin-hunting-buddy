@@ -2,7 +2,6 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,8 +9,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +24,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.labelColor
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 // Unfortunately, we need to opt in to experimental APIs for ExposedDropdownMenuBox
 // We will need to wait until Compose is in a better state before disabling this
@@ -65,19 +65,23 @@ fun CoinTypeHuntPanel(
                             color = MaterialTheme.colors.labelColor
                         ),
                         textDecoration = TextDecoration.Underline,
-                        modifier = Modifier.padding(start = 16.dp, top = 8.dp).align(Alignment.Start)
+                        modifier = Modifier
+                            .padding(start = 16.dp, top = 8.dp)
+                            .align(Alignment.Start)
                     )
                 }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "${rollsLeftState.value} roll(s) left",
+                        text = stringResource(id = R.string.rolls_left_label, rollsLeftState.value),
                         fontStyle = FontStyle.Italic,
                         fontWeight = FontWeight.Bold,
                         style = TextStyle(
                             fontSize = 18.sp,
                             color = MaterialTheme.colors.labelColor
                         ),
-                        modifier = Modifier.padding(end = 16.dp, top = 8.dp).align(Alignment.End)
+                        modifier = Modifier
+                            .padding(end = 16.dp, top = 8.dp)
+                            .align(Alignment.End)
                     )
                 }
             }
@@ -95,7 +99,10 @@ fun CoinTypeHuntPanel(
                             .fillMaxWidth()
                             .padding(start = 32.dp, end = 18.dp),
                     ) {
-                        Text(text = "Unwrap", textAlign = TextAlign.Center)
+                        Text(
+                            text = stringResource(id = R.string.unwrap_btn),
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
                 Column(
@@ -110,7 +117,10 @@ fun CoinTypeHuntPanel(
                             .fillMaxWidth()
                             .padding(start = 18.dp, end = 32.dp),
                     ) {
-                        Text(text = "New Find", textAlign = TextAlign.Center)
+                        Text(
+                            text = stringResource(id = R.string.new_find_btn),
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
             }
@@ -153,12 +163,12 @@ fun CoinTypeHuntPanel(
                             showAlertDialog.value = false
                             val toast = Toast.makeText(
                                 context,
-                                "Added a new find!",
+                                context.getString(R.string.add_find_toast),
                                 Toast.LENGTH_LONG
                             )
                             toast.show()
                         }){
-                            Text(text = "Done")
+                            Text(text = stringResource(id = R.string.done_prompt))
                         }
                     },
                     dismissButton = {
@@ -170,17 +180,25 @@ fun CoinTypeHuntPanel(
                             gradeStringState.value = ""
                             errorStringState.value = ""
                         }) {
-                            Text(text = "Cancel")
+                            Text(text = stringResource(id = R.string.cancel_prompt))
                         }
                     },
-                    title = { Text(text = "New Find\n") },
+                    title = { Text(text = stringResource(id = R.string.new_find_prompt_title)) },
                     text = {
                         Column {
                             Row {
                                 OutlinedTextField(
                                     value = yearStringState.value,
-                                    label = { Text(text = "Year") },
-                                    placeholder = { Text(text = "Year") },
+                                    label = {
+                                        Text(
+                                            text = stringResource(id = R.string.year_ti_label)
+                                        )
+                                    },
+                                    placeholder = {
+                                        Text(
+                                            text = stringResource(id = R.string.year_ti_placeholder)
+                                        )
+                                    },
                                     modifier = Modifier
                                         .weight(0.5f)
                                         .padding(end = 4.dp)
@@ -195,10 +213,18 @@ fun CoinTypeHuntPanel(
                                                 val newStr = it.drop(1)
                                                 yearStringState.value = newStr
                                             } else {
+                                                yearStringState.value = it
+
                                                 if (it.contains(" ")) {
                                                     yearStringState.value = it.replace(" ", "")
-                                                } else {
-                                                    yearStringState.value = it
+                                                }
+
+                                                if (it.contains(".")) {
+                                                    yearStringState.value = it.replace(".", "")
+                                                }
+
+                                                if (it.contains(",")) {
+                                                    yearStringState.value = it.replace(",", "")
                                                 }
                                             }
                                         }
@@ -232,7 +258,9 @@ fun CoinTypeHuntPanel(
                                             )
                                         },
                                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                        label = { Text(text = "Grade") },
+                                        label = {
+                                            Text(text = stringResource(id = R.string.grade_ti_label))
+                                        },
                                     )
                                     ExposedDropdownMenu(
                                         expanded = expanded,
@@ -257,8 +285,12 @@ fun CoinTypeHuntPanel(
                             Spacer(modifier = Modifier.height(12.dp))
                             OutlinedTextField(
                                 value = mintMarkStringState.value,
-                                label = { Text(text = "Mint Mark") },
-                                placeholder = { Text(text = "P") },
+                                label = {
+                                    Text(text = stringResource(id = R.string.mm_ti_label))
+                                },
+                                placeholder = {
+                                    Text(text = stringResource(id = R.string.mm_ti_placeholder))
+                                },
                                 onValueChange = {
                                     mintMarkStringState.value = it
                                 }
@@ -266,8 +298,12 @@ fun CoinTypeHuntPanel(
                             Spacer(modifier = Modifier.height(12.dp))
                             OutlinedTextField(
                                 value = varietyStringState.value,
-                                label = { Text(text = "Variety") },
-                                placeholder = { Text(text = "Variety of the coin") },
+                                label = {
+                                    Text(text = stringResource(id = R.string.variety_ti_label))
+                                },
+                                placeholder = {
+                                    Text(text = stringResource(id = R.string.variety_ti_placeholder))
+                                },
                                 onValueChange = {
                                     varietyStringState.value = it
                                 }
@@ -275,8 +311,12 @@ fun CoinTypeHuntPanel(
                             Spacer(modifier = Modifier.height(12.dp))
                             OutlinedTextField(
                                 value = errorStringState.value,
-                                label = { Text(text = "Error") },
-                                placeholder = { Text(text = "Error on the coin") },
+                                label = {
+                                    Text(text = "Error")
+                                },
+                                placeholder = {
+                                    Text(text = "Error on the coin")
+                                },
                                 onValueChange = {
                                     errorStringState.value = it
                                 }

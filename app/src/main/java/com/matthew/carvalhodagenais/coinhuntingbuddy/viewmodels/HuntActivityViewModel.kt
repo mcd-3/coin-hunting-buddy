@@ -41,6 +41,8 @@ class HuntActivityViewModel(application: Application): AndroidViewModel(applicat
     /**
      * Converts a coin string to coin type
      *
+     * TODO: Rework this function. Strings should not be stored here!
+     *
      * @param str String - String to convert to CoinType enum
      * @return CoinTypes
      */

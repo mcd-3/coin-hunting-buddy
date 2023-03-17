@@ -1,4 +1,162 @@
 <resources>
+    <string name="version">0.8 BETA</string>
     <string name="app_name">Coin Roll Hunting Buddy</string>
     <string name="title_activity_main">CRH Buddy</string>
+
+    <!-- Labels -->
+    <string name="version_label">Version: %1$s</string>
+    <string name="rolls_left_label">%1$d roll(s) left</string>
+    <string name="filter_active_label">Filter active</string>
+    <string name="no_filter_active_label">No filter active</string>
+    <string name="finds_label">Finds</string>
+    <string name="nothing_found_label">You haven\'t found anything!</string>
+    <string name="multiple_coin_types_label">Multiple Coin Types</string>
+    <string name="not_found_label">N/A</string>
+    <string name="crh_label">Coin Roll Hunter</string>
+    <string name="buddy_label">Buddy</string>
+    <string name="region_label">Region</string>
+    <string name="number_of_rolls_label">No. of Rolls</string>
+    <string name="number_of_rolls_params_label">Rolls: %1$s</string>
+    <string name="no_varieties_or_errors_label">No major varieties or errors</string>
+    <string name="no_finds_label">No finds</string>
+    <string name="no_hunts_label">No hunts</string>
+    <string name="overview_label">Overview</string>
+    <string name="start_hunt_add_find_label">Start a hunt to add some!</string>
+    <string name="click_plus_start_hunt_label">Click "+" to start one!</string>
+    <string name="ca_coin_hunt_label">Canadian Coin Hunt</string>
+    <string name="us_coin_hunt_label">American Coin Hunt</string>
+    <string name="hunt_overview_label">Hunt Overview</string>
+    <string name="my_finds_label">My Finds</string>
+    <string name="unknown_coin_label">Unknown Coin</string>
+    <string name="no_details_label">No further details</string>
+    <string name="illegible_year_label">Illegible Year</string>
+    <string name="date_hunted_half_label">Date Hunted:\u0020</string>
+    <string name="coin_region_half_label">Coin Region:\u0020</string>
+    <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
+    <string name="total_rolls_half_label">Total Rolls:\u0020</string>
+    <string name="total_finds_half_label">Total Finds:\u0020</string>
+
+    <!-- Screen Names -->
+    <string name="details_screen">Details</string>
+    <string name="finds_screen">Finds</string>
+    <string name="hunts_screen">Hunts</string>
+    <string name="new_hunt_screen">New Hunt</string>
+    <string name="review_screen">Summary</string>
+    <string name="about_screen">About</string>
+    <string name="settings_screen">Settings</string>
+
+    <!-- Navigation Option Labels -->
+    <string name="hunts_nav_option">Hunts</string>
+    <string name="finds_nav_option">Finds</string>
+    <string name="about_nav_option">About</string>
+    <string name="settings_nav_option">Settings</string>
+
+    <!-- Navigation Routes -->
+    <string name="review_route">review_screen</string>
+
+    <!-- Button Text -->
+    <string name="unwrap_btn">Unwrap</string>
+    <string name="new_find_btn">New Find</string>
+    <string name="complete_btn">Complete Hunt</string>
+    <string name="begin_hunt_btn">Begin Hunt</string>
+
+    <!-- Text Input Labels -->
+    <string name="year_ti_label">Year</string>
+    <string name="grade_ti_label">Grade</string>
+    <string name="mm_ti_label">Mint Mark</string>
+    <string name="variety_ti_label">Variety</string>
+    <string name="error_ti_label">Error</string>
+    <string name="date_from_ti_label">Date From</string>
+    <string name="coin_type_ti_label">Coin Type</string>
+
+    <!-- Dropdown Options -->
+    <string name="not_set_option">Not Set</string>
+    <string name="region_with_flag">%1$s %2$s</string>
+
+    <!-- Text Input Placeholders -->
+    <string name="year_ti_placeholder">Year</string>
+    <string name="mm_ti_placeholder">P</string>
+    <string name="variety_ti_placeholder">Variety of the coin</string>
+    <string name="error_ti_placeholder">Error on the coin</string>
+
+    <!-- Alert Dialog Text Buttons -->
+    <string name="done_prompt">Done</string>
+    <string name="save_prompt">Save</string>
+    <string name="delete_prompt">Delete</string>
+    <string name="cancel_prompt">Cancel</string>
+    <string name="complete_prompt">Complete Hunt</string>
+    <string name="yes_prompt">Yes</string>
+    <string name="no_prompt">No</string>
+
+    <!-- Alert Dialog Labels -->
+    <string name="new_find_prompt_title">New Find\n</string>
+    <string name="filter_prompt_title">Add/Remove Filter\n</string>
+    <string name="delete_hunt_confirm_label">Are you sure you want to delete this hunt?</string>
+    <string name="delete_hunt_warning_label">This action cannot be undone</string>
+    <string name="complete_hunt_confirm_label">Complete Hunt?</string>
+    <string name="complete_hunt_warning_label">Make sure to double check your finds before wrapping up!</string>
+    <string name="stop_hunt_confirm_label">Are you sure you want to stop this hunt?</string>
+    <string name="stop_hunt_warning_label">"This hunt and all finds will not be saved."</string>
+
+    <!-- Toast Text -->
+    <string name="add_find_toast">Added a new find!</string>
+    <string name="nan_toast">That\'s not a number</string>
+    <string name="no_negative_toast">Number of rolls cannot be negative</string>
+    <string name="lower_than_0_toast">Number of rolls cannot be lower than 0</string>
+    <string name="higher_than_999_toast">Number of rolls cannot be higher than 999</string>
+    <string name="hunt_deleted_toast">Hunt Deleted</string>
+
+    <!-- Content Descriptions -->
+    <string name="menu_icon_cd">Menu Icon</string>
+    <string name="arrow_back_cd">Go back!</string>
+    <string name="filter_active_cd">Filter active</string>
+    <string name="filter_cd">Filter</string>
+    <string name="cancel_icon_cd">Cancel</string>
+    <string name="logo_icon_cd">Logo</string>
+    <string name="add_cd">Add</string>
+    <string name="subtract_cd">Subtract</string>
+    <string name="delete_hunt_cd">Delete Hunt</string>
+    <string name="add_hunt_cd">Add hunt</string>
+    <string name="check_icon_cd">Done</string>
+
+    <!-- Regions -->
+    <string name="ca_region">Canada</string>
+    <string name="us_region">U.S.A</string>
+    <string name="ca_region_code">ca</string>
+    <string name="us_region_code">us</string>
+
+    <!-- Keys -->
+    <string name="toonie_key">Toonies</string>
+    <string name="dollar_key">Dollars</string>
+
+    <!-- Coins -->
+    <string name="ca_1c_plural">1 Cents</string>
+    <string name="ca_5c_plural">5 Cents</string>
+    <string name="ca_10c_plural">10 Cents</string>
+    <string name="ca_25c_plural">25 Cents</string>
+    <string name="ca_loonie_plural">Loonies</string>
+    <string name="ca_toonie_plural">Toonies</string>
+    <string name="us_penny_plural">Pennies</string>
+    <string name="us_nickel_plural">Nickels</string>
+    <string name="us_dime_plural">Dimes</string>
+    <string name="us_quarter_plural">Quarters</string>
+    <string name="us_hd_plural">Half-Dollars</string>
+    <string name="us_dollar_plural">Dollars</string>
+
+    <!-- Money Symbols -->
+    <string name="money_1c_symbol">1¢</string>
+    <string name="money_5c_symbol">5¢</string>
+    <string name="money_10c_symbol">10¢</string>
+    <string name="money_25c_symbol">25¢</string>
+    <string name="money_50c_symbol">50¢</string>
+    <string name="money_1d_symbol">$1</string>
+    <string name="money_2d_symbol">$2</string>
+
+    <!-- Bullets -->
+    <string name="small_bullet">•</string>
+
+    <!-- Emojis -->
+    <string name="flag_ca">🇨🇦</string>
+    <string name="flag_us">🇺🇸</string>
+    <string name="question_mark">❓</string>
 </resources>

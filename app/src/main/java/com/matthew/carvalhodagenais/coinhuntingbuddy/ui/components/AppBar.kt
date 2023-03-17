@@ -7,9 +7,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -35,7 +36,10 @@ fun AppBar(
                             }
                         }
                     ) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Menu Icon")
+                        Icon(
+                            Icons.Filled.Menu,
+                            contentDescription = stringResource(id = R.string.menu_icon_cd)
+                        )
                     }
                 } else if (navController != null && isPopable) {
                     IconButton(
@@ -45,7 +49,10 @@ fun AppBar(
                             }
                         }
                     ) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Go back!")
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(id = R.string.arrow_back_cd)
+                        )
                     }
                 }
             },

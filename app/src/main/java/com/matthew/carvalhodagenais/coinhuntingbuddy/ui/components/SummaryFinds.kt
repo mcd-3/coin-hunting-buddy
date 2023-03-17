@@ -6,6 +6,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -14,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.secondaryText
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 @Composable
 fun SummaryFinds(
@@ -22,8 +25,12 @@ fun SummaryFinds(
     listOfFinds: MutableList<Find>
 ) {
     // Bullet used in the bullet point list
-    val bullet = "\u2022"
-    val bulletPointModifier = Modifier.fillMaxHeight().padding(start = 2.dp, end = 8.dp)
+    val bullet = stringResource(id = R.string.small_bullet)
+    val bulletPointModifier = Modifier
+        .fillMaxHeight()
+        .padding(start = 2.dp, end = 8.dp)
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(start = 20.dp, end = 20.dp)
@@ -37,7 +44,7 @@ fun SummaryFinds(
         }
         Row(modifier = Modifier.padding(bottom = 2.dp)) {
             Text(
-                text = "Rolls: $rolls",
+                text = stringResource(id = R.string.number_of_rolls_params_label, rolls.toString()),
                 textAlign = TextAlign.Start,
                 fontSize = 13.sp,
                 color = MaterialTheme.colors.secondaryText,
@@ -53,6 +60,7 @@ fun SummaryFinds(
         if (listOfFinds.isNotEmpty()) {
             listOfFinds.forEachIndexed { index, it ->
                 val findStringArray = FindStringGenerator.generate(
+                    context,
                     it.year,
                     it.mintMark,
                     it.variety,
@@ -77,13 +85,15 @@ fun SummaryFinds(
                 Row(
                     modifier = modifier
                 ) {
-                    Column(modifier = Modifier.fillMaxHeight().padding(end = 4.dp)) {
+                    Column(modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(end = 4.dp)) {
                         Text(text = bullet, fontSize = 18.sp)
                     }
                     Column {
                         Text(text = findStringArray[0], fontSize = 16.sp, modifier = bulletPointModifier)
 
-                        if (findStringArray[1] == "No major varieties or errors") {
+                        if (findStringArray[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
                             Text(
                                 text = findStringArray[1],
                                 fontSize = 13.sp,
@@ -111,7 +121,7 @@ fun SummaryFinds(
                 }
                 Column {
                     Text(
-                        text = "No finds",
+                        text = stringResource(id = R.string.no_finds_label),
                         fontSize = 16.sp,
                         fontStyle = FontStyle.Italic,
                         modifier = bulletPointModifier

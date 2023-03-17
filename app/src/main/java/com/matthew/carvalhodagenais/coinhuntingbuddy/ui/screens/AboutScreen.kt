@@ -6,8 +6,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 
@@ -19,12 +21,19 @@ fun AboutScreen(navController: NavController) {
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { AppBar(title = "About", scaffoldState = scaffoldState) },
-        drawerContent = { NavDrawer(
-            scaffoldState = scaffoldState,
-            navController = navController,
-            selectedIndex = ABOUT_INDEX
-        )},
+        topBar = {
+            AppBar(
+                title = stringResource(id = R.string.about_screen),
+                scaffoldState = scaffoldState
+            )
+        },
+        drawerContent = {
+            NavDrawer(
+                scaffoldState = scaffoldState,
+                navController = navController,
+                selectedIndex = ABOUT_INDEX
+            )
+        },
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {

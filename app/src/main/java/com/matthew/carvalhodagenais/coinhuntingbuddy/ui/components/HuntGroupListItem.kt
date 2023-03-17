@@ -6,15 +6,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.*
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun HuntGroupListItem(
     huntGroup: HuntGroup,
@@ -23,17 +25,18 @@ fun HuntGroupListItem(
 ) {
     val itemPadding = 20.dp
     val huntTypeString = remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
             val list = viewModel.getHuntType(huntGroup).await()
 
             if (list.size > 1) {
-                huntTypeString.value = "Multiple Coin Types"
+                huntTypeString.value = context.getString(R.string.multiple_coin_types_label)
             } else if (list.size == 1) {
                 huntTypeString.value = list[0].name
             } else {
-                huntTypeString.value = "Nothing found"
+                huntTypeString.value = context.getString(R.string.not_found_label)
             }
         }
     }
@@ -76,9 +79,9 @@ fun HuntGroupListItem(
                 horizontalAlignment = Alignment.End
             ) {
                 val regionStr = when (huntGroup.regionId) {
-                    1 -> "\uD83C\uDDE8\uD83C\uDDE6"
-                    2 -> "\uD83C\uDDFA\uD83C\uDDF8"
-                    else -> "❓"
+                    1 -> stringResource(id = R.string.flag_ca)
+                    2 -> stringResource(id = R.string.flag_us)
+                    else -> stringResource(id = R.string.question_mark)
                 }
                 Text(text = regionStr)
             }

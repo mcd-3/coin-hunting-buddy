@@ -9,6 +9,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -19,6 +21,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 private const val FINDS_INDEX = 1
 
@@ -29,6 +32,8 @@ fun FindsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+
+    val context = LocalContext.current
 
     // Values for the filter
     val currentDateFilter = remember { mutableStateOf(viewModel.findsDateFilter) }
@@ -50,12 +55,19 @@ fun FindsScreen(
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { AppBar(title = "Finds", scaffoldState = scaffoldState) },
-        drawerContent = { NavDrawer(
-            scaffoldState = scaffoldState,
-            navController = navController,
-            selectedIndex = FINDS_INDEX
-        )},
+        topBar = {
+            AppBar(
+                title = stringResource(id = R.string.finds_screen),
+                scaffoldState = scaffoldState
+            )
+        },
+        drawerContent = {
+            NavDrawer(
+                scaffoldState = scaffoldState,
+                navController = navController,
+                selectedIndex = FINDS_INDEX
+            )
+        },
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
@@ -75,11 +87,15 @@ fun FindsScreen(
                 if (allFinds == null) {
                     // Loading
                 } else if (allFinds!!.isEmpty()) {
-                    NoItemsWarning(topText = "No finds", bottomText = "Start a hunt to add some!")
+                    NoItemsWarning(
+                        topText = stringResource(id = R.string.no_finds_label),
+                        bottomText = stringResource(id = R.string.start_hunt_add_find_label)
+                    )
                 } else if (allFinds!!.isNotEmpty()) {
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                         allFinds!!.forEachIndexed { index, find ->
                             val strArray = FindStringGenerator.generate(
+                                context = context,
                                 year = find.year,
                                 mintMark = find.mintMark,
                                 error = find.error,
@@ -96,7 +112,7 @@ fun FindsScreen(
                                     Text(text = "${strArray[0]} - ${grade.value?.code}")
                                 }
                                 Row(modifier = Modifier.padding(start = rowPadding, bottom = 8.dp)) {
-                                    if (strArray[1] == "No major varieties or errors") {
+                                    if (strArray[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
                                         Text(
                                             text = strArray[1],
                                             fontStyle = FontStyle.Italic,
@@ -116,10 +132,12 @@ fun FindsScreen(
 
                                     Column(modifier = Modifier.weight(1f)) {
                                         HalfBoldLabel(
-                                            first = "Date Hunted: ",
-                                            second =
-                                            if (dateHunted.value == null) ""
-                                            else DateToStringConverter.getString(dateHunted.value!!),
+                                            first = stringResource(id = R.string.date_hunted_half_label),
+                                            second = if (dateHunted.value == null) {
+                                                ""
+                                            } else {
+                                                DateToStringConverter.getString(dateHunted.value!!)
+                                            },
                                             fontSize = 16,
                                             modifier = Modifier
                                         )
@@ -129,9 +147,11 @@ fun FindsScreen(
                                         horizontalAlignment = Alignment.End
                                     ) {
                                         Text(
-                                            text =
-                                            if (coinTypeName.value == null) ""
-                                            else coinTypeName.value!!,
+                                            text = if (coinTypeName.value == null) {
+                                                ""
+                                            } else {
+                                                coinTypeName.value!!
+                                            },
                                             textAlign = TextAlign.End,
                                             fontSize = 12.sp,
                                             color = Color.Gray,
