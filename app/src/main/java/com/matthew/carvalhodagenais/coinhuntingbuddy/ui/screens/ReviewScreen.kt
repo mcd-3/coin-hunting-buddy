@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -34,8 +35,8 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUt
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 import java.util.*
 
-fun capitalize(str: String): String {
-    return MoneyStringToSymbolUtil.singleToPlural(str).replaceFirstChar {
+fun capitalize(str: String, context: Context): String {
+    return MoneyStringToSymbolUtil.singleToPlural(str, context).replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.ROOT
         ) else it.toString()
@@ -175,7 +176,7 @@ fun ReviewScreen(
                                 }
                             }
 
-                            val capitalized = capitalize(coinType.name)
+                            val capitalized = capitalize(coinType.name, LocalContext.current)
                             if (capitalized in viewModel.rollsPerCoin) {
                                 SummaryFinds(
                                     label = coinType.name,

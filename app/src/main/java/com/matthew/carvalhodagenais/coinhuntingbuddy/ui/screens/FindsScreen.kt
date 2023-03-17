@@ -9,6 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +32,8 @@ fun FindsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+
+    val context = LocalContext.current
 
     // Values for the filter
     val currentDateFilter = remember { mutableStateOf(viewModel.findsDateFilter) }
@@ -92,6 +95,7 @@ fun FindsScreen(
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                         allFinds!!.forEachIndexed { index, find ->
                             val strArray = FindStringGenerator.generate(
+                                context = context,
                                 year = find.year,
                                 mintMark = find.mintMark,
                                 error = find.error,

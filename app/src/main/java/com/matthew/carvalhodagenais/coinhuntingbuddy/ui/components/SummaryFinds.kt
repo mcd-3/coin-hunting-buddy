@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +29,8 @@ fun SummaryFinds(
     val bulletPointModifier = Modifier
         .fillMaxHeight()
         .padding(start = 2.dp, end = 8.dp)
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(start = 20.dp, end = 20.dp)
@@ -57,6 +60,7 @@ fun SummaryFinds(
         if (listOfFinds.isNotEmpty()) {
             listOfFinds.forEachIndexed { index, it ->
                 val findStringArray = FindStringGenerator.generate(
+                    context,
                     it.year,
                     it.mintMark,
                     it.variety,

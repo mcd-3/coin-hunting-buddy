@@ -229,7 +229,7 @@ fun HuntScreen(
                                     selectedKey.value = keys[index]
                                     currentRollAmount.value = tempCoinList[selectedKey.value]!!
                                 },
-                                text = MoneyStringToSymbolUtil.convert(keys[index]),
+                                text = MoneyStringToSymbolUtil.convert(keys[index], context),
                                 leftIsRounded = firstKey == keys[index],
                                 rightIsRounded = lastKey == keys[index],
                                 key = keys[index],

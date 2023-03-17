@@ -27,6 +27,9 @@
     <string name="us_coin_hunt_label">American Coin Hunt</string>
     <string name="hunt_overview_label">Hunt Overview</string>
     <string name="my_finds_label">My Finds</string>
+    <string name="unknown_coin_label">Unknown Coin</string>
+    <string name="no_details_label">No further details</string>
+    <string name="illegible_year_label">Illegible Year</string>
     <string name="date_hunted_half_label">Date Hunted:\u0020</string>
     <string name="coin_region_half_label">Coin Region:\u0020</string>
     <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
@@ -139,6 +142,15 @@
     <string name="us_quarter_plural">Quarters</string>
     <string name="us_hd_plural">Half-Dollars</string>
     <string name="us_dollar_plural">Dollars</string>
+
+    <!-- Money Symbols -->
+    <string name="money_1c_symbol">1¢</string>
+    <string name="money_5c_symbol">5¢</string>
+    <string name="money_10c_symbol">10¢</string>
+    <string name="money_25c_symbol">25¢</string>
+    <string name="money_50c_symbol">50¢</string>
+    <string name="money_1d_symbol">$1</string>
+    <string name="money_2d_symbol">$2</string>
 
     <!-- Bullets -->
     <string name="small_bullet">•</string>

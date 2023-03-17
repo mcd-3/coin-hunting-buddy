@@ -181,6 +181,7 @@ fun DetailsScreen(
 
                                     if (grade.value != null) {
                                         val strArr = FindStringGenerator.generate(
+                                            context = context,
                                             year = find.year,
                                             mintMark = find.mintMark,
                                             error = find.error,
