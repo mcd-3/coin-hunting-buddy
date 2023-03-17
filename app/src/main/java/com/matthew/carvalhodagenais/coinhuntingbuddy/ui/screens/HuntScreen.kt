@@ -2,6 +2,7 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -202,6 +203,10 @@ fun HuntScreen(
                     val rolls = arrayOf(-1, -1, -1, -1, -1, -1)
 
                     arrangeCoinMap(coinList, region, keys, rolls, context)
+
+                    keys.forEach {
+                        Log.e("KEYS_BRUH", it)
+                    }
 
                     val firstKey = keys[
                         ArrayTools.firstIndexWhereNot(rolls, -1)!!
