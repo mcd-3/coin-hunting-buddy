@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.labelColor
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.TextNumberConverter
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 @Composable
 fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
@@ -60,14 +61,14 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                                 if (number == null) {
                                     val toast = Toast.makeText(
                                         context,
-                                        "Not a number.",
+                                        context.getString(R.string.nan_toast),
                                         Toast.LENGTH_SHORT
                                     )
                                     toast.show()
                                 } else {
                                     val toast = Toast.makeText(
                                         context,
-                                        "Number of rolls cannot be lower than 0.",
+                                        context.getString(R.string.lower_than_0_toast),
                                         Toast.LENGTH_SHORT
                                     )
                                     toast.show()
@@ -90,7 +91,7 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                                 if (it.text.contains("-", true)) {
                                     val toast = Toast.makeText(
                                         context,
-                                        "Negative rolls are not allowed.",
+                                        context.getString(R.string.no_negative_toast),
                                         Toast.LENGTH_SHORT
                                     )
                                     mutVal.value = TextFieldValue(
@@ -143,14 +144,14 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                                 if (number == null) {
                                     val toast = Toast.makeText(
                                         context,
-                                        "Not a number.",
+                                        context.getString(R.string.nan_toast),
                                         Toast.LENGTH_SHORT
                                     )
                                     toast.show()
                                 } else {
                                     val toast = Toast.makeText(
                                         context,
-                                        "Number of rolls cannot be higher than 999.",
+                                        context.getString(R.string.higher_than_999_toast),
                                         Toast.LENGTH_SHORT
                                     )
                                     toast.show()

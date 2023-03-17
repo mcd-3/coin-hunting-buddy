@@ -1,4 +1,93 @@
 <resources>
+    <string name="version">1.0</string>
     <string name="app_name">Coin Roll Hunting Buddy</string>
     <string name="title_activity_main">CRH Buddy</string>
+
+    <!-- Labels -->
+    <string name="version_label">Version: %1$s</string>
+    <string name="rolls_left_label">%1$d roll(s) left</string>
+    <string name="filter_active_label">Filter active</string>
+    <string name="no_filter_active_label">No filter active</string>
+    <string name="finds_label">Finds</string>
+    <string name="nothing_found_label">You haven\'t found anything!</string>
+    <string name="multiple_coin_types_label">Multiple Coin Types</string>
+    <string name="not_found_label">N/A</string>
+    <string name="crh_label">Coin Roll Hunter</string>
+    <string name="buddy_label">Buddy</string>
+    <string name="region_label">Region</string>
+    <string name="number_of_rolls_label">No. of Rolls</string>
+    <string name="number_of_rolls_params_label">Rolls: %1$d</string>
+    <string name="no_varieties_or_errors_label">No major varieties or errors</string>
+    <string name="no_finds_label">No finds</string>
+
+    <!-- Navigation Option Labels -->
+    <string name="hunts_nav_option">Hunts</string>
+    <string name="finds_nav_option">Finds</string>
+    <string name="about_nav_option">About</string>
+    <string name="settings_nav_option">Settings</string>
+
+    <!-- Button Text -->
+    <string name="unwrap_btn">Unwrap</string>
+    <string name="new_find_btn">New Find</string>
+
+    <!-- Text Input Labels -->
+    <string name="year_ti_label">Year</string>
+    <string name="grade_ti_label">Grade</string>
+    <string name="mm_ti_label">Mint Mark</string>
+    <string name="variety_ti_label">Variety</string>
+    <string name="error_ti_label">Error</string>
+    <string name="date_from_ti_label">Date From</string>
+    <string name="coin_type_ti_label">Coin Type</string>
+
+    <!-- Dropdown Options -->
+    <string name="not_set_option">Not Set</string>
+    <string name="region_with_flag">%1$s %2$s</string>
+
+    <!-- Text Input Placeholders -->
+    <string name="year_ti_placeholder">Year</string>
+    <string name="mm_ti_placeholder">P</string>
+    <string name="variety_ti_placeholder">Variety of the coin</string>
+    <string name="error_ti_placeholder">Error on the coin</string>
+
+    <!-- Alert Dialog Text Buttons -->
+    <string name="done_prompt">Done</string>
+    <string name="save_prompt">Save</string>
+    <string name="cancel_prompt">Cancel</string>
+
+    <!-- Alert Dialog Labels -->
+    <string name="new_find_prompt_title">New Find\n</string>
+    <string name="filter_prompt_title">Add/Remove Filter\n</string>
+
+    <!-- Toast Text -->
+    <string name="add_find_toast">Added a new find!</string>
+    <string name="nan_toast">That\'s not a number</string>
+    <string name="no_negative_toast">Number of rolls cannot be negative</string>
+    <string name="lower_than_0_toast">Number of rolls cannot be lower than 0</string>
+    <string name="higher_than_999_toast">Number of rolls cannot be higher than 999</string>
+
+    <!-- Content Descriptions -->
+    <string name="menu_icon_cd">Menu Icon</string>
+    <string name="arrow_back_cd">Go back!</string>
+    <string name="filter_active_cd">Filter active</string>
+    <string name="filter_cd">Filter</string>
+    <string name="cancel_icon_cd">Cancel</string>
+    <string name="logo_icon_cd">Logo</string>
+    <string name="add_cd">Add</string>
+    <string name="subtract_cd">Subtract</string>
+
+    <!-- Regions -->
+    <string name="ca_region">Canada</string>
+    <string name="us_region">U.S.A</string>
+
+    <!-- Keys -->
+    <string name="toonie_key">Toonies</string>
+    <string name="dollar_key">Dollars</string>
+
+    <!-- Bullets -->
+    <string name="small_bullet">•</string>
+
+    <!-- Emojis -->
+    <string name="flag_ca">🇨🇦</string>
+    <string name="flag_us">🇺🇸</string>
+    <string name="question_mark">❓</string>
 </resources>

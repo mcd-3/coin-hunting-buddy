@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -18,6 +19,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -39,13 +41,13 @@ fun Filter(
         Column(modifier = Modifier.weight(1f)) {
             if (filterActive.value) {
                 Text(
-                    text = "Filter active",
+                    text = stringResource(id = R.string.filter_active_label),
                     modifier = Modifier.padding(start = 20.dp, top = 12.dp),
                     fontWeight = FontWeight.Bold
                 )
             } else {
                 Text(
-                    text = "No filter active",
+                    text = stringResource(id = R.string.no_filter_active_label),
                     modifier = Modifier.padding(start = 20.dp, top = 12.dp),
                     fontStyle = FontStyle.Italic
                 )
@@ -65,9 +67,15 @@ fun Filter(
                 }
             ) {
                 if (filterActive.value) {
-                    Icon(Icons.Filled.FilterAlt, contentDescription = "Filter Active")
+                    Icon(
+                        Icons.Filled.FilterAlt,
+                        contentDescription = stringResource(id = R.string.filter_active_cd)
+                    )
                 } else {
-                    Icon(Icons.Outlined.FilterAlt, contentDescription = "Filter")
+                    Icon(
+                        Icons.Outlined.FilterAlt,
+                        contentDescription = stringResource(id = R.string.filter_cd)
+                    )
                 }
             }
         }
@@ -75,7 +83,9 @@ fun Filter(
 
     if (openFilterDialog.value) {
         AlertDialog(
-            title = { Text(text = "Add/Remove Filter\n") },
+            title = {
+                Text(text = stringResource(id = R.string.filter_prompt_title))
+            },
             onDismissRequest = {
                 openFilterDialog.value = false
                 selectedDateFilterOption = currentDateFilter.value
@@ -100,7 +110,7 @@ fun Filter(
                         filterActive.value = currentDateFilter.value != DateFilter.UNSET
                     }
                 }){
-                    Text(text = "Save")
+                    Text(text = stringResource(id = R.string.save_prompt))
                 }
             },
             dismissButton = {
@@ -109,7 +119,7 @@ fun Filter(
                     selectedDateFilterOption = currentDateFilter.value
                     selectedCoinTypeFilterOption = currentCoinTypeFilter?.value
                 }) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(id = R.string.cancel_prompt))
                 }
             },
             text = {
@@ -137,7 +147,9 @@ fun Filter(
                                     )
                                 },
                                 colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                label = { Text(text = "Date From") },
+                                label = {
+                                    Text(text = stringResource(id = R.string.date_from_ti_label))
+                                },
                             )
                             ExposedDropdownMenu(
                                 expanded = dateExpanded,
@@ -177,7 +189,7 @@ fun Filter(
                                 TextField(
                                     readOnly = true,
                                     value = TextFieldValue(
-                                        if (selectedCoinTypeFilterOption == null) "Not Set"
+                                        if (selectedCoinTypeFilterOption == null) stringResource(id = R.string.not_set_option)
                                         else selectedCoinTypeFilterOption!!.name
                                     ),
                                     onValueChange = { },
@@ -187,7 +199,9 @@ fun Filter(
                                         )
                                     },
                                     colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                    label = { Text(text = "Coin Type") },
+                                    label = {
+                                        Text(text = stringResource(id = R.string.coin_type_ti_label))
+                                    },
                                 )
                                 ExposedDropdownMenu(
                                     expanded = coinTypeExpanded,
@@ -201,7 +215,7 @@ fun Filter(
                                             coinTypeExpanded = false
                                         }
                                     ) {
-                                        Text(text = "Not Set")
+                                        Text(text = stringResource(id = R.string.not_set_option))
                                     }
                                     allCoinTypes?.forEach {
                                         if (viewModel.isSupportedCoinType(it)) {
@@ -211,7 +225,11 @@ fun Filter(
                                                     coinTypeExpanded = false
                                                 }
                                             ) {
-                                                val region = if (it.regionId == 1) "\uD83C\uDDE8\uD83C\uDDE6" else "\uD83C\uDDFA\uD83C\uDDF8"
+                                                val region = if (it.regionId == 1) {
+                                                    stringResource(id = R.string.flag_ca)
+                                                } else {
+                                                    stringResource(id = R.string.flag_us)
+                                                }
                                                 Text(text = "$region ${it.name}")
                                             }
                                         }

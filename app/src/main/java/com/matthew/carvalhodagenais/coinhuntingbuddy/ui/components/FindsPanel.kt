@@ -14,10 +14,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.deleteIcon
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
@@ -50,7 +52,7 @@ fun FindsPanel(
             )
 
             if (updateCounter.value > -1) {
-                Text(text = "Finds")
+                Text(text = stringResource(id = R.string.finds_label))
             }
 
             Box(
@@ -72,7 +74,7 @@ fun FindsPanel(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "You haven't found anything!",
+                        text = stringResource(id = R.string.nothing_found_label),
                         fontSize = 22.sp,
                         color = Color.LightGray,
                         textAlign = TextAlign.Center
@@ -133,7 +135,7 @@ fun FindsPanel(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Filled.Cancel,
-                                        contentDescription = "Cancel",
+                                        contentDescription = stringResource(id = R.string.cancel_icon_cd),
                                         tint = MaterialTheme.colors.deleteIcon
                                     )
                                 }

@@ -14,8 +14,10 @@ import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.addMinus
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 @Composable
 fun RoundCoinCounterButton(
@@ -41,14 +43,14 @@ fun RoundCoinCounterButton(
         if (isIncrement) {
             Icon(
                 Icons.Filled.Add,
-                contentDescription = "Add",
+                contentDescription = stringResource(id = R.string.add_cd),
                 tint = iconColor,
                 modifier = Modifier.size(iconSize),
             )
         } else {
             Icon(
                 Icons.Filled.Remove,
-                contentDescription = "Subtract",
+                contentDescription = stringResource(id = R.string.subtract_cd),
                 tint = iconColor,
                 modifier = Modifier.size(iconSize)
             )
