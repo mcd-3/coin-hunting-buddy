@@ -84,6 +84,7 @@
     <string name="save_prompt">Save</string>
     <string name="delete_prompt">Delete</string>
     <string name="cancel_prompt">Cancel</string>
+    <string name="ok_prompt">OK</string>
     <string name="complete_prompt">Complete Hunt</string>
     <string name="yes_prompt">Yes</string>
     <string name="no_prompt">No</string>
@@ -91,12 +92,19 @@
     <!-- Alert Dialog Labels -->
     <string name="new_find_prompt_title">New Find\n</string>
     <string name="filter_prompt_title">Add/Remove Filter\n</string>
+    <string name="info_prompt_title">How To\n</string>
     <string name="delete_hunt_confirm_label">Are you sure you want to delete this hunt?</string>
     <string name="delete_hunt_warning_label">This action cannot be undone</string>
     <string name="complete_hunt_confirm_label">Complete Hunt?</string>
     <string name="complete_hunt_warning_label">Make sure to double check your finds before wrapping up!</string>
     <string name="stop_hunt_confirm_label">Are you sure you want to stop this hunt?</string>
-    <string name="stop_hunt_warning_label">"This hunt and all finds will not be saved."</string>
+    <string name="stop_hunt_warning_label">This hunt and all finds will not be saved.</string>
+    <string name="info_1_label">Click the \"Unwrap\" button to open a roll.</string>
+    <string name="info_2_label">If you find anything worth keeping, click the "New Find" button to record it.</string>
+    <string name="info_3_label">If you want to delete a find, click the red "X" icon next to your find to delete it.</string>
+    <string name="info_4_label">If you have more than 1 coin type to hunt, click the tab buttons at the top to change coin type.</string>
+    <string name="info_5_label">Once you are out of rolls for all coin types you are hunting, click the "Complete Hunt" button to finish your hunt.</string>
+    <string name="info_6_label">Make sure to double check your finds! (Once you confirm it, all finds are permanently saved)</string>
 
     <!-- Toast Text -->
     <string name="add_find_toast">Added a new find!</string>
@@ -118,6 +126,7 @@
     <string name="delete_hunt_cd">Delete Hunt</string>
     <string name="add_hunt_cd">Add hunt</string>
     <string name="check_icon_cd">Done</string>
+    <string name="info_icon_cd">Info</string>
 
     <!-- Regions -->
     <string name="ca_region">Canada</string>

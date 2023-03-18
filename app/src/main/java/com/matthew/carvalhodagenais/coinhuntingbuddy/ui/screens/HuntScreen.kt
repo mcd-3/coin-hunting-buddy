@@ -5,10 +5,12 @@ import android.content.Intent
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -135,6 +137,7 @@ fun HuntScreen(
 
     // Flags
     val showHuntCompleteDialog = remember { mutableStateOf(false)}
+    val showInfoDialog = remember { mutableStateOf(false) }
     val completeHuntFlag = remember { mutableStateOf(tempCoinList.all { it.value == 0 }) }
 
     // Context is needed here to go back to MainActivity
@@ -144,19 +147,32 @@ fun HuntScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                backgroundColor = MaterialTheme.colors.topAppBar,
-                title = {
-                    Text(
-                        text = if (region == stringResource(id = R.string.us_region_code)) {
-                            stringResource(id = R.string.us_coin_hunt_label)
-                        } else {
-                            stringResource(id = R.string.ca_coin_hunt_label)
+            Surface {
+                TopAppBar(
+                    backgroundColor = MaterialTheme.colors.topAppBar,
+                    title = {
+                        Text(
+                            text = if (region == stringResource(id = R.string.us_region_code)) {
+                                stringResource(id = R.string.us_coin_hunt_label)
+                            } else {
+                                stringResource(id = R.string.ca_coin_hunt_label)
+                            }
+                        )
+                    },
+                    elevation = 0.dp,
+                    actions = {
+                        IconButton(
+                            onClick = { showInfoDialog.value = true }
+                        ) {
+                            Icon(
+                                Icons.Filled.Info,
+                                contentDescription = stringResource(id = R.string.info_icon_cd),
+                                tint = MaterialTheme.colors.primary
+                            )
                         }
-                    )
-                },
-                elevation = 0.dp
-            )
+                    }
+                )
+            }
         },
     ) {
         val showAlertDialog = remember { mutableStateOf(false) }
@@ -284,6 +300,9 @@ fun HuntScreen(
                     onCancel = { showHuntCompleteDialog.value = false }
                 )
             }
+
+            InfoAlertDialog(openState = showInfoDialog)
+
             Row(Modifier.weight(0.1f)) {
                 FullButton(
                     onClick = {

@@ -242,7 +242,7 @@ fun DetailsScreen(
                                                .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
                                        ) {
                                            Text(
-                                               text = "No finds",
+                                               text = stringResource(id = R.string.no_finds_label),
                                                fontStyle = FontStyle.Italic,
                                                color = Color.Gray,
                                            )
