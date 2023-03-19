@@ -1,22 +1,30 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.Hyperlink
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.secondaryText
 
@@ -49,7 +57,9 @@ fun AboutScreen(navController: NavController) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Column(modifier = Modifier.weight(1f)) {
                     Row(
-                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text("Coin Roll Hunter Buddy", fontSize = 20.sp)
@@ -104,10 +114,14 @@ fun AboutScreen(navController: NavController) {
                                 .padding(top = 8.dp, bottom = 8.dp),
                             horizontalArrangement = Arrangement.Center
                         ) {
-                            Text(
-                                "Click here to view the license.",
-                                textAlign = TextAlign.Center
-                            ) // This needs to be a link
+                            Hyperlink(
+                                text = "Tap here to view the license.",
+                                tag = "license",
+                                link = "https://github.com/mcd-3/CoinHuntingBuddy/blob/master/LICENSE.md",
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                )
+                            )
                         }
 
                         Row(
@@ -123,7 +137,9 @@ fun AboutScreen(navController: NavController) {
                         }
                     }
 
-                    Column(modifier = Modifier.weight(1f).fillMaxSize()) {
+                    Column(modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize()) {
                         Box(modifier = Modifier.fillMaxSize()) {
                             Text(
                                 text = stringResource(
