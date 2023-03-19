@@ -62,7 +62,7 @@ fun AboutScreen(navController: NavController) {
                             .padding(top = 8.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Text("Coin Roll Hunter Buddy", fontSize = 20.sp)
+                        Text(stringResource(id = R.string.app_name), fontSize = 20.sp)
                     }
 
                     Row(
@@ -74,7 +74,7 @@ fun AboutScreen(navController: NavController) {
                     ) {
                         Image(
                             modifier = Modifier.align(alignment = Alignment.CenterVertically),
-                            painter = painterResource(id = R.drawable.ic_logo_gradient_128),
+                            painter = painterResource(id = R.drawable.ic_coin_200),
                             contentDescription = "",
                             contentScale = ContentScale.Fit
                         )
@@ -86,7 +86,13 @@ fun AboutScreen(navController: NavController) {
                             .padding(top = 8.dp, bottom = 8.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Text("By: mcd-3", fontSize = 18.sp)
+                        Text(
+                            text = stringResource(
+                                id = R.string.author_label,
+                                stringResource(id = R.string.author)
+                            ),
+                            fontSize = 18.sp
+                        )
                     }
                 }
 
@@ -103,7 +109,7 @@ fun AboutScreen(navController: NavController) {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                "This app is open source and licensed under MIT.",
+                                stringResource(id = R.string.mit_label),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -115,25 +121,13 @@ fun AboutScreen(navController: NavController) {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Hyperlink(
-                                text = "Tap here to view the license.",
+                                text = stringResource(id = R.string.github_license_label),
                                 tag = "license",
-                                link = "https://github.com/mcd-3/CoinHuntingBuddy/blob/master/LICENSE.md",
+                                link = stringResource(id = R.string.github_license_link),
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                 )
                             )
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 8.dp, bottom = 8.dp),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                "Need support? Send me an email!",
-                                textAlign = TextAlign.Center
-                            ) // Needs to be an email link
                         }
                     }
 

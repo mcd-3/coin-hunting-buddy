@@ -2,6 +2,7 @@
     <string name="version">0.8 BETA</string>
     <string name="app_name">Coin Roll Hunting Buddy</string>
     <string name="title_activity_main">CRH Buddy</string>
+    <string name="author">mcd-3</string>
 
     <!-- Labels -->
     <string name="version_label">Version: %1$s</string>
@@ -30,6 +31,9 @@
     <string name="unknown_coin_label">Unknown Coin</string>
     <string name="no_details_label">No further details</string>
     <string name="illegible_year_label">Illegible Year</string>
+    <string name="mit_label">This app is open source and licensed under the MIT license.</string>
+    <string name="github_license_label">Tap here to view the license.</string>
+    <string name="author_label">By: %1$s</string>
     <string name="date_hunted_half_label">Date Hunted:\u0020</string>
     <string name="coin_region_half_label">Coin Region:\u0020</string>
     <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
@@ -163,6 +167,9 @@
 
     <!-- Bullets -->
     <string name="small_bullet">•</string>
+
+    <!-- Links -->
+    <string name="github_license_link">https://github.com/mcd-3/CoinHuntingBuddy/blob/master/LICENSE.md</string>
 
     <!-- Emojis -->
     <string name="flag_ca">🇨🇦</string>
