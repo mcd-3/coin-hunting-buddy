@@ -23,7 +23,7 @@
     <string name="no_hunts_label">No hunts</string>
     <string name="overview_label">Overview</string>
     <string name="start_hunt_add_find_label">Start a hunt to add some!</string>
-    <string name="click_plus_start_hunt_label">Click "+" to start one!</string>
+    <string name="click_plus_start_hunt_label">Click \"+\" to start one!</string>
     <string name="ca_coin_hunt_label">Canadian Coin Hunt</string>
     <string name="us_coin_hunt_label">American Coin Hunt</string>
     <string name="hunt_overview_label">Hunt Overview</string>
@@ -104,10 +104,10 @@
     <string name="stop_hunt_confirm_label">Are you sure you want to stop this hunt?</string>
     <string name="stop_hunt_warning_label">This hunt and all finds will not be saved.</string>
     <string name="info_1_label">Click the \"Unwrap\" button to open a roll.</string>
-    <string name="info_2_label">If you find anything worth keeping, click the "New Find" button to record it.</string>
-    <string name="info_3_label">If you want to delete a find, click the red "X" icon next to your find to delete it.</string>
+    <string name="info_2_label">If you find anything worth keeping, click the \"New Find\" button to record it.</string>
+    <string name="info_3_label">If you want to delete a find, click the red \"X\" icon next to your find to delete it.</string>
     <string name="info_4_label">If you have more than 1 coin type to hunt, click the tab buttons at the top to change coin type.</string>
-    <string name="info_5_label">Once you are out of rolls for all coin types you are hunting, click the "Complete Hunt" button to finish your hunt.</string>
+    <string name="info_5_label">Once you are out of rolls for all coin types you are hunting, click the \"Complete Hunt\" button to finish your hunt.</string>
     <string name="info_6_label">Make sure to double check your finds! (Once you confirm it, all finds are permanently saved)</string>
 
     <!-- Toast Text -->
