@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -28,6 +29,15 @@ private const val ABOUT_INDEX = 2
 @Composable
 fun AboutScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
+
+    // Back Handler to go back to the hunts screen
+    BackHandler {
+        navController.navigate("hunts_screen") {
+            popUpTo(navController.graph.id) {
+                inclusive = true
+            }
+        }
+    }
 
     Scaffold(
         scaffoldState = scaffoldState,

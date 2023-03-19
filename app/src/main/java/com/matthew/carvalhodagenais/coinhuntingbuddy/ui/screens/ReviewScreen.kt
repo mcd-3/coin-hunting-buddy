@@ -2,6 +2,7 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -43,6 +44,17 @@ fun capitalize(str: String, context: Context): String {
     }
 }
 
+/**
+ * Sends the user back to the main activity
+ *
+ * @param context Context
+ */
+private fun goToMainActivity(context: Context) {
+    val intent = Intent(context, MainActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    context.startActivity(intent)
+}
+
 @Composable
 fun ReviewScreen(
     viewModel: HuntActivityViewModel,
@@ -51,6 +63,11 @@ fun ReviewScreen(
     val cardInnerPaddingStart = 10.dp
     val cardInnerPaddingEnd = 10.dp
     val context = LocalContext.current
+
+    // Back Handler to go back to the main activity
+    BackHandler {
+        goToMainActivity(context)
+    }
 
     Scaffold(
         topBar = {
@@ -63,9 +80,7 @@ fun ReviewScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            val intent = Intent(context, MainActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            context.startActivity(intent)
+                            goToMainActivity(context)
                         }
                     ) {
                         Icon(
