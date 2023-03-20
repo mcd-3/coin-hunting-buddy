@@ -6,6 +6,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -19,21 +20,30 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.ConfirmCancelAlertDialog
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SettingsButton
+import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
+import kotlinx.coroutines.*
 
 private const val SETTINGS_INDEX = 3
 
 @Composable
-fun SettingsScreen(navController: NavController) {
+fun SettingsScreen(
+    viewModel: MainActivityViewModel,
+    navController: NavController
+) {
     val scaffoldState = rememberScaffoldState()
     val context = LocalContext.current
 
     val deleteWarningState = remember { mutableStateOf(false) }
+    val isDeleting = remember { mutableStateOf(false) }
 
     // Back Handler to go back to the hunts screen
     BackHandler {
-        navController.navigate("hunts_screen") {
-            popUpTo(navController.graph.id) {
-                inclusive = true
+        // Only allow this to happen if deletion is not happening!
+        if (!isDeleting.value) {
+            navController.navigate("hunts_screen") {
+                popUpTo(navController.graph.id) {
+                    inclusive = true
+                }
             }
         }
     }
@@ -90,11 +100,34 @@ fun SettingsScreen(navController: NavController) {
             toggledState = deleteWarningState,
             onConfirm = {
                 deleteWarningState.value = false
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.data_deleted_toast),
-                    Toast.LENGTH_LONG
-                ).show()
+
+                // Perform the deletion on another thread
+                MainScope().launch {
+                    isDeleting.value = true
+                    val bool = viewModel.deleteData().await()
+
+                    // TODO: Show loading spinner circle pop up!
+                    //       also, disable onBackPress
+
+                    if (bool) {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.data_deleted_toast),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        Log.e("ALL GOOD", "Data has been deleted")
+
+                        // TODO: Disable loading spinner!
+                        //       reenable onBackPress
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Something went wrong.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    isDeleting.value = false
+                }
             },
             onCancel = { deleteWarningState.value = false }
         )

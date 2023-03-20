@@ -132,4 +132,23 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
             }
         }
     }
+
+    /**
+     * This will delete all app data.
+     * Make sure the user is warned!
+     */
+    fun deleteData(): Deferred<Boolean> = coroutineScope.async(Dispatchers.IO) {
+        try {
+            delay(2000)
+            // Get all hunt groups
+            // For each hunt group, get all hunts
+            // For each hunt, delete all finds
+
+            // Delete all hunts
+            // Delete all hunt groups
+        } catch (e: Exception) {
+            return@async false
+        }
+        return@async true
+    }
 }
