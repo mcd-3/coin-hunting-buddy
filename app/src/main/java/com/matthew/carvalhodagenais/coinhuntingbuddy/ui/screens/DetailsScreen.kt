@@ -26,7 +26,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.deleteIcon
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.danger
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
@@ -70,7 +70,7 @@ fun DetailsScreen(
                         Icon(
                             Icons.Filled.Delete,
                             contentDescription = stringResource(id = R.string.delete_hunt_cd),
-                            tint = MaterialTheme.colors.deleteIcon
+                            tint = MaterialTheme.colors.danger
                         )
                     }
                 }

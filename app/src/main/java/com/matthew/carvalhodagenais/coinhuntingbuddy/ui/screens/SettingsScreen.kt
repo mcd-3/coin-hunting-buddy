@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SettingsButton
 
 private const val SETTINGS_INDEX = 3
 
@@ -47,9 +49,28 @@ fun SettingsScreen(navController: NavController) {
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        Box(modifier = Modifier
-            .background(Color.White)
-            .fillMaxSize()) {
-            Text(text = "settings")}
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Column() {
+                SettingsButton(
+                    topText = "Export to CSV",
+                    bottomText = "Export all finds to a CSV file",
+                    onClick = {
+                        Log.e("CLICKED", "Hello world!")
+                    }
+                )
+
+                SettingsButton(
+                    topText = "Delete Data",
+                    bottomText = "Deletes all hunts and finds from the app",
+                    onClick = {
+                        Log.e("CLICKED", "Oh no!")
+                    },
+                    isDanger = true
+                )
+            }
+        }
     }
 }
