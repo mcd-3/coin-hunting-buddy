@@ -63,6 +63,10 @@
     <string name="new_find_btn">New Find</string>
     <string name="complete_btn">Complete Hunt</string>
     <string name="begin_hunt_btn">Begin Hunt</string>
+    <string name="export_header_btn">Export to CSV</string>
+    <string name="export_text_btn">Export all finds to a CSV file</string>
+    <string name="delete_header_btn">Delete Data</string>
+    <string name="delete_text_btn">Deletes all hunts and finds from the app</string>
 
     <!-- Text Input Labels -->
     <string name="year_ti_label">Year</string>
@@ -109,6 +113,8 @@
     <string name="info_4_label">If you have more than 1 coin type to hunt, click the tab buttons at the top to change coin type.</string>
     <string name="info_5_label">Once you are out of rolls for all coin types you are hunting, click the \"Complete Hunt\" button to finish your hunt.</string>
     <string name="info_6_label">Make sure to double check your finds! (Once you confirm it, all finds are permanently saved)</string>
+    <string name="delete_data_prompt_title">Delete Data</string>
+    <string name="delete_data_prompt_label">Are you sure you want to delete all hunts and finds from the app?\n\nTHIS ACTION IS PERMANENT!!</string>
 
     <!-- Toast Text -->
     <string name="add_find_toast">Added a new find!</string>
@@ -117,6 +123,7 @@
     <string name="lower_than_0_toast">Number of rolls cannot be lower than 0</string>
     <string name="higher_than_999_toast">Number of rolls cannot be higher than 999</string>
     <string name="hunt_deleted_toast">Hunt Deleted</string>
+    <string name="data_deleted_toast">App Data Deleted</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>

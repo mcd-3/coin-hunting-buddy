@@ -3,7 +3,6 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -63,16 +62,16 @@ fun SettingsScreen(navController: NavController) {
         ) {
             Column() {
                 SettingsButton(
-                    topText = "Export to CSV",
-                    bottomText = "Export all finds to a CSV file",
+                    topText = stringResource(id = R.string.export_header_btn),
+                    bottomText = stringResource(id = R.string.export_text_btn),
                     onClick = {
                         Log.e("CLICKED", "Hello world!")
                     }
                 )
 
                 SettingsButton(
-                    topText = "Delete Data",
-                    bottomText = "Deletes all hunts and finds from the app",
+                    topText = stringResource(id = R.string.delete_header_btn),
+                    bottomText = stringResource(id = R.string.delete_text_btn),
                     onClick = {
                         deleteWarningState.value = true
                     },
@@ -84,16 +83,16 @@ fun SettingsScreen(navController: NavController) {
     
     if (deleteWarningState.value) {
         ConfirmCancelAlertDialog(
-            title = "Delete Data",
-            body = "Are you sure you want to delete all hunts and finds from the app?\n\nTHIS ACTION IS PERMANENT!!",
-            confirmLabel = "DELETE",
-            cancelLabel = "CANCEL",
+            title = stringResource(id = R.string.delete_data_prompt_title),
+            body = stringResource(id = R.string.delete_data_prompt_label),
+            confirmLabel = stringResource(id = R.string.delete_prompt),
+            cancelLabel = stringResource(id = R.string.cancel_prompt),
             toggledState = deleteWarningState,
             onConfirm = {
                 deleteWarningState.value = false
                 Toast.makeText(
                     context,
-                    "App Data Deleted",
+                    context.getString(R.string.data_deleted_toast),
                     Toast.LENGTH_LONG
                 ).show()
             },
