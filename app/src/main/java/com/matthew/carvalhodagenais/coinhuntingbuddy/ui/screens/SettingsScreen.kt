@@ -6,7 +6,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -16,10 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.ConfirmCancelAlertDialog
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SettingsButton
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.*
 
@@ -70,7 +66,7 @@ fun SettingsScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            Column() {
+            Column {
                 SettingsButton(
                     topText = stringResource(id = R.string.export_header_btn),
                     bottomText = stringResource(id = R.string.export_text_btn),
@@ -90,6 +86,9 @@ fun SettingsScreen(
             }
         }
     }
+
+    // This will only show up once data is being deleted!
+    LoadingDialog(loadingState = isDeleting)
     
     if (deleteWarningState.value) {
         ConfirmCancelAlertDialog(
@@ -106,19 +105,12 @@ fun SettingsScreen(
                     isDeleting.value = true
                     val bool = viewModel.deleteData().await()
 
-                    // TODO: Show loading spinner circle pop up!
-                    //       also, disable onBackPress
-
                     if (bool) {
                         Toast.makeText(
                             context,
                             context.getString(R.string.data_deleted_toast),
                             Toast.LENGTH_LONG
                         ).show()
-                        Log.e("ALL GOOD", "Data has been deleted")
-
-                        // TODO: Disable loading spinner!
-                        //       reenable onBackPress
                     } else {
                         Toast.makeText(
                             context,
