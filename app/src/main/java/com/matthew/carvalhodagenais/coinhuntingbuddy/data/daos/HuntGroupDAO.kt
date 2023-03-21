@@ -22,6 +22,9 @@ interface HuntGroupDAO {
     @Query("SELECT * FROM hunt_group_table")
     fun getHuntGroups(): LiveData<List<HuntGroup>>
 
+    @Query("SELECT * FROM hunt_group_table")
+    fun getHuntGroupsSync(): List<HuntGroup>
+
     @Query("SELECT * FROM hunt_group_table ORDER BY date_hunted DESC")
     fun getHuntGroupsOrderedRecent(): LiveData<List<HuntGroup>>
 

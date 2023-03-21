@@ -1,6 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -138,14 +139,18 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
      * Make sure the user is warned!
      */
     fun deleteData(): Deferred<Boolean> = coroutineScope.async(Dispatchers.IO) {
+        // Delays are used in this function to show the user that the app is doing something
         try {
-            delay(2000)
-            // Get all hunt groups
-            // For each hunt group, get all hunts
-            // For each hunt, delete all finds
-
-            // Delete all hunts
-            // Delete all hunt groups
+            delay(1000)
+            val hgs = huntGroupRepository.getHuntGroupsSync()
+            hgs.forEach {hg ->
+                huntRepository.getHuntsByHuntGroupId(hg.id).forEach { hunt ->
+                    findRepository.deleteByHuntId(hunt.id)
+                    huntRepository.delete(hunt)
+                }
+                huntGroupRepository.delete(hg)
+            }
+            delay(1000)
         } catch (e: Exception) {
             return@async false
         }

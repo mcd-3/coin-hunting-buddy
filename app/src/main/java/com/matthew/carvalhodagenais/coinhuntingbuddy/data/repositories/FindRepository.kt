@@ -51,4 +51,8 @@ class FindRepository(application: Application) {
     suspend fun delete(find: Find) {
         findDAO.delete(find)
     }
+
+    suspend fun deleteByHuntId(id: Int) {
+        findDAO.deleteByHuntId(id)
+    }
 }
