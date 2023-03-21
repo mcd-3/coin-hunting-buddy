@@ -139,7 +139,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     /**
      * Gets a map of all finds data
      */
-    fun getFindsData(): Deferred<List<Map<String, Any?>>> = coroutineScope.async(Dispatchers.IO) {
+    suspend fun getFindsData(): List<Map<String, Any?>> = coroutineScope.async(Dispatchers.IO) {
         val dataList = mutableListOf<Map<String, Any?>>()
         var i = 0
 
@@ -173,7 +173,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
             }
         }
         return@async dataList
-    }
+    }.await()
 
     /**
      * This will delete all app data.
