@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
@@ -33,7 +34,7 @@ fun LoadingDialog(
                         modifier = Modifier.padding(12.dp)
                     )
                     Text(
-                        text = "Please wait...",
+                        text = stringResource(id = R.string.loading_dialog_label),
                         modifier = Modifier.padding(end = 12.dp)
                     )
                 }

@@ -114,7 +114,7 @@ fun SettingsScreen(
                     } else {
                         Toast.makeText(
                             context,
-                            "Something went wrong.",
+                            context.getString(R.string.error_toast),
                             Toast.LENGTH_LONG
                         ).show()
                     }

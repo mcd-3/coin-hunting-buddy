@@ -115,6 +115,7 @@
     <string name="info_6_label">Make sure to double check your finds! (Once you confirm it, all finds are permanently saved)</string>
     <string name="delete_data_prompt_title">Delete Data</string>
     <string name="delete_data_prompt_label">Are you sure you want to delete all hunts and finds from the app?\n\nTHIS ACTION IS PERMANENT!!</string>
+    <string name="loading_dialog_label">Please wait…</string>
 
     <!-- Toast Text -->
     <string name="add_find_toast">Added a new find!</string>
@@ -124,6 +125,7 @@
     <string name="higher_than_999_toast">Number of rolls cannot be higher than 999</string>
     <string name="hunt_deleted_toast">Hunt Deleted</string>
     <string name="data_deleted_toast">App Data Deleted</string>
+    <string name="error_toast">ERROR: Something went wrong.</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>
