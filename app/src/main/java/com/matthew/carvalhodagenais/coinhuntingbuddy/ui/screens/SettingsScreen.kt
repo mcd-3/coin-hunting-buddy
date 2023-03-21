@@ -71,7 +71,10 @@ fun SettingsScreen(
                     topText = stringResource(id = R.string.export_header_btn),
                     bottomText = stringResource(id = R.string.export_text_btn),
                     onClick = {
-                        Log.e("CLICKED", "Hello world!")
+                        MainScope().launch {
+                            val data = viewModel.getFindsData().await()
+                            Log.e("CLICKED", data.toString())
+                        }
                     }
                 )
 

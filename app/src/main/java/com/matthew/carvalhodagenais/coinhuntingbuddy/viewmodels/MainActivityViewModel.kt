@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +20,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private val coinTypeRepository = CoinTypeRepository(application)
     private val findRepository = FindRepository(application)
     private val gradeRepository = GradeRepository(application)
+    private val regionRepository = RegionRepository(application)
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
@@ -132,6 +134,45 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
                 huntGroupRepository.delete(huntGroup)
             }
         }
+    }
+
+    /**
+     * Gets a map of all finds data
+     */
+    fun getFindsData(): Deferred<List<Map<String, Any?>>> = coroutineScope.async(Dispatchers.IO) {
+        val dataList = mutableListOf<Map<String, Any?>>()
+        var i = 0
+
+        // TODO: Optimize this
+        huntGroupRepository.getHuntGroupsSync().forEach { hg ->
+            huntRepository.getHuntsByHuntGroupId(hg.id).forEach { hunt ->
+                findRepository.getFindsByHuntIdSync(hunt.id).forEach { find ->
+                    val map = mutableMapOf<String, Any?>(
+                        "date_found" to String,
+                        "year" to String,
+                        "error" to String,
+                        "variety" to String,
+                        "mint_mark" to String,
+                        "coin_type" to String,
+                        "grade" to String,
+                        "region" to String
+                    )
+
+                    map["date_found"] = DateToStringConverter.getString(hg.dateHunted)
+                    map["year"] = if (find.year == null) "" else find.year.toString()
+                    map["error"] = if (find.error == null) "" else find.error.toString()
+                    map["variety"] = if (find.variety == null) "" else find.variety.toString()
+                    map["mint_mark"] = if (find.mintMark == null) "" else find.mintMark.toString()
+                    map["coin_type"] = coinTypeRepository.getCoinTypeById(find.coinTypeId).name
+                    map["grade"] = if (find.gradeId == null) "" else gradeRepository.getGradeById(find.gradeId!!)
+                    map["region"] = regionRepository.getRegionNameById(hg.regionId)
+
+                    dataList.add(i, map)
+                    i++
+                }
+            }
+        }
+        return@async dataList
     }
 
     /**
