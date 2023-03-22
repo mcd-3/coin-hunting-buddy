@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.repositories.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
+import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.CSVWriter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -147,25 +148,16 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         huntGroupRepository.getHuntGroupsSync().forEach { hg ->
             huntRepository.getHuntsByHuntGroupId(hg.id).forEach { hunt ->
                 findRepository.getFindsByHuntIdSync(hunt.id).forEach { find ->
-                    val map = mutableMapOf<String, Any?>(
-                        "date_found" to String,
-                        "year" to String,
-                        "error" to String,
-                        "variety" to String,
-                        "mint_mark" to String,
-                        "coin_type" to String,
-                        "grade" to String,
-                        "region" to String
+                    val map = CSVWriter.createDataMap(
+                        dateFound = DateToStringConverter.getString(hg.dateHunted),
+                        year      = if (find.year == null) "" else find.year.toString(),
+                        error     = if (find.error == null) "" else find.error.toString(),
+                        variety   = if (find.variety == null) "" else find.variety.toString(),
+                        mintMark  = if (find.mintMark == null) "" else find.mintMark.toString(),
+                        coinType  = coinTypeRepository.getCoinTypeById(find.coinTypeId).name,
+                        grade     = if (find.gradeId == null) "" else gradeRepository.getGradeByIdSync(find.gradeId!!).code,
+                        region    = regionRepository.getRegionNameById(hg.regionId),
                     )
-
-                    map["date_found"] = DateToStringConverter.getString(hg.dateHunted)
-                    map["year"] = if (find.year == null) "" else find.year.toString()
-                    map["error"] = if (find.error == null) "" else find.error.toString()
-                    map["variety"] = if (find.variety == null) "" else find.variety.toString()
-                    map["mint_mark"] = if (find.mintMark == null) "" else find.mintMark.toString()
-                    map["coin_type"] = coinTypeRepository.getCoinTypeById(find.coinTypeId).name
-                    map["grade"] = if (find.gradeId == null) "" else gradeRepository.getGradeById(find.gradeId!!)
-                    map["region"] = regionRepository.getRegionNameById(hg.regionId)
 
                     dataList.add(i, map)
                     i++
