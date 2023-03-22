@@ -1,13 +1,20 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.utils
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Environment
 import android.util.Log
+import androidx.core.content.ContextCompat
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFSheet
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import java.io.File
+import java.io.FileOutputStream
 
 class CSVWriter(context: Context) {
     private var ctx: Context
+    private val fileName = "crhb_finds_export.xls"
 
     init {
         ctx = context
@@ -79,6 +86,10 @@ class CSVWriter(context: Context) {
 
         val workbook: HSSFWorkbook = HSSFWorkbook()
 
+        if (data.isEmpty()) {
+            return null
+        }
+
         try {
             if (data[0].keys.size == headers.size) {
                 val sheet: HSSFSheet = workbook.createSheet()
@@ -126,19 +137,57 @@ class CSVWriter(context: Context) {
                 "An error has occurred trying to write to an HSSFWorkbook file."
             )
             Log.e("CSVWRITER", "The data map might not be the correct format. Please investigate.")
-            Log.e("CSVWRITER", e.toString())
+            e.printStackTrace()
             return null
         }
         return workbook
     }
 
-    fun sendToDownloads(hssfWorkbook: HSSFWorkbook) {
-        // Use context here
+    fun hasPermissions(): Boolean {
+        return (
+            ContextCompat.checkSelfPermission(
+                ctx,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) && (
+            ContextCompat.checkSelfPermission(
+                ctx,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        )
+    }
 
-        // Ask for permission
+    fun sendToDownloads(hssfWorkbook: HSSFWorkbook): Boolean {
+        return if (hasPermissions()) {
+            try {
+                val filePath = File("${Environment.DIRECTORY_DOWNLOADS}/$fileName")
 
-        // If no permission, return false
+                Log.e("PATH", filePath.toString())
 
-        // If permission, go ahead with the download and return true
+                if (!filePath.exists()) {
+                    filePath.createNewFile()
+                }
+
+                val fos = FileOutputStream(filePath)
+                hssfWorkbook.write(fos)
+
+                // Cleanup the stream
+                fos.flush()
+                fos.close()
+
+                true
+            } catch (e: Exception) {
+                Log.e(
+                    "CSVWRITER",
+                    "An error has occurred trying to write to an HSSFWorkbook file."
+                )
+                Log.e("CSVWRITER", "Could not write file to downloads directory.")
+                e.printStackTrace()
+                false
+            }
+        } else {
+            Log.d("CSVWRITER", "Permission Denied.")
+            false
+        }
     }
 }
