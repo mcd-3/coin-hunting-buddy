@@ -16,7 +16,8 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
 @Composable
 fun LoadingDialog(
-    loadingState: MutableState<Boolean>
+    loadingState: MutableState<Boolean>,
+    loadingString: String? = null,
 ) {
     if (loadingState.value) {
         Dialog(onDismissRequest = { /* Do Nothing! */ }) {
@@ -33,8 +34,13 @@ fun LoadingDialog(
                     CircularProgressIndicator(
                         modifier = Modifier.padding(12.dp)
                     )
+                    val str = if (loadingString.isNullOrBlank()) {
+                        stringResource(id = R.string.loading_dialog_label)
+                    } else {
+                        loadingString
+                    }
                     Text(
-                        text = stringResource(id = R.string.loading_dialog_label),
+                        text = str,
                         modifier = Modifier.padding(end = 12.dp)
                     )
                 }

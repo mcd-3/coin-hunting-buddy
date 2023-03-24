@@ -7,6 +7,10 @@ import android.os.Environment
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import org.apache.poi.xssf.usermodel.XSSFRow
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -14,6 +18,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 class CSVWriter(context: Context) {
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var ctx: Context
     private val fileName = "crhb_finds_export.xlsx"
 
@@ -73,7 +78,7 @@ class CSVWriter(context: Context) {
         }
     }
 
-    fun write(data: List<Map<String, Any?>>): XSSFWorkbook? {
+    fun write(data: List<Map<String, Any?>>): Deferred<XSSFWorkbook?> = coroutineScope.async(Dispatchers.IO) {
         val headers = listOf(
             ctx.getString(R.string.date_header_xlsx),
             ctx.getString(R.string.ct_header_xlsx),
@@ -88,7 +93,7 @@ class CSVWriter(context: Context) {
         val workbook= XSSFWorkbook()
 
         if (data.isEmpty()) {
-            return null
+            return@async null
         }
 
         try {
@@ -142,9 +147,9 @@ class CSVWriter(context: Context) {
             )
             Log.e("CSVWRITER", "The data map might not be the correct format. Please investigate.")
             e.printStackTrace()
-            return null
+            return@async null
         }
-        return workbook
+        return@async workbook
     }
 
     fun hasPermissions(): Boolean {
@@ -161,8 +166,8 @@ class CSVWriter(context: Context) {
         )
     }
 
-    fun sendToDownloads(xssfWorkbook: XSSFWorkbook): Boolean {
-        return if (hasPermissions()) {
+    fun sendToDownloads(xssfWorkbook: XSSFWorkbook): Deferred<Boolean> = coroutineScope.async(Dispatchers.IO) {
+        if (hasPermissions()) {
             try {
                 val filePath = File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
@@ -181,7 +186,7 @@ class CSVWriter(context: Context) {
                 fos.close()
                 xssfWorkbook.close()
 
-                true
+                return@async true
             } catch (e: Exception) {
                 Log.e(
                     "CSVWRITER",
@@ -189,11 +194,11 @@ class CSVWriter(context: Context) {
                 )
                 Log.e("CSVWRITER", "Could not write file to downloads directory.")
                 e.printStackTrace()
-                false
+                return@async false
             }
         } else {
             Log.d("CSVWRITER", "Permission Denied.")
-            false
+            return@async false
         }
     }
 }

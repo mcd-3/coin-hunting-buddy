@@ -36,11 +36,12 @@ fun SettingsScreen(
 
     val deleteWarningState = remember { mutableStateOf(false) }
     val isDeleting = remember { mutableStateOf(false) }
+    val isDownloading = remember { mutableStateOf(false) }
 
     // Back Handler to go back to the hunts screen
     BackHandler {
         // Only allow this to happen if deletion is not happening!
-        if (!isDeleting.value) {
+        if (!isDeleting.value && !isDownloading.value) {
             navController.navigate("hunts_screen") {
                 popUpTo(navController.graph.id) {
                     inclusive = true
@@ -89,11 +90,12 @@ fun SettingsScreen(
 
                         if (csvWriter.hasPermissions()) {
                             MainScope().launch {
+                                isDownloading.value = true
                                 val data = viewModel.getFindsData()
-                                val file = csvWriter.write(data)
+                                val file = csvWriter.write(data).await()
 
                                 if (file != null) {
-                                    val hasWritten = csvWriter.sendToDownloads(file)
+                                    val hasWritten = csvWriter.sendToDownloads(file).await()
 
                                     if (hasWritten) {
                                         Toast.makeText(
@@ -115,13 +117,8 @@ fun SettingsScreen(
                                         Toast.LENGTH_LONG
                                     ).show()
                                 }
+                                isDownloading.value = false
                             }
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Permissions Denied",
-                                Toast.LENGTH_LONG
-                            ).show()
                         }
                     }
                 )
@@ -140,6 +137,9 @@ fun SettingsScreen(
 
     // This will only show up once data is being deleted!
     LoadingDialog(loadingState = isDeleting)
+
+    // This will only show up once an XLSX file is being generated!
+    LoadingDialog(loadingState = isDownloading, loadingString = "Generating XLSX file...")
     
     if (deleteWarningState.value) {
         ConfirmCancelAlertDialog(
