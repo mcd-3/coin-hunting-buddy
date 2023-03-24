@@ -126,6 +126,9 @@
     <string name="hunt_deleted_toast">Hunt Deleted</string>
     <string name="data_deleted_toast">App Data Deleted</string>
     <string name="error_toast">ERROR: Something went wrong.</string>
+    <string name="file_downloaded_toast">File generated at %1$s</string>
+    <string name="no_data_to_export_toast">No data to export!</string>
+    <string name="error_export_toast">Something went wrong trying to export your data.</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>

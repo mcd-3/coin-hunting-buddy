@@ -166,6 +166,14 @@ class CSVWriter(context: Context) {
         )
     }
 
+    fun getFilePath(): String {
+        val filePath = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+            fileName
+        )
+        return filePath.path
+    }
+
     fun sendToDownloads(xssfWorkbook: XSSFWorkbook): Deferred<Boolean> = coroutineScope.async(Dispatchers.IO) {
         if (hasPermissions()) {
             try {

@@ -100,20 +100,20 @@ fun SettingsScreen(
                                     if (hasWritten) {
                                         Toast.makeText(
                                             context,
-                                            "Downloaded the file!",
+                                            context.getString(R.string.file_downloaded_toast, csvWriter.getFilePath()),
                                             Toast.LENGTH_LONG
                                         ).show()
                                     } else {
                                         Toast.makeText(
                                             context,
-                                            "Could not download file.",
+                                            context.getString(R.string.error_export_toast),
                                             Toast.LENGTH_LONG
                                         ).show()
                                     }
                                 } else {
                                     Toast.makeText(
                                         context,
-                                        "No finds to export!",
+                                        context.getString(R.string.no_data_to_export_toast),
                                         Toast.LENGTH_LONG
                                     ).show()
                                 }
