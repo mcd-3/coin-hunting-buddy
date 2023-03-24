@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Environment
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import org.apache.poi.xssf.usermodel.XSSFRow
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -73,16 +74,15 @@ class CSVWriter(context: Context) {
     }
 
     fun write(data: List<Map<String, Any?>>): XSSFWorkbook? {
-        // TODO: Get these from string resources
         val headers = listOf(
-            "Date Found",
-            "Coin Type",
-            "Year",
-            "Mint Mark",
-            "Variety",
-            "Error",
-            "Grade",
-            "Region"
+            ctx.getString(R.string.date_header_xlsx),
+            ctx.getString(R.string.ct_header_xlsx),
+            ctx.getString(R.string.year_header_xlsx),
+            ctx.getString(R.string.mm_header_xlsx),
+            ctx.getString(R.string.variety_header_xlsx),
+            ctx.getString(R.string.error_header_xlsx),
+            ctx.getString(R.string.grade_header_xlsx),
+            ctx.getString(R.string.region_header_xlsx),
         )
 
         val workbook= XSSFWorkbook()

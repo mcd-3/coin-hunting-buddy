@@ -184,4 +184,14 @@
     <string name="flag_ca">🇨🇦</string>
     <string name="flag_us">🇺🇸</string>
     <string name="question_mark">❓</string>
+
+    <!-- XLSX Headers -->
+    <string name="date_header_xlsx">Date Found</string>
+    <string name="ct_header_xlsx">Coin Type</string>
+    <string name="year_header_xlsx">Year</string>
+    <string name="mm_header_xlsx">Mint Mark</string>
+    <string name="variety_header_xlsx">Variety</string>
+    <string name="error_header_xlsx">Error</string>
+    <string name="grade_header_xlsx">Grade</string>
+    <string name="region_header_xlsx">Region</string>
 </resources>
