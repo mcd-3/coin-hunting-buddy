@@ -17,6 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.accompanist.permissions.rememberPermissionState
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.CSVWriter
@@ -26,6 +29,8 @@ import kotlinx.coroutines.*
 
 private const val SETTINGS_INDEX = 3
 
+
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SettingsScreen(
     viewModel: MainActivityViewModel,
@@ -33,6 +38,13 @@ fun SettingsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val context = LocalContext.current
+
+    val extStoragePermissionState = rememberMultiplePermissionsState(
+        permissions = listOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+    )
 
     val deleteWarningState = remember { mutableStateOf(false) }
     val isDeleting = remember { mutableStateOf(false) }
@@ -77,18 +89,12 @@ fun SettingsScreen(
                     topText = stringResource(id = R.string.export_header_btn),
                     bottomText = stringResource(id = R.string.export_text_btn),
                     onClick = {
-                        ActivityCompat.requestPermissions(
-                            context as Activity,
-                            arrayOf(
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE
-                            ),
-                            PackageManager.PERMISSION_GRANTED
-                        )
+                       extStoragePermissionState.launchMultiplePermissionRequest()
+                        val result = extStoragePermissionState.permissions.all { it.hasPermission }
 
                         val csvWriter = CSVWriter(context)
 
-                        if (csvWriter.hasPermissions()) {
+                        if (result) {
                             MainScope().launch {
                                 isDownloading.value = true
                                 val data = viewModel.getFindsData()
@@ -123,7 +129,12 @@ fun SettingsScreen(
                                 isDownloading.value = false
                             }
                         }
-                    }
+                    },
+                    optionalText = if (extStoragePermissionState.permissions.all { it.hasPermission }) {
+                        null
+                    } else {
+                        "You need permissions"
+                    },
                 )
 
                 SettingsButton(
