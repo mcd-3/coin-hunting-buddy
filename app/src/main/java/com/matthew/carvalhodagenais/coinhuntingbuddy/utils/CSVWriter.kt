@@ -6,15 +6,15 @@ import android.content.pm.PackageManager
 import android.os.Environment
 import android.util.Log
 import androidx.core.content.ContextCompat
-import org.apache.poi.hssf.usermodel.HSSFRow
-import org.apache.poi.hssf.usermodel.HSSFSheet
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFRow
+import org.apache.poi.xssf.usermodel.XSSFSheet
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
 
 class CSVWriter(context: Context) {
     private var ctx: Context
-    private val fileName = "crhb_finds_export.xls"
+    private val fileName = "crhb_finds_export.xlsx"
 
     init {
         ctx = context
@@ -72,19 +72,20 @@ class CSVWriter(context: Context) {
         }
     }
 
-    fun write(data: List<Map<String, Any?>>): HSSFWorkbook? {
+    fun write(data: List<Map<String, Any?>>): XSSFWorkbook? {
         // TODO: Get these from string resources
         val headers = listOf(
             "Date Found",
             "Coin Type",
             "Year",
+            "Mint Mark",
             "Variety",
             "Error",
-            "Mint Mark",
+            "Grade",
             "Region"
         )
 
-        val workbook: HSSFWorkbook = HSSFWorkbook()
+        val workbook= XSSFWorkbook()
 
         if (data.isEmpty()) {
             return null
@@ -92,8 +93,8 @@ class CSVWriter(context: Context) {
 
         try {
             if (data[0].keys.size == headers.size) {
-                val sheet: HSSFSheet = workbook.createSheet()
-                val headerRow: HSSFRow = sheet.createRow(0)
+                val sheet: XSSFSheet = workbook.createSheet("Finds")
+                val headerRow: XSSFRow = sheet.createRow(0)
 
                 // Create header
                 headers.forEachIndexed { index, it ->
@@ -117,24 +118,27 @@ class CSVWriter(context: Context) {
                     val yearCell = row
                         .createCell(2)
                         .setCellValue(strOrEmpty(it[yearKey] as String))
-                    val varietyCell = row
+                    val mmCell = row
                         .createCell(3)
+                        .setCellValue(strOrEmpty(it[mintMarkKey] as String))
+                    val varietyCell = row
+                        .createCell(4)
                         .setCellValue(strOrEmpty(it[varietyKey] as String))
                     val errorCell = row
-                        .createCell(4)
-                        .setCellValue(strOrEmpty(it[errorKey] as String))
-                    val mmCell = row
                         .createCell(5)
-                        .setCellValue(strOrEmpty(it[mintMarkKey] as String))
-                    val regionCell = row
+                        .setCellValue(strOrEmpty(it[errorKey] as String))
+                    val gradeCell = row
                         .createCell(6)
+                        .setCellValue(strOrEmpty(it[gradeKey] as String))
+                    val regionCell = row
+                        .createCell(7)
                         .setCellValue(strOrEmpty(it[regionKey] as String))
                 }
             }
         } catch (e: Exception) {
             Log.e(
                 "CSVWRITER",
-                "An error has occurred trying to write to an HSSFWorkbook file."
+                "An error has occurred trying to write to an XSSFWorkbook file."
             )
             Log.e("CSVWRITER", "The data map might not be the correct format. Please investigate.")
             e.printStackTrace()
@@ -157,29 +161,31 @@ class CSVWriter(context: Context) {
         )
     }
 
-    fun sendToDownloads(hssfWorkbook: HSSFWorkbook): Boolean {
+    fun sendToDownloads(xssfWorkbook: XSSFWorkbook): Boolean {
         return if (hasPermissions()) {
             try {
-                val filePath = File("${Environment.DIRECTORY_DOWNLOADS}/$fileName")
-
-                Log.e("PATH", filePath.toString())
+                val filePath = File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+                    fileName
+                )
 
                 if (!filePath.exists()) {
                     filePath.createNewFile()
                 }
 
                 val fos = FileOutputStream(filePath)
-                hssfWorkbook.write(fos)
+                xssfWorkbook.write(fos)
 
                 // Cleanup the stream
                 fos.flush()
                 fos.close()
+                xssfWorkbook.close()
 
                 true
             } catch (e: Exception) {
                 Log.e(
                     "CSVWRITER",
-                    "An error has occurred trying to write to an HSSFWorkbook file."
+                    "An error has occurred trying to write to an XSSFWorkbook file."
                 )
                 Log.e("CSVWRITER", "Could not write file to downloads directory.")
                 e.printStackTrace()
