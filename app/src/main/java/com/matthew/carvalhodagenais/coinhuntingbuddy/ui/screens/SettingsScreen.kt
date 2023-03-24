@@ -1,8 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import android.Manifest
-import android.app.Activity
-import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
@@ -15,11 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.accompanist.permissions.rememberPermissionState
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.CSVWriter
@@ -133,7 +129,7 @@ fun SettingsScreen(
                     optionalText = if (extStoragePermissionState.permissions.all { it.hasPermission }) {
                         null
                     } else {
-                        "You need permissions"
+                        stringResource(id = R.string.permissions_label)
                     },
                 )
 

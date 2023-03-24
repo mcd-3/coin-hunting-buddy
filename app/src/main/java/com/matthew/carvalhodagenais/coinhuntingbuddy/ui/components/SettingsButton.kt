@@ -10,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -94,7 +93,7 @@ fun SettingsButton(
                 modifier = Modifier.padding(
                     bottom = 12 .dp,
                     start = 26.dp,
-                    end = 12.dp
+                    end = 26.dp
                 ),
                 fontSize = 12.sp,
                 color = MaterialTheme.colors.secondaryText,
