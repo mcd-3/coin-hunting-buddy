@@ -24,6 +24,9 @@ interface RegionDAO {
     @Query("SELECT * FROM region_table WHERE id = :id")
     fun getRegionById(id: Int): LiveData<Region>
 
+    @Query("SELECT name FROM region_table WHERE id = :id")
+    fun getRegionNameById(id: Int): String
+
     @Query("SELECT * FROM region_table")
     fun getRegions(): LiveData<List<Region>>
 

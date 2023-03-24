@@ -40,8 +40,11 @@ val Colors.topAppBar: Color
 val Colors.cardBackground: Color
     get() = if(isLight) Silver300 else Gray600
 
-val Colors.deleteIcon: Color
+val Colors.danger: Color
     get() = Red
+
+val Colors.dangerSecondary: Color
+    get() = FadedRed
 
 val Colors.labelColor: Color
     get() = if (isLight) Color.Black else Color.White

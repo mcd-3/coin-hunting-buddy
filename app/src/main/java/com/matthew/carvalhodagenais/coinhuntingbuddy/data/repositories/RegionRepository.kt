@@ -34,6 +34,10 @@ class RegionRepository(application: Application) {
         return regionDao.getRegionById(id)
     }
 
+    fun getRegionNameById(id: Int): String {
+        return regionDao.getRegionNameById(id)
+    }
+
     suspend fun getRegionByCode(code: String): Region = coroutineScope{
         regionDao.getRegionByCodeAsync(code)
     }

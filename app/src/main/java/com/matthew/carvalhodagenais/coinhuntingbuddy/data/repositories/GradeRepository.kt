@@ -69,4 +69,8 @@ class GradeRepository(application: Application) {
     fun getGradeById(id: Int): LiveData<Grade> {
         return gradeDAO.getGradeById(id)
     }
+
+    fun getGradeByIdSync(id: Int): Grade {
+        return gradeDAO.getGradeCodeById(id)
+    }
 }

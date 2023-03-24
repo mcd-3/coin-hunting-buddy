@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.deleteIcon
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.danger
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
 
@@ -140,7 +140,7 @@ fun FindsPanel(
                                     Icon(
                                         imageVector = Icons.Filled.Cancel,
                                         contentDescription = stringResource(id = R.string.cancel_icon_cd),
-                                        tint = MaterialTheme.colors.deleteIcon
+                                        tint = MaterialTheme.colors.danger
                                     )
                                 }
                                 Column(modifier = Modifier.weight(1f)) {

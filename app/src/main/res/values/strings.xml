@@ -34,6 +34,7 @@
     <string name="mit_label">This app is open source and licensed under the MIT license.</string>
     <string name="github_license_label">Tap here to view the license.</string>
     <string name="author_label">By: %1$s</string>
+    <string name="permissions_label">You need to allow permissions before you can use this feature</string>
     <string name="date_hunted_half_label">Date Hunted:\u0020</string>
     <string name="coin_region_half_label">Coin Region:\u0020</string>
     <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
@@ -63,6 +64,10 @@
     <string name="new_find_btn">New Find</string>
     <string name="complete_btn">Complete Hunt</string>
     <string name="begin_hunt_btn">Begin Hunt</string>
+    <string name="export_header_btn">Export to CSV</string>
+    <string name="export_text_btn">Export all finds to a CSV file</string>
+    <string name="delete_header_btn">Delete Data</string>
+    <string name="delete_text_btn">Deletes all hunts and finds from the app</string>
 
     <!-- Text Input Labels -->
     <string name="year_ti_label">Year</string>
@@ -109,6 +114,9 @@
     <string name="info_4_label">If you have more than 1 coin type to hunt, click the tab buttons at the top to change coin type.</string>
     <string name="info_5_label">Once you are out of rolls for all coin types you are hunting, click the \"Complete Hunt\" button to finish your hunt.</string>
     <string name="info_6_label">Make sure to double check your finds! (Once you confirm it, all finds are permanently saved)</string>
+    <string name="delete_data_prompt_title">Delete Data</string>
+    <string name="delete_data_prompt_label">Are you sure you want to delete all hunts and finds from the app?\n\nTHIS ACTION IS PERMANENT!!</string>
+    <string name="loading_dialog_label">Please wait…</string>
 
     <!-- Toast Text -->
     <string name="add_find_toast">Added a new find!</string>
@@ -117,6 +125,11 @@
     <string name="lower_than_0_toast">Number of rolls cannot be lower than 0</string>
     <string name="higher_than_999_toast">Number of rolls cannot be higher than 999</string>
     <string name="hunt_deleted_toast">Hunt Deleted</string>
+    <string name="data_deleted_toast">App Data Deleted</string>
+    <string name="error_toast">ERROR: Something went wrong.</string>
+    <string name="file_downloaded_toast">File generated at %1$s</string>
+    <string name="no_data_to_export_toast">No data to export!</string>
+    <string name="error_export_toast">Something went wrong trying to export your data.</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>
@@ -175,4 +188,14 @@
     <string name="flag_ca">🇨🇦</string>
     <string name="flag_us">🇺🇸</string>
     <string name="question_mark">❓</string>
+
+    <!-- XLSX Headers -->
+    <string name="date_header_xlsx">Date Found</string>
+    <string name="ct_header_xlsx">Coin Type</string>
+    <string name="year_header_xlsx">Year</string>
+    <string name="mm_header_xlsx">Mint Mark</string>
+    <string name="variety_header_xlsx">Variety</string>
+    <string name="error_header_xlsx">Error</string>
+    <string name="grade_header_xlsx">Grade</string>
+    <string name="region_header_xlsx">Region</string>
 </resources>

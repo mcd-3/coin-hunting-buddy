@@ -15,6 +15,9 @@ interface FindDAO {
     @Delete
     suspend fun delete(find: Find)
 
+    @Query("DELETE FROM finds_table WHERE hunt_id = :id")
+    suspend fun deleteByHuntId(id: Int)
+
     @Query("SELECT * FROM finds_table ORDER BY hunt_id DESC")
     fun getAllFinds(): LiveData<List<Find>>
 

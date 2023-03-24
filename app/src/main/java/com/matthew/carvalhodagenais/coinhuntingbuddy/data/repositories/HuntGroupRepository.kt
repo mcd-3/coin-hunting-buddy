@@ -29,6 +29,10 @@ class HuntGroupRepository(application: Application) {
         return allHuntGroups
     }
 
+    fun getHuntGroupsSync(): List<HuntGroup> {
+        return huntGroupDAO.getHuntGroupsSync()
+    }
+
     fun getHuntGroupsByRecent(): LiveData<List<HuntGroup>> {
         return huntGroupDAO.getHuntGroupsOrderedRecent()
     }
