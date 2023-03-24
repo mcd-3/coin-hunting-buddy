@@ -100,7 +100,10 @@ fun SettingsScreen(
                                     if (hasWritten) {
                                         Toast.makeText(
                                             context,
-                                            context.getString(R.string.file_downloaded_toast, csvWriter.getFilePath()),
+                                            context.getString(
+                                                R.string.file_downloaded_toast,
+                                                csvWriter.getFilePath()
+                                            ),
                                             Toast.LENGTH_LONG
                                         ).show()
                                     } else {
