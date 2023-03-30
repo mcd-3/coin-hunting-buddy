@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.HuntGroup
+import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.*
@@ -21,13 +23,13 @@ import kotlinx.coroutines.*
 fun HuntGroupListItem(
     huntGroup: HuntGroup,
     viewModel: MainActivityViewModel,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val itemPadding = 20.dp
     val huntTypeString = remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit, key2 = huntGroup) {
         withContext(Dispatchers.IO) {
             val list = viewModel.getHuntType(huntGroup).await()
 
