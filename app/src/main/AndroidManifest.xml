@@ -15,7 +15,8 @@
         android:theme="@style/Theme.App.Splash">
         <activity
             android:name=".HuntActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
