@@ -54,8 +54,8 @@ fun NavOption(
             verticalArrangement = Arrangement.Center,
         ) {
             Icon(
-             imageVector = icon,
-             contentDescription = ""
+                imageVector = icon,
+                contentDescription = ""
             )
         }
         Column(
