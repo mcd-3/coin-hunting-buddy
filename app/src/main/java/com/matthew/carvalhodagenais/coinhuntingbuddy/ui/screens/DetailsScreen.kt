@@ -163,15 +163,15 @@ fun DetailsScreen(
                                         Row {
                                             Column(modifier = Modifier
                                                 .fillMaxWidth()
-                                                .clickable {
-                                                    viewModel.setCurrentFind(find)
-                                                    navController.navigate("find_details_screen")
-                                                }
                                                 .padding(
                                                     start = 20.dp,
                                                     end = 20.dp,
                                                     bottom = 12.dp
                                                 )
+                                                .clickable {
+                                                    viewModel.setCurrentFind(find)
+                                                    navController.navigate("find_details_screen")
+                                                }
                                             ) {
                                                 Text(text = "${strArr[0]} : ${grade.value!!.code}")
 

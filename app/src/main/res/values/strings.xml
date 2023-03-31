@@ -22,6 +22,7 @@
     <string name="no_finds_label">No finds</string>
     <string name="no_hunts_label">No hunts</string>
     <string name="overview_label">Overview</string>
+    <string name="coin_label">Coin</string>
     <string name="start_hunt_add_find_label">Start a hunt to add some!</string>
     <string name="click_plus_start_hunt_label">Click \"+\" to start one!</string>
     <string name="ca_coin_hunt_label">Canadian Coin Hunt</string>
@@ -49,6 +50,7 @@
     <string name="review_screen">Summary</string>
     <string name="about_screen">About</string>
     <string name="settings_screen">Settings</string>
+    <string name="find_details_screen">Find Details</string>
 
     <!-- Navigation Option Labels -->
     <string name="hunts_nav_option">Hunts</string>
@@ -144,6 +146,7 @@
     <string name="add_hunt_cd">Add hunt</string>
     <string name="check_icon_cd">Done</string>
     <string name="info_icon_cd">Info</string>
+    <string name="edit_icon_cd">Edit</string>
 
     <!-- Regions -->
     <string name="ca_region">Canada</string>

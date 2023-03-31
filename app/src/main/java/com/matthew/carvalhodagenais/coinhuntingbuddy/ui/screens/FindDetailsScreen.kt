@@ -1,8 +1,11 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Paid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -10,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.LabelCard
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 
@@ -27,7 +31,7 @@ fun FindDetailsScreen(
         scaffoldState = scaffoldState,
         topBar = {
             AppBar(
-                title = "Find Details",
+                title = stringResource(id = R.string.find_details_screen),
                 scaffoldState = scaffoldState,
                 navController = navController,
                 isPopable = true,
@@ -39,7 +43,7 @@ fun FindDetailsScreen(
                     ) {
                         Icon(
                             Icons.Filled.Edit,
-                            contentDescription = "Edit Find",
+                            contentDescription = stringResource(id = R.string.edit_icon_cd),
                             tint = MaterialTheme.colors.primary
                         )
                     }
@@ -56,6 +60,20 @@ fun FindDetailsScreen(
         drawerElevation = 12.dp,
         drawerScrimColor = Color.Black.copy(0.3f)
     ) {
-        Text("This is the finds details page for ${find?.year}")
+        Column {
+            LabelCard(
+                label = stringResource(id = R.string.overview_label),
+                icon = Icons.Filled.Menu
+            ) {
+                Text("Hello World")
+            }
+
+            LabelCard(
+                label = stringResource(id = R.string.coin_label),
+                icon = Icons.Filled.Paid
+            ) {
+                Text("Hello World")
+            }
+        }
     }
 }
