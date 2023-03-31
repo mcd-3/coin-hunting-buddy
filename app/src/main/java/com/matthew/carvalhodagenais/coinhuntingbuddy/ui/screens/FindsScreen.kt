@@ -1,27 +1,19 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.enums.DateFilter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
-import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
-import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 
