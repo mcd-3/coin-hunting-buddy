@@ -58,5 +58,13 @@ fun SetupNavGraph(navHostController: NavHostController) {
                 viewModel = viewModel
             )
         }
+        composable(
+            route = Screen.FindDetails.route
+        ) {
+            FindDetailsScreen(
+                navController = navHostController,
+                viewModel = viewModel
+            )
+        }
     }
 }

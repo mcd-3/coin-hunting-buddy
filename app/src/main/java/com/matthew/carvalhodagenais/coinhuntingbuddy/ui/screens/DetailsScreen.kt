@@ -192,6 +192,10 @@ fun DetailsScreen(
                                             Row {
                                                 Column(modifier = Modifier
                                                     .fillMaxWidth()
+                                                    .clickable {
+                                                        viewModel.setCurrentFind(find)
+                                                        navController.navigate("find_details_screen")
+                                                    }
                                                     .padding(
                                                         start = 20.dp,
                                                         end = 20.dp,

@@ -26,6 +26,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private var currentHuntGroup: HuntGroup? = null
+    private var currentFind: Find? = null
 
     private val isLoadingFlow = MutableStateFlow(true)
     val isLoading = isLoadingFlow.asStateFlow()
@@ -62,6 +63,14 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     fun getCurrentHuntGroup(): HuntGroup? {
         return currentHuntGroup
+    }
+
+    fun setCurrentFind(find: Find) {
+        currentFind = find
+    }
+
+    fun getCurrentFind(): Find? {
+        return currentFind
     }
 
     fun getHuntsByHuntGroup(huntGroup: HuntGroup): LiveData<List<Hunt>> {

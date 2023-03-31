@@ -1,6 +1,7 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -112,7 +113,15 @@ fun FindsScreen(
                                 variety = find.variety,
                             )
 
-                            Column(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)) {
+                            // TODO: This could be its own component
+                            Column(
+                                modifier = Modifier
+                                    .clickable {
+                                        viewModel.setCurrentFind(find)
+                                        navController.navigate("find_details_screen")
+                                    }
+                                    .padding(top = 4.dp, bottom = 4.dp)
+                            ) {
                                 val rowPadding = 16.dp
                                 Row(modifier = Modifier.padding(start = rowPadding)) {
                                     val grade = viewModel
