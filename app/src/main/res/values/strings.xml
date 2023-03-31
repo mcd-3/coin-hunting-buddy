@@ -37,6 +37,7 @@
     <string name="author_label">By: %1$s</string>
     <string name="permissions_label">You need to allow permissions before you can use this feature</string>
     <string name="date_hunted_half_label">Date Hunted:\u0020</string>
+    <string name="coin_type_half_label">Coin Type:\u0020</string>
     <string name="coin_region_half_label">Coin Region:\u0020</string>
     <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
     <string name="total_rolls_half_label">Total Rolls:\u0020</string>
