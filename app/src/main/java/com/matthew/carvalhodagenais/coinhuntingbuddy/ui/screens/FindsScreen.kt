@@ -35,8 +35,6 @@ fun FindsScreen(
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    val context = LocalContext.current
-
     // Values for the filter
     val currentDateFilter = remember { mutableStateOf(viewModel.findsDateFilter) }
     val currentCoinTypeFilter = remember { mutableStateOf(viewModel.coinTypeFilter) }
@@ -105,80 +103,14 @@ fun FindsScreen(
                 } else if (allFinds!!.isNotEmpty()) {
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                         allFinds!!.forEachIndexed { index, find ->
-                            val strArray = FindStringGenerator.generate(
-                                context = context,
-                                year = find.year,
-                                mintMark = find.mintMark,
-                                error = find.error,
-                                variety = find.variety,
+                            FindListItem(
+                                find = find,
+                                viewModel = viewModel,
+                                onClick = {
+                                    viewModel.setCurrentFind(find)
+                                    navController.navigate("find_details_screen")
+                                }
                             )
-
-                            // TODO: This could be its own component
-                            Column(
-                                modifier = Modifier
-                                    .clickable {
-                                        viewModel.setCurrentFind(find)
-                                        navController.navigate("find_details_screen")
-                                    }
-                                    .padding(top = 4.dp, bottom = 4.dp)
-                            ) {
-                                val rowPadding = 16.dp
-                                Row(modifier = Modifier.padding(start = rowPadding)) {
-                                    val grade = viewModel
-                                        .getGradeById(find.gradeId!!)
-                                        .observeAsState()
-
-                                    Text(text = "${strArray[0]} - ${grade.value?.code}")
-                                }
-                                Row(modifier = Modifier.padding(start = rowPadding, bottom = 8.dp)) {
-                                    if (strArray[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
-                                        Text(
-                                            text = strArray[1],
-                                            fontStyle = FontStyle.Italic,
-                                            fontSize = 14.sp
-                                        )
-                                    } else {
-                                        Text(text = strArray[1], fontSize = 14.sp)
-                                    }
-                                }
-                                Row(modifier = Modifier.padding(start = rowPadding, end = rowPadding)) {
-                                    val dateHunted = viewModel
-                                        .getDateHuntedForFind(find.huntId)
-                                        .observeAsState()
-                                    val coinTypeName = viewModel
-                                        .getCoinTypeNameById(find.coinTypeId)
-                                        .observeAsState()
-
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        HalfBoldLabel(
-                                            first = stringResource(id = R.string.date_hunted_half_label),
-                                            second = if (dateHunted.value == null) {
-                                                ""
-                                            } else {
-                                                DateToStringConverter.getString(dateHunted.value!!)
-                                            },
-                                            fontSize = 16,
-                                            modifier = Modifier
-                                        )
-                                    }
-                                    Column(
-                                        modifier = Modifier.weight(0.5f),
-                                        horizontalAlignment = Alignment.End
-                                    ) {
-                                        Text(
-                                            text = if (coinTypeName.value == null) {
-                                                ""
-                                            } else {
-                                                coinTypeName.value!!
-                                            },
-                                            textAlign = TextAlign.End,
-                                            fontSize = 12.sp,
-                                            color = Color.Gray,
-                                            modifier = Modifier.padding(top = 4.dp)
-                                        )
-                                    }
-                                }
-                            }
 
                             if (index != allFinds!!.lastIndex) {
                                 Divider(
