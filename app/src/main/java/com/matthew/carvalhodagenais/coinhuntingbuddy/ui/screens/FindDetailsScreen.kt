@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Paid
@@ -73,7 +74,7 @@ fun FindDetailsScreen(
         )
     }
 
-    val hblFontSize = 15
+    val hblFontSize = 14
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -111,7 +112,7 @@ fun FindDetailsScreen(
         Column {
             LabelCard(
                 label = stringResource(id = R.string.overview_label),
-                icon = Icons.Filled.Menu
+                icon = Icons.Filled.Description
             ) {
                 Column {
                     HalfBoldLabel(
@@ -164,7 +165,6 @@ fun FindDetailsScreen(
                                 .fillMaxWidth()
                                 .padding(
                                     start = 24.dp,
-                                    top = 2.dp,
                                     bottom = 2.dp
                                 )
                         ) {
@@ -172,7 +172,7 @@ fun FindDetailsScreen(
                                 text = strings[0],
                                 textAlign = TextAlign.Start,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
+                                fontSize = 16.sp,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
@@ -186,7 +186,7 @@ fun FindDetailsScreen(
                                 text = gradeCode.value,
                                 textAlign = TextAlign.End,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
+                                fontSize = 16.sp,
                                 modifier = Modifier.fillMaxWidth()
                             )
                         }
