@@ -55,6 +55,16 @@ fun FindDetailsScreen(
         .observeAsState()
     val showAlertDialog = remember { mutableStateOf(false) }
 
+    val gradeCode = remember {
+        mutableStateOf(
+            if (grade.value == null) {
+                viewModel.getListOfGradeCodes()[find.gradeId!! - 1]
+            } else {
+                grade.value!!.code
+            }
+        )
+    }
+
     val hblFontSize = 15
 
     Scaffold(
@@ -165,11 +175,7 @@ fun FindDetailsScreen(
                                 .padding(end = 24.dp)
                         ) {
                             Text(
-                                text = if (grade.value == null) {
-                                    ""
-                                } else {
-                                    grade.value!!.code
-                                },
+                                text = gradeCode.value,
                                 textAlign = TextAlign.End,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp,
@@ -243,6 +249,7 @@ fun FindDetailsScreen(
                             error = errorStringState.value,
                             grade = gradeStringState.value,
                         )
+                        gradeCode.value = gradeStringState.value
                         showAlertDialog.value = false
                         val toast = Toast.makeText(
                             context,
