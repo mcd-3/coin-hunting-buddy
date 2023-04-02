@@ -96,6 +96,28 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
+    suspend fun updateFind(
+        find: Find,
+        year: String? = null,
+        mintMark: String? = null,
+        variety: String? = null,
+        error: String? = null,
+        grade: String? = null,
+    ): Find {
+        find.year = if (year.isNullOrEmpty()) null else year.toShort()
+        find.variety = if (variety.isNullOrEmpty()) null else variety
+        find.error = if (error.isNullOrEmpty()) null else error
+        find.mintMark = if (mintMark.isNullOrEmpty()) null else mintMark
+        find.gradeId = if (grade.isNullOrEmpty()) null else gradeRepository.getGradeIdByCodeCached(grade)
+
+        findRepository.update(find)
+        return find
+    }
+
+    fun getListOfGradeCodes(): List<String> {
+        return gradeRepository.getGradeCodesCached()
+    }
+
     fun getAllFindsFiltered(dateFilter: DateFilter, coinTypeFilter: CoinType?): LiveData<List<Find>> {
         return if (dateFilter != DateFilter.UNSET && coinTypeFilter != null) {
             if (dateFilter == DateFilter.OLDEST) {

@@ -19,6 +19,7 @@ import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityView
 fun FindAddEditDialog(
     showAlertDialog: MutableState<Boolean>,
     gradeCodesList: List<String>,
+    gradeIndex: Int = 0,
     yearStringState: MutableState<String>,
     varietyStringState: MutableState<String>,
     mintMarkStringState: MutableState<String>,
@@ -30,12 +31,7 @@ fun FindAddEditDialog(
     if (showAlertDialog.value){
         AlertDialog(
             onDismissRequest = {
-                showAlertDialog.value = false
-                yearStringState.value = ""
-                varietyStringState.value = ""
-                mintMarkStringState.value = ""
-                gradeStringState.value = ""
-                errorStringState.value = ""
+                onCancel()
             },
             confirmButton = {
                 TextButton(
@@ -108,7 +104,7 @@ fun FindAddEditDialog(
                         )
 
                         var expanded by remember { mutableStateOf(false) }
-                        var selectedOption by remember { mutableStateOf(gradeCodesList[0]) }
+                        var selectedOption by remember { mutableStateOf(gradeCodesList[gradeIndex]) }
                         gradeStringState.value = selectedOption
                         ExposedDropdownMenuBox(
                             expanded = expanded,

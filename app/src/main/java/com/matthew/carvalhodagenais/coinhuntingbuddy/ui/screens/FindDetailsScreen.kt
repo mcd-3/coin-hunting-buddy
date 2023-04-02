@@ -1,5 +1,6 @@
 package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,8 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Paid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -22,14 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.AppBar
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.LabelCard
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.NavDrawer
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.*
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.secondaryText
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.DateToStringConverter
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.FindStringGenerator
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.MainActivityViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 private const val HUNTS_INDEX = 0
 
@@ -40,6 +42,7 @@ fun FindDetailsScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val find = viewModel.getCurrentFind()
+    val context = LocalContext.current
 
     val dateFound = viewModel
         .getDateHuntedForFind(find!!.huntId)
@@ -50,6 +53,7 @@ fun FindDetailsScreen(
     val grade = viewModel
         .getGradeById(find.gradeId!!)
         .observeAsState()
+    val showAlertDialog = remember { mutableStateOf(false) }
 
     val hblFontSize = 15
 
@@ -64,7 +68,7 @@ fun FindDetailsScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            // TODO: Go to EditFindDetails screen!
+                            showAlertDialog.value = true
                         }
                     ) {
                         Icon(
@@ -211,6 +215,52 @@ fun FindDetailsScreen(
                     }
                 }
             }
+        }
+
+        // Finds Form
+        val yearStringState = remember { mutableStateOf("") }
+        val varietyStringState = remember { mutableStateOf("") }
+        val mintMarkStringState = remember { mutableStateOf("") }
+        val errorStringState = remember { mutableStateOf("") }
+        val gradeStringState = remember { mutableStateOf("") }
+        if (showAlertDialog.value) {
+            FindAddEditDialog(
+                showAlertDialog = showAlertDialog,
+                gradeCodesList = viewModel.getListOfGradeCodes(),
+                gradeIndex = find.gradeId!! - 1,
+                yearStringState = yearStringState,
+                varietyStringState = varietyStringState,
+                mintMarkStringState = mintMarkStringState,
+                gradeStringState = gradeStringState,
+                errorStringState = errorStringState,
+                onConfirm = {
+                    MainScope().launch {
+                        viewModel.updateFind(
+                            find,
+                            year = yearStringState.value,
+                            variety = varietyStringState.value,
+                            mintMark = mintMarkStringState.value,
+                            error = errorStringState.value,
+                            grade = gradeStringState.value,
+                        )
+                        showAlertDialog.value = false
+                        val toast = Toast.makeText(
+                            context,
+                            "Updated find",
+                            Toast.LENGTH_LONG
+                        )
+                        toast.show()
+                    }
+                },
+                onCancel = {
+                    showAlertDialog.value = false
+                    yearStringState.value = ""
+                    varietyStringState.value = ""
+                    mintMarkStringState.value = ""
+                    gradeStringState.value = ""
+                    errorStringState.value = ""
+                }
+            )
         }
     }
 }
