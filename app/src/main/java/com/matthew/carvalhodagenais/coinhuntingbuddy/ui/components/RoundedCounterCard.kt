@@ -49,7 +49,7 @@ fun RoundedCounterCard(
                 text = text,
                 modifier = Modifier.offset(x = 35.dp),
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
+                fontSize = 14.sp,
             )
             Row(
                 modifier = Modifier
@@ -62,7 +62,7 @@ fun RoundedCounterCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 RoundCoinCounterButton(onClick = { })
-                Text(text = "0", fontSize = 36.sp, modifier = Modifier.padding(top = 8.dp))
+                Text(text = "0", fontSize = 30.sp, modifier = Modifier.padding(top = 8.dp))
                 RoundCoinCounterButton(onClick = { }, false)
             }
         }

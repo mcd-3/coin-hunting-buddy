@@ -3,13 +3,10 @@ package com.matthew.carvalhodagenais.coinhuntingbuddy.ui.screens
 import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,11 +23,9 @@ import androidx.navigation.NavController
 import com.matthew.carvalhodagenais.coinhuntingbuddy.R
 import com.matthew.carvalhodagenais.coinhuntingbuddy.MainActivity
 import com.matthew.carvalhodagenais.coinhuntingbuddy.data.entities.Find
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.FormLabel
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.HalfBoldLabel
+import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.LabelCard
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.components.SummaryFinds
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBackground
-import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.cardBorder
 import com.matthew.carvalhodagenais.coinhuntingbuddy.ui.theme.topAppBar
 import com.matthew.carvalhodagenais.coinhuntingbuddy.utils.MoneyStringToSymbolUtil
 import com.matthew.carvalhodagenais.coinhuntingbuddy.viewmodels.HuntActivityViewModel
@@ -60,8 +55,6 @@ fun ReviewScreen(
     viewModel: HuntActivityViewModel,
     navController: NavController,
 ) {
-    val cardInnerPaddingStart = 10.dp
-    val cardInnerPaddingEnd = 10.dp
     val context = LocalContext.current
 
     // Back Handler to go back to the main activity
@@ -103,102 +96,70 @@ fun ReviewScreen(
                 .verticalScroll(rememberScrollState())
                 .weight(weight = 1f, fill = false)
             ) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = cardInnerPaddingStart,
-                            end = cardInnerPaddingEnd,
-                            bottom = 10.dp
-                        ),
-                    shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
-                    elevation = 4.dp,
-                    backgroundColor = MaterialTheme.colors.cardBackground
+                LabelCard(
+                    label = stringResource(id = R.string.hunt_overview_label),
+                    icon = Icons.Filled.Notes
                 ) {
-                    Column(modifier = Modifier.padding(bottom = 12.dp)) {
-                        val region = if (
-                            viewModel.getRegion() == stringResource(id = R.string.ca_region_code)
-                        ) {
-                            stringResource(id = R.string.ca_region)
-                        } else {
-                            stringResource(id = R.string.us_region)
-                        }
-                        FormLabel(
-                            text = stringResource(id = R.string.hunt_overview_label),
-                            icon = Icons.Filled.Notes
-                        )
-
-                        val fontSize = 14
-                        val halfLabelModifier = Modifier.padding(
-                            start = 20.dp,
-                            end = 20.dp,
-                            bottom = 4.dp
-                        )
-
-                        HalfBoldLabel(
-                            first = stringResource(id = R.string.date_hunted_half_label),
-                            second = viewModel.dateAsString(),
-                            fontSize = fontSize,
-                            modifier = halfLabelModifier
-                        )
-                        HalfBoldLabel(
-                            first = stringResource(id = R.string.coin_region_half_label),
-                            second = region,
-                            fontSize = fontSize,
-                            modifier = halfLabelModifier
-                        )
-                        HalfBoldLabel(
-                            first = stringResource(id = R.string.total_rolls_half_label),
-                            second = viewModel.getRollCount().toString(),
-                            fontSize = fontSize,
-                            modifier = halfLabelModifier
-                        )
-                        HalfBoldLabel(
-                            first = stringResource(id = R.string.total_finds_half_label),
-                            second = viewModel.listOfFinds.size.toString(),
-                            fontSize = fontSize,
-                            modifier = halfLabelModifier
-                        )
+                    val region = if (
+                        viewModel.getRegion() == stringResource(id = R.string.ca_region_code)
+                    ) {
+                        stringResource(id = R.string.ca_region)
+                    } else {
+                        stringResource(id = R.string.us_region)
                     }
+
+                    val fontSize = 14
+                    val halfLabelModifier = Modifier.padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                        bottom = 4.dp
+                    )
+
+                    HalfBoldLabel(
+                        first = stringResource(id = R.string.date_hunted_half_label),
+                        second = viewModel.dateAsString(),
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
+                    HalfBoldLabel(
+                        first = stringResource(id = R.string.coin_region_half_label),
+                        second = region,
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
+                    HalfBoldLabel(
+                        first = stringResource(id = R.string.total_rolls_half_label),
+                        second = viewModel.getRollCount().toString(),
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
+                    HalfBoldLabel(
+                        first = stringResource(id = R.string.total_finds_half_label),
+                        second = viewModel.listOfFinds.size.toString(),
+                        fontSize = fontSize,
+                        modifier = halfLabelModifier
+                    )
                 }
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = cardInnerPaddingStart,
-                            end = cardInnerPaddingEnd,
-                            bottom = 10.dp
-                        ),
-                    shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
-                    elevation = 4.dp,
-                    backgroundColor = MaterialTheme.colors.cardBackground
+                LabelCard(
+                    label = stringResource(id = R.string.my_finds_label),
+                    icon = Icons.Filled.Public
                 ) {
-                    Column {
-                        // This could be another card
-                        FormLabel(
-                            text = stringResource(id = R.string.my_finds_label),
-                            icon = Icons.Filled.Public
-                        )
-
-                        coinTypes.value?.forEach { coinType ->
-                            val listToDisplay = mutableListOf<Find>()
-                            viewModel.listOfFinds.forEach { find ->
-                                if (find.coinTypeId == coinType.id) {
-                                    listToDisplay.add(find)
-                                }
+                    coinTypes.value?.forEach { coinType ->
+                        val listToDisplay = mutableListOf<Find>()
+                        viewModel.listOfFinds.forEach { find ->
+                            if (find.coinTypeId == coinType.id) {
+                                listToDisplay.add(find)
                             }
+                        }
 
-                            val capitalized = capitalize(coinType.name, LocalContext.current)
-                            if (capitalized in viewModel.rollsPerCoin) {
-                                SummaryFinds(
-                                    label = coinType.name,
-                                    rolls = viewModel.rollsPerCoin[capitalized],
-                                    listOfFinds = listToDisplay
-                                )
-                            }
+                        val capitalized = capitalize(coinType.name, LocalContext.current)
+                        if (capitalized in viewModel.rollsPerCoin) {
+                            SummaryFinds(
+                                label = coinType.name,
+                                rolls = viewModel.rollsPerCoin[capitalized],
+                                listOfFinds = listToDisplay
+                            )
                         }
                     }
                 }

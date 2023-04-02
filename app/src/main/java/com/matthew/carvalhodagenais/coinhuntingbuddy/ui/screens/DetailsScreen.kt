@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Paid
@@ -89,45 +90,28 @@ fun DetailsScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Column {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                start = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp
-                            ),
-                        shape = RoundedCornerShape(8.dp),
-                        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
-                        elevation = 4.dp,
-                        backgroundColor = MaterialTheme.colors.cardBackground
+                    LabelCard(
+                        label = stringResource(id = R.string.overview_label),
+                        icon = Icons.Filled.Description
                     ) {
-                        Column {
-                            Row {
-                                FormLabel(
-                                    text = stringResource(id = R.string.overview_label),
-                                    icon = Icons.Filled.Description
+                        Row {
+                            Column {
+                                HalfBoldLabel(
+                                    first = stringResource(id = R.string.date_hunted_half_label),
+                                    second = DateToStringConverter.getString(currentHuntGroup!!.dateHunted),
+                                    fontSize = fontSize,
+                                    modifier = halfLabelModifier
                                 )
-                            }
-                            Row {
-                                Column {
-                                    HalfBoldLabel(
-                                        first = stringResource(id = R.string.date_hunted_half_label),
-                                        second = DateToStringConverter.getString(currentHuntGroup!!.dateHunted),
-                                        fontSize = fontSize,
-                                        modifier = halfLabelModifier
-                                    )
-                                    HalfBoldLabel(
-                                        first = stringResource(id = R.string.coin_region_half_label),
-                                        second = if (currentHuntGroup.regionId == 1) {
-                                            stringResource(id = R.string.ca_region)
-                                        } else {
-                                            stringResource(id = R.string.us_region)
-                                        },
-                                        fontSize = fontSize,
-                                        modifier = halfLabelModifier
-                                    )
-                                }
+                                HalfBoldLabel(
+                                    first = stringResource(id = R.string.coin_region_half_label),
+                                    second = if (currentHuntGroup.regionId == 1) {
+                                        stringResource(id = R.string.ca_region)
+                                    } else {
+                                        stringResource(id = R.string.us_region)
+                                    },
+                                    fontSize = fontSize,
+                                    modifier = halfLabelModifier
+                                )
                             }
                         }
                     }
@@ -148,106 +132,96 @@ fun DetailsScreen(
                         .observeAsState()
 
                     Column {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    start = 10.dp,
-                                    end = 10.dp,
-                                    bottom = 10.dp
-                                ),
-                            shape = RoundedCornerShape(8.dp),
-                            border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.cardBorder),
-                            elevation = 4.dp,
-                            backgroundColor = MaterialTheme.colors.cardBackground
+                        LabelCard(
+                            label = coinTypeName.value,
+                            icon = Icons.Filled.Paid
                         ) {
-                            Column {
-                                Row {
-                                    FormLabel(text = coinTypeName.value, icon = Icons.Filled.Paid)
-                                }
-                                Row {
-                                    HalfBoldLabel(
-                                        first = stringResource(id = R.string.rolls_searched_half_label),
-                                        second = hunt.numberOfRolls.toString(),
-                                        fontSize = fontSize,
-                                        modifier = halfLabelModifier
-                                    )
-                                }
+                            Row {
+                                HalfBoldLabel(
+                                    first = stringResource(id = R.string.rolls_searched_half_label),
+                                    second = hunt.numberOfRolls.toString(),
+                                    fontSize = fontSize,
+                                    modifier = halfLabelModifier
+                                )
+                            }
 
-                                if (finds.value != null && finds.value!!.isNotEmpty()) {
-                                    finds.value?.forEachIndexed { index, find ->
-                                        val grade = viewModel
-                                            .getGradeById(find.gradeId!!)
-                                            .observeAsState()
+                            if (finds.value != null && finds.value!!.isNotEmpty()) {
+                                finds.value?.forEachIndexed { index, find ->
+                                    val grade = viewModel
+                                        .getGradeById(find.gradeId!!)
+                                        .observeAsState()
 
-                                        if (grade.value != null) {
-                                            val strArr = FindStringGenerator.generate(
-                                                context = context,
-                                                year = find.year,
-                                                mintMark = find.mintMark,
-                                                error = find.error,
-                                                variety = find.variety
-                                            )
+                                    if (grade.value != null) {
+                                        val strArr = FindStringGenerator.generate(
+                                            context = context,
+                                            year = find.year,
+                                            mintMark = find.mintMark,
+                                            error = find.error,
+                                            variety = find.variety
+                                        )
 
-                                            Row {
-                                                Column(modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(
-                                                        start = 20.dp,
-                                                        end = 20.dp,
-                                                        bottom = 12.dp
-                                                    )
-                                                ) {
-                                                    Text(text = "${strArr[0]} : ${grade.value!!.code}")
-
-                                                    if (strArr[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
-                                                        Text(
-                                                            text = strArr[1],
-                                                            fontSize = 13.sp,
-                                                            fontStyle = FontStyle.Italic,
-                                                            color = Color.Gray,
-                                                        )
-                                                    } else {
-                                                        Text(
-                                                            text = strArr[1],
-                                                            fontSize = 13.sp,
-                                                            color = Color.Gray,
-                                                        )
-                                                    }
+                                        Row {
+                                            Column(modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(
+                                                    start = 20.dp,
+                                                    end = 20.dp,
+                                                    bottom = 12.dp
+                                                )
+                                                .clickable {
+                                                    viewModel.setCurrentFind(find)
+                                                    navController.navigate("find_details_screen")
                                                 }
-                                            }
+                                            ) {
+                                                Text(text = "${strArr[0]} : ${grade.value!!.code}")
 
-                                            if (index != finds.value!!.size - 1) {
-                                                Row {
-                                                    Divider(
-                                                        color = Color(0xFFB6B3B3),
-                                                        thickness = 2.dp,
-                                                        modifier = Modifier
-                                                            .fillMaxWidth()
-                                                            .padding(
-                                                                start = 20.dp,
-                                                                end = 20.dp,
-                                                                bottom = 8.dp
-                                                            )
+                                                if (strArr[1] == stringResource(id = R.string.no_varieties_or_errors_label)) {
+                                                    Text(
+                                                        text = strArr[1],
+                                                        fontSize = 13.sp,
+                                                        fontStyle = FontStyle.Italic,
+                                                        color = Color.Gray,
+                                                    )
+                                                } else {
+                                                    Text(
+                                                        text = strArr[1],
+                                                        fontSize = 13.sp,
+                                                        color = Color.Gray,
                                                     )
                                                 }
                                             }
                                         }
+
+                                        if (index != finds.value!!.size - 1) {
+                                            Row {
+                                                Divider(
+                                                    color = Color(0xFFB6B3B3),
+                                                    thickness = 2.dp,
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .padding(
+                                                            start = 20.dp,
+                                                            end = 20.dp,
+                                                            bottom = 8.dp
+                                                        )
+                                                )
+                                            }
+                                        }
                                     }
-                                } else {
-                                    Row {
-                                       Column(
-                                           modifier = Modifier
-                                               .fillMaxWidth()
-                                               .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
-                                       ) {
-                                           Text(
-                                               text = stringResource(id = R.string.no_finds_label),
-                                               fontStyle = FontStyle.Italic,
-                                               color = Color.Gray,
-                                           )
-                                       }
-                                    }
+                                }
+                            } else {
+                                Row {
+                                   Column(
+                                       modifier = Modifier
+                                           .fillMaxWidth()
+                                           .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
+                                   ) {
+                                       Text(
+                                           text = stringResource(id = R.string.no_finds_label),
+                                           fontStyle = FontStyle.Italic,
+                                           color = Color.Gray,
+                                       )
+                                   }
                                 }
                             }
                         }

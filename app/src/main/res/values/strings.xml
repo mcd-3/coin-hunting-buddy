@@ -22,6 +22,7 @@
     <string name="no_finds_label">No finds</string>
     <string name="no_hunts_label">No hunts</string>
     <string name="overview_label">Overview</string>
+    <string name="coin_label">Coin</string>
     <string name="start_hunt_add_find_label">Start a hunt to add some!</string>
     <string name="click_plus_start_hunt_label">Click \"+\" to start one!</string>
     <string name="ca_coin_hunt_label">Canadian Coin Hunt</string>
@@ -36,6 +37,7 @@
     <string name="author_label">By: %1$s</string>
     <string name="permissions_label">You need to allow permissions before you can use this feature</string>
     <string name="date_hunted_half_label">Date Hunted:\u0020</string>
+    <string name="coin_type_half_label">Coin Type:\u0020</string>
     <string name="coin_region_half_label">Coin Region:\u0020</string>
     <string name="rolls_searched_half_label">Rolls Searched:\u0020</string>
     <string name="total_rolls_half_label">Total Rolls:\u0020</string>
@@ -49,6 +51,7 @@
     <string name="review_screen">Summary</string>
     <string name="about_screen">About</string>
     <string name="settings_screen">Settings</string>
+    <string name="find_details_screen">Find Details</string>
 
     <!-- Navigation Option Labels -->
     <string name="hunts_nav_option">Hunts</string>
@@ -130,6 +133,7 @@
     <string name="file_downloaded_toast">File generated at %1$s</string>
     <string name="no_data_to_export_toast">No data to export!</string>
     <string name="error_export_toast">Something went wrong trying to export your data.</string>
+    <string name="updated_find_toast">Updated find</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>
@@ -144,6 +148,7 @@
     <string name="add_hunt_cd">Add hunt</string>
     <string name="check_icon_cd">Done</string>
     <string name="info_icon_cd">Info</string>
+    <string name="edit_icon_cd">Edit</string>
 
     <!-- Regions -->
     <string name="ca_region">Canada</string>
