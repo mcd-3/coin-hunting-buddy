@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Paid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -40,7 +41,17 @@ fun FindDetailsScreen(
     val scaffoldState = rememberScaffoldState()
     val find = viewModel.getCurrentFind()
 
-    val hblFontSize = 14
+    val dateFound = viewModel
+        .getDateHuntedForFind(find!!.huntId)
+        .observeAsState()
+    val coinTypeName = viewModel
+        .getCoinTypeNameById(find.coinTypeId)
+        .observeAsState()
+    val grade = viewModel
+        .getGradeById(find.gradeId!!)
+        .observeAsState()
+
+    val hblFontSize = 15
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -83,7 +94,11 @@ fun FindDetailsScreen(
                 Column {
                     HalfBoldLabel(
                         first = stringResource(id = R.string.date_hunted_half_label),
-                        second = "Date goes here",
+                        second = if (dateFound.value == null) {
+                            ""
+                        } else {
+                            DateToStringConverter.getString(dateFound.value!!)
+                        },
                         fontSize = hblFontSize,
                         modifier = Modifier.padding(
                             start = 20.dp,
@@ -93,7 +108,11 @@ fun FindDetailsScreen(
                     )
                     HalfBoldLabel(
                         first = stringResource(id = R.string.coin_type_half_label),
-                        second = "Coin Type goes here",
+                        second = if (coinTypeName.value == null) {
+                            ""
+                        } else {
+                            coinTypeName.value!!
+                        },
                         fontSize = hblFontSize,
                         modifier = Modifier.padding(
                             start = 20.dp,
@@ -110,10 +129,10 @@ fun FindDetailsScreen(
             ) {
                 val strings = FindStringGenerator.generate(
                     context = LocalContext.current,
-                    year = find?.year,
-                    mintMark = find?.mintMark,
-                    variety = find?.variety,
-                    error = find?.error,
+                    year = find.year,
+                    mintMark = find.mintMark,
+                    variety = find.variety,
+                    error = find.error,
                 )
                 Column {
                     Row(modifier = Modifier.fillMaxWidth()) {
@@ -142,7 +161,11 @@ fun FindDetailsScreen(
                                 .padding(end = 24.dp)
                         ) {
                             Text(
-                                text = "GRADE",
+                                text = if (grade.value == null) {
+                                    ""
+                                } else {
+                                    grade.value!!.code
+                                },
                                 textAlign = TextAlign.End,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp,
@@ -157,7 +180,7 @@ fun FindDetailsScreen(
                                 .fillMaxWidth()
                                 .padding(start = 24.dp, top = 2.dp, bottom = 2.dp)
                         ) {
-                            if (find?.variety.isNullOrEmpty()) {
+                            if (find.variety.isNullOrEmpty()) {
                                 Text(
                                     text = FindStringGenerator.getVarietyString(LocalContext.current, find?.variety),
                                     fontStyle = FontStyle.Italic,
@@ -175,7 +198,7 @@ fun FindDetailsScreen(
                                 .fillMaxWidth()
                                 .padding(start = 24.dp, top = 2.dp, bottom = 12.dp)
                         ) {
-                            if (find?.error.isNullOrEmpty()) {
+                            if (find.error.isNullOrEmpty()) {
                                 Text(
                                     text = FindStringGenerator.getErrorString(LocalContext.current, find?.error),
                                     fontStyle = FontStyle.Italic,
