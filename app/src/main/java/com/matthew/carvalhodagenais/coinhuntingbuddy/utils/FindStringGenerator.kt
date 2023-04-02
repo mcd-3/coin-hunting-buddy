@@ -55,5 +55,21 @@ class FindStringGenerator {
 
             return arrayOf(coinStringFirst, coinStringSecond)
         }
+
+        fun getVarietyString(context: Context, variety: String?): String {
+            return if (variety.isNullOrEmpty()) {
+                "Not a variety."
+            } else {
+                variety
+            }
+        }
+
+        fun getErrorString(context: Context, error: String?): String {
+            return if (error.isNullOrEmpty()) {
+                "No errors on this coin."
+            } else {
+                error
+            }
+        }
     }
 }
