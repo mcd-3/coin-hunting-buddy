@@ -35,6 +35,14 @@ import kotlinx.coroutines.launch
 
 private const val HUNTS_INDEX = 0
 
+private fun emptyIfNull(str: String?): String {
+    return if (str == null || str == "null") {
+        ""
+    } else {
+        str
+    }
+}
+
 @Composable
 fun FindDetailsScreen(
     navController: NavController,
@@ -224,10 +232,10 @@ fun FindDetailsScreen(
         }
 
         // Finds Form
-        val yearStringState = remember { mutableStateOf("") }
-        val varietyStringState = remember { mutableStateOf("") }
-        val mintMarkStringState = remember { mutableStateOf("") }
-        val errorStringState = remember { mutableStateOf("") }
+        val yearStringState = remember { mutableStateOf(emptyIfNull(find.year.toString())) }
+        val varietyStringState = remember { mutableStateOf(emptyIfNull(find.variety.toString())) }
+        val mintMarkStringState = remember { mutableStateOf(emptyIfNull(find.mintMark.toString())) }
+        val errorStringState = remember { mutableStateOf(emptyIfNull(find.error.toString())) }
         val gradeStringState = remember { mutableStateOf("") }
         if (showAlertDialog.value) {
             FindAddEditDialog(
