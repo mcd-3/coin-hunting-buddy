@@ -135,193 +135,44 @@ fun CoinTypeHuntPanel(
             val mintMarkStringState = remember { mutableStateOf("") }
             val errorStringState = remember { mutableStateOf("") }
             val gradeStringState = remember { mutableStateOf("") }
-            if(showAlertDialog.value){
-                AlertDialog(
-                    onDismissRequest = {
+            if (showAlertDialog.value) {
+                FindAddEditDialog(
+                    showAlertDialog = showAlertDialog,
+                    gradeCodesList = viewModel.getListOfGradeCodes(),
+                    yearStringState = yearStringState,
+                    varietyStringState = varietyStringState,
+                    mintMarkStringState = mintMarkStringState,
+                    gradeStringState = gradeStringState,
+                    errorStringState = errorStringState,
+                    onConfirm = {
+                        viewModel.addFindToList(
+                            year = yearStringState.value,
+                            variety = varietyStringState.value,
+                            mintMark = mintMarkStringState.value,
+                            error = errorStringState.value,
+                            grade = gradeStringState.value,
+                            findType = currentCoinType
+                        )
+                        yearStringState.value = ""
+                        varietyStringState.value = ""
+                        mintMarkStringState.value = ""
+                        errorStringState.value = ""
+                        gradeStringState.value = ""
+                        showAlertDialog.value = false
+                        val toast = Toast.makeText(
+                            context,
+                            context.getString(R.string.add_find_toast),
+                            Toast.LENGTH_LONG
+                        )
+                        toast.show()
+                    },
+                    onCancel = {
                         showAlertDialog.value = false
                         yearStringState.value = ""
                         varietyStringState.value = ""
                         mintMarkStringState.value = ""
                         gradeStringState.value = ""
                         errorStringState.value = ""
-                    },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            viewModel.addFindToList(
-                                year = yearStringState.value,
-                                variety = varietyStringState.value,
-                                mintMark = mintMarkStringState.value,
-                                error = errorStringState.value,
-                                grade = gradeStringState.value,
-                                findType = currentCoinType
-                            )
-                            yearStringState.value = ""
-                            varietyStringState.value = ""
-                            mintMarkStringState.value = ""
-                            errorStringState.value = ""
-                            gradeStringState.value = ""
-                            showAlertDialog.value = false
-                            val toast = Toast.makeText(
-                                context,
-                                context.getString(R.string.add_find_toast),
-                                Toast.LENGTH_LONG
-                            )
-                            toast.show()
-                        }){
-                            Text(text = stringResource(id = R.string.done_prompt))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = {
-                            showAlertDialog.value = false
-                            yearStringState.value = ""
-                            varietyStringState.value = ""
-                            mintMarkStringState.value = ""
-                            gradeStringState.value = ""
-                            errorStringState.value = ""
-                        }) {
-                            Text(text = stringResource(id = R.string.cancel_prompt))
-                        }
-                    },
-                    title = { Text(text = stringResource(id = R.string.new_find_prompt_title)) },
-                    text = {
-                        Column {
-                            Row {
-                                OutlinedTextField(
-                                    value = yearStringState.value,
-                                    label = {
-                                        Text(
-                                            text = stringResource(id = R.string.year_ti_label)
-                                        )
-                                    },
-                                    placeholder = {
-                                        Text(
-                                            text = stringResource(id = R.string.year_ti_placeholder)
-                                        )
-                                    },
-                                    modifier = Modifier
-                                        .weight(0.5f)
-                                        .padding(end = 4.dp)
-                                        .align(Alignment.Top),
-                                    keyboardOptions = KeyboardOptions(
-                                        keyboardType = KeyboardType.Number
-                                    ),
-                                    onValueChange = {
-                                        val maxCharLength = 4
-                                        if (it.length <= maxCharLength && !it.contains("-", true)) {
-                                            if (it.length > 1 && it[0] == '0') {
-                                                val newStr = it.drop(1)
-                                                yearStringState.value = newStr
-                                            } else {
-                                                yearStringState.value = it
-
-                                                if (it.contains(" ")) {
-                                                    yearStringState.value = it.replace(" ", "")
-                                                }
-
-                                                if (it.contains(".")) {
-                                                    yearStringState.value = it.replace(".", "")
-                                                }
-
-                                                if (it.contains(",")) {
-                                                    yearStringState.value = it.replace(",", "")
-                                                }
-                                            }
-                                        }
-
-                                        if (yearStringState.value.isBlank()) {
-                                            yearStringState.value = "0"
-                                        }
-                                    }
-                                )
-
-                                var expanded by remember { mutableStateOf(false) }
-                                var selectedOption by remember { mutableStateOf(viewModel.getListOfGradeCodes()[0]) }
-                                gradeStringState.value = selectedOption
-                                ExposedDropdownMenuBox(
-                                    expanded = expanded,
-                                    onExpandedChange = {
-                                        expanded = !expanded
-                                    },
-                                    modifier = Modifier
-                                        .weight(0.5f)
-                                        .padding(start = 4.dp)
-                                        .align(Alignment.Bottom),
-                                ) {
-                                    TextField(
-                                        readOnly = true,
-                                        value = TextFieldValue(selectedOption),
-                                        onValueChange = { },
-                                        trailingIcon = {
-                                            ExposedDropdownMenuDefaults.TrailingIcon(
-                                                expanded = expanded
-                                            )
-                                        },
-                                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                                        label = {
-                                            Text(text = stringResource(id = R.string.grade_ti_label))
-                                        },
-                                    )
-                                    ExposedDropdownMenu(
-                                        expanded = expanded,
-                                        onDismissRequest = {
-                                            expanded = false
-                                        }
-                                    ) {
-                                        viewModel.getListOfGradeCodes().forEach {
-                                            DropdownMenuItem(
-                                                onClick = {
-                                                    selectedOption = it
-                                                    expanded = false
-                                                    gradeStringState.value = selectedOption
-                                                }
-                                            ) {
-                                                Text(text = it)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(12.dp))
-                            OutlinedTextField(
-                                value = mintMarkStringState.value,
-                                label = {
-                                    Text(text = stringResource(id = R.string.mm_ti_label))
-                                },
-                                placeholder = {
-                                    Text(text = stringResource(id = R.string.mm_ti_placeholder))
-                                },
-                                onValueChange = {
-                                    mintMarkStringState.value = it
-                                }
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            OutlinedTextField(
-                                value = varietyStringState.value,
-                                label = {
-                                    Text(text = stringResource(id = R.string.variety_ti_label))
-                                },
-                                placeholder = {
-                                    Text(text = stringResource(id = R.string.variety_ti_placeholder))
-                                },
-                                onValueChange = {
-                                    varietyStringState.value = it
-                                }
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            OutlinedTextField(
-                                value = errorStringState.value,
-                                label = {
-                                    Text(text = "Error")
-                                },
-                                placeholder = {
-                                    Text(text = "Error on the coin")
-                                },
-                                onValueChange = {
-                                    errorStringState.value = it
-                                }
-                            )
-                        }
                     }
                 )
             }
