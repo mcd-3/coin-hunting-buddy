@@ -180,10 +180,10 @@ fun FindAddEditDialog(
                     OutlinedTextField(
                         value = errorStringState.value,
                         label = {
-                            Text(text = "Error")
+                            Text(text = stringResource(id = R.string.error_ti_label))
                         },
                         placeholder = {
-                            Text(text = "Error on the coin")
+                            Text(text = stringResource(id = R.string.error_ti_placeholder))
                         },
                         onValueChange = {
                             errorStringState.value = it

@@ -133,6 +133,7 @@
     <string name="file_downloaded_toast">File generated at %1$s</string>
     <string name="no_data_to_export_toast">No data to export!</string>
     <string name="error_export_toast">Something went wrong trying to export your data.</string>
+    <string name="updated_find_toast">Updated find</string>
 
     <!-- Content Descriptions -->
     <string name="menu_icon_cd">Menu Icon</string>

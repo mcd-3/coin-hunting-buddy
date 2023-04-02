@@ -261,7 +261,7 @@ fun FindDetailsScreen(
                         showAlertDialog.value = false
                         val toast = Toast.makeText(
                             context,
-                            "Updated find",
+                            context.getString(R.string.updated_find_toast),
                             Toast.LENGTH_LONG
                         )
                         toast.show()
