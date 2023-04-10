@@ -140,7 +140,7 @@ fun FindDetailsScreen(
                         modifier = Modifier.padding(
                             start = 20.dp,
                             end = 20.dp,
-                            bottom = 12.dp
+                            bottom = 8.dp
                         )
                     )
                 }
@@ -202,10 +202,14 @@ fun FindDetailsScreen(
                                 Text(
                                     text = FindStringGenerator.getVarietyString(LocalContext.current, find?.variety),
                                     fontStyle = FontStyle.Italic,
-                                    color = MaterialTheme.colors.secondaryText
+                                    color = MaterialTheme.colors.secondaryText,
+                                    fontSize = 14.sp
                                 )
                             } else {
-                                Text(FindStringGenerator.getVarietyString(LocalContext.current, find?.variety))
+                                Text(
+                                    FindStringGenerator.getVarietyString(LocalContext.current, find?.variety),
+                                    fontSize = 14.sp
+                                )
                             }
                         }
                     }
@@ -220,10 +224,14 @@ fun FindDetailsScreen(
                                 Text(
                                     text = FindStringGenerator.getErrorString(LocalContext.current, find?.error),
                                     fontStyle = FontStyle.Italic,
-                                    color = MaterialTheme.colors.secondaryText
+                                    color = MaterialTheme.colors.secondaryText,
+                                    fontSize = 14.sp
                                 )
                             } else {
-                                Text(FindStringGenerator.getErrorString(LocalContext.current, find?.error))
+                                Text(
+                                    FindStringGenerator.getErrorString(LocalContext.current, find?.error),
+                                    fontSize = 14.sp
+                                )
                             }
                         }
                     }
