@@ -50,7 +50,7 @@ fun NavDrawer(
                     Image(
                         painter = painterResource(id = R.drawable.ic_coin_200),
                         contentDescription = stringResource(id = R.string.logo_icon_cd),
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                        modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 4.dp)
                     )
                 }
                 Column(
