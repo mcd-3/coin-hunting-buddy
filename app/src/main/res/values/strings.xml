@@ -1,5 +1,5 @@
 <resources>
-    <string name="version">0.8 BETA</string>
+    <string name="version">1.0</string>
     <string name="app_name">Coin Roll Hunting Buddy</string>
     <string name="title_activity_main">CRH Buddy</string>
     <string name="author">mcd-3</string>
