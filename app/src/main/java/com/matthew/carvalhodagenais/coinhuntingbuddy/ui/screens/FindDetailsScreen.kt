@@ -247,6 +247,7 @@ fun FindDetailsScreen(
                 mintMarkStringState = mintMarkStringState,
                 gradeStringState = gradeStringState,
                 errorStringState = errorStringState,
+                isEdit = true,
                 onConfirm = {
                     MainScope().launch {
                         viewModel.updateFind(
