@@ -202,7 +202,7 @@ fun FindDetailsScreen(
                                 Text(
                                     text = FindStringGenerator.getVarietyString(LocalContext.current, find?.variety),
                                     fontStyle = FontStyle.Italic,
-                                    color = MaterialTheme.colors.secondaryText,
+                                    color = Color.Gray,
                                     fontSize = 14.sp
                                 )
                             } else {
@@ -224,7 +224,7 @@ fun FindDetailsScreen(
                                 Text(
                                     text = FindStringGenerator.getErrorString(LocalContext.current, find?.error),
                                     fontStyle = FontStyle.Italic,
-                                    color = MaterialTheme.colors.secondaryText,
+                                    color = Color.Gray,
                                     fontSize = 14.sp
                                 )
                             } else {
