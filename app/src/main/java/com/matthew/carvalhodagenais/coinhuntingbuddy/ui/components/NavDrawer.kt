@@ -37,7 +37,10 @@ fun NavDrawer(
             .background(color = MaterialTheme.colors.cardBackground),
     ) {
         // Header
-        Column(modifier = Modifier.weight(1.5f)) {
+        Column(
+            modifier = Modifier.weight(1.5f),
+            verticalArrangement = Arrangement.Center
+        ) {
             Row {
                 Column(
                     modifier = Modifier
@@ -47,12 +50,12 @@ fun NavDrawer(
                     Image(
                         painter = painterResource(id = R.drawable.ic_coin_200),
                         contentDescription = stringResource(id = R.string.logo_icon_cd),
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                        modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 4.dp)
                     )
                 }
                 Column(
                     modifier = Modifier
-                        .weight(3f)
+                        .weight(4f)
                         .fillMaxSize()
                 ) {
                     Row(modifier = Modifier.weight(1f)) {
@@ -118,9 +121,11 @@ fun NavDrawer(
         }
 
         // Version
-        Column(modifier = Modifier
-            .weight(1f)
-            .fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
+        ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = stringResource(

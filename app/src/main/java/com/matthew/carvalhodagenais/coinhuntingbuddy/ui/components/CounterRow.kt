@@ -101,20 +101,26 @@ fun CounterRow(label: String, mutVal: MutableState<TextFieldValue>) {
                                     toast.show()
                                 } else {
                                     if (it.text.length > 1 && it.text[0] == '0') {
-                                        val newStr = it.text.drop(1)
+                                        val re = Regex("[^0-9]")
+                                        var text = re.replace(it.text, "")
+
+                                        if (text.isBlank()) {
+                                            text = "0"
+                                        }
+
+                                        text = text.toInt().toString()
+
                                         mutVal.value = TextFieldValue(
-                                            text = newStr,
-                                            selection = TextRange(newStr.length)
+                                            text = text,
+                                            selection = TextRange(text.length)
                                         )
                                     } else {
-                                        if (it.text.contains(" ")) {
-                                            mutVal.value = TextFieldValue(
-                                                text = it.text.replace(" ", ""),
-                                                selection = TextRange(it.text.length)
-                                            )
-                                        } else {
-                                            mutVal.value = it
-                                        }
+                                        val re = Regex("[^0-9]")
+                                        val text = re.replace(it.text, "")
+                                        mutVal.value = TextFieldValue(
+                                            text = text,
+                                            selection = TextRange(it.text.length)
+                                        )
                                     }
                                 }
                             }

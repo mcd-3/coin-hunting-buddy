@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Paid
@@ -73,7 +74,7 @@ fun FindDetailsScreen(
         )
     }
 
-    val hblFontSize = 15
+    val hblFontSize = 14
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -111,7 +112,7 @@ fun FindDetailsScreen(
         Column {
             LabelCard(
                 label = stringResource(id = R.string.overview_label),
-                icon = Icons.Filled.Menu
+                icon = Icons.Filled.Description
             ) {
                 Column {
                     HalfBoldLabel(
@@ -139,7 +140,7 @@ fun FindDetailsScreen(
                         modifier = Modifier.padding(
                             start = 20.dp,
                             end = 20.dp,
-                            bottom = 12.dp
+                            bottom = 8.dp
                         )
                     )
                 }
@@ -164,7 +165,6 @@ fun FindDetailsScreen(
                                 .fillMaxWidth()
                                 .padding(
                                     start = 24.dp,
-                                    top = 2.dp,
                                     bottom = 2.dp
                                 )
                         ) {
@@ -172,7 +172,7 @@ fun FindDetailsScreen(
                                 text = strings[0],
                                 textAlign = TextAlign.Start,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
+                                fontSize = 16.sp,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
@@ -186,7 +186,7 @@ fun FindDetailsScreen(
                                 text = gradeCode.value,
                                 textAlign = TextAlign.End,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
+                                fontSize = 16.sp,
                                 modifier = Modifier.fillMaxWidth()
                             )
                         }
@@ -202,10 +202,14 @@ fun FindDetailsScreen(
                                 Text(
                                     text = FindStringGenerator.getVarietyString(LocalContext.current, find?.variety),
                                     fontStyle = FontStyle.Italic,
-                                    color = MaterialTheme.colors.secondaryText
+                                    color = Color.Gray,
+                                    fontSize = 14.sp
                                 )
                             } else {
-                                Text(FindStringGenerator.getVarietyString(LocalContext.current, find?.variety))
+                                Text(
+                                    FindStringGenerator.getVarietyString(LocalContext.current, find?.variety),
+                                    fontSize = 14.sp
+                                )
                             }
                         }
                     }
@@ -220,10 +224,14 @@ fun FindDetailsScreen(
                                 Text(
                                     text = FindStringGenerator.getErrorString(LocalContext.current, find?.error),
                                     fontStyle = FontStyle.Italic,
-                                    color = MaterialTheme.colors.secondaryText
+                                    color = Color.Gray,
+                                    fontSize = 14.sp
                                 )
                             } else {
-                                Text(FindStringGenerator.getErrorString(LocalContext.current, find?.error))
+                                Text(
+                                    FindStringGenerator.getErrorString(LocalContext.current, find?.error),
+                                    fontSize = 14.sp
+                                )
                             }
                         }
                     }
@@ -247,6 +255,7 @@ fun FindDetailsScreen(
                 mintMarkStringState = mintMarkStringState,
                 gradeStringState = gradeStringState,
                 errorStringState = errorStringState,
+                isEdit = true,
                 onConfirm = {
                     MainScope().launch {
                         viewModel.updateFind(

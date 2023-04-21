@@ -27,6 +27,7 @@ fun FindAddEditDialog(
     errorStringState: MutableState<String>,
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
+    isEdit: Boolean = false,
 ) {
     if (showAlertDialog.value){
         AlertDialog(
@@ -51,7 +52,13 @@ fun FindAddEditDialog(
                     Text(text = stringResource(id = R.string.cancel_prompt))
                 }
             },
-            title = { Text(text = stringResource(id = R.string.new_find_prompt_title)) },
+            title = {
+                if (isEdit) {
+                    Text(text = stringResource(id = R.string.edit_find_prompt_title))
+                } else {
+                    Text(text = stringResource(id = R.string.new_find_prompt_title))
+                }
+            },
             text = {
                 Column {
                     Row {
