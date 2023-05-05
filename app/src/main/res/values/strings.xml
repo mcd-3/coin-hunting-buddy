@@ -1,5 +1,5 @@
 <resources>
-    <string name="version">1.0</string>
+    <string name="version">1.1</string>
     <string name="app_name">Coin Roll Hunting Buddy</string>
     <string name="title_activity_main">CRH Buddy</string>
     <string name="author">mcd-3</string>
@@ -13,7 +13,7 @@
     <string name="nothing_found_label">You haven\'t found anything!</string>
     <string name="multiple_coin_types_label">Multiple Coin Types</string>
     <string name="not_found_label">N/A</string>
-    <string name="crh_label">Coin Roll Hunter</string>
+    <string name="crh_label">Coin Roll Hunting</string>
     <string name="buddy_label">Buddy</string>
     <string name="region_label">Region</string>
     <string name="number_of_rolls_label">No. of Rolls</string>
