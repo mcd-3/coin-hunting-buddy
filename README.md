@@ -1,6 +1,8 @@
 # Coin Roll Hunting Buddy
 The perfect android app to help organize your coin roll hunts!
 
+[Now available on the Google Play Store!](https://play.google.com/store/apps/details?id=com.matthew.carvalhodagenais.coinhuntingbuddy&pli=1)
+
 ## Features
 - Save your hunts and view the details
 - View what you found during your hunts
